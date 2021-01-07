@@ -114,7 +114,7 @@ public class SRegisterActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && requestCode == RESULT_OK && data!=null && data.getData()!=null){
+        if (requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             imageUri = data.getData();
             profilePic.setImageURI(imageUri);
             uploadPic();
