@@ -1,17 +1,28 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 public class SRegisterActivity extends AppCompatActivity {
@@ -20,8 +31,13 @@ public class SRegisterActivity extends AppCompatActivity {
     private Button registerbtn;
     private TextView loginbtn,provider;
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    private ImageView profilePic;
+    public Uri imageUri;
+
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
+    private FirebaseStorage storage;
+    private StorageReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +55,21 @@ public class SRegisterActivity extends AppCompatActivity {
         registerbtn = findViewById(R.id.RegisterButton);
         loginbtn = findViewById(R.id.textView);
         provider = findViewById(R.id.provider);
+
+        profilePic = findViewById(R.id.profilePic);
+
+        storage = FirebaseStorage.getInstance();
+        ref = storage.getReference();
+
+        profilePic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                choosePicture();
+            }
+
+
+        });
+
 
         loginbtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -72,6 +103,44 @@ public class SRegisterActivity extends AppCompatActivity {
 
 
     }
+    private void choosePicture(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && requestCode == RESULT_OK && data!=null && data.getData()!=null){
+            imageUri = data.getData();
+            profilePic.setImageURI(imageUri);
+            uploadPic();
+        }
+    }
+
+    private void uploadPic() {
+
+        StorageReference riversRef = ref.child("images/"+id.getText().toString().trim());
+
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        Snackbar.make(findViewById(android.R.id.content),"Image Uploaded.",Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(),"Failed to upload", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
     private boolean register(){
         String Id = id.getText().toString().trim();
         String Email = email.getText().toString().trim();
