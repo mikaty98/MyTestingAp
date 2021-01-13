@@ -162,12 +162,12 @@ public class SRegisterActivity extends AppCompatActivity {
         boolean errorFlag = false;
 
         if (TextUtils.isEmpty(UserName)){
-            id.setError("*");
+            userName.setError("*");
             errorFlag = true;
         }
 
         if (TextUtils.isEmpty(Gender)){
-            id.setError("*");
+            gender.setError("*");
             errorFlag = true;
         }
 
@@ -200,12 +200,17 @@ public class SRegisterActivity extends AppCompatActivity {
             email.setError("*");
             errorFlag = true;
         }
+
+        if (!Email.contains("@") || !Email.contains(".com")){
+            email.setError("wrong format");
+            errorFlag = true;
+        }
         if (TextUtils.isEmpty(Password)){
-            email.setError("*");
+            password.setError("*");
             errorFlag = true;
         }
         if (TextUtils.isEmpty(ConPassword)){
-            email.setError("*");
+            confirmPassword.setError("*");
             errorFlag = true;
         }
         if (!TextUtils.equals(Password,ConPassword)){

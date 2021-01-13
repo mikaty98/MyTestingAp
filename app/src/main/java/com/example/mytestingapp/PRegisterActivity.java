@@ -97,22 +97,22 @@ public class PRegisterActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(UserName)) {
-            id.setError("*");
+            userName.setError("*");
             errorFlag = true;
         }
 
         if (TextUtils.isEmpty(JobDesc)) {
-            id.setError("*");
+            jobDesc.setError("*");
             errorFlag = true;
         }
 
         if (TextUtils.isEmpty(Gender)) {
-            id.setError("*");
+            gender.setError("*");
             errorFlag = true;
         }
 
         if (!(Gender.equals("Male") || Gender.equals("male") || Gender.equals("Female") || Gender.equals("female"))) {
-            id.setError("Invalid input");
+            gender.setError("Invalid input");
             errorFlag = true;
         }
 
@@ -135,12 +135,16 @@ public class PRegisterActivity extends AppCompatActivity {
             email.setError("*");
             errorFlag = true;
         }
+        if (!Email.contains("@") || !Email.contains(".com")){
+            email.setError("wrong format");
+            errorFlag = true;
+        }
         if (TextUtils.isEmpty(Password)) {
-            email.setError("*");
+            password.setError("*");
             errorFlag = true;
         }
         if (TextUtils.isEmpty(ConPassword)) {
-            email.setError("*");
+            confirmPassword.setError("*");
             errorFlag = true;
         }
         if (!TextUtils.equals(Password, ConPassword)) {
