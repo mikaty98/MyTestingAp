@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
@@ -71,59 +73,88 @@ public class PLoginActivity extends AppCompatActivity {
                 ProviderLogin();
             }
         });
+
+
+
     }
 
     private void ProviderLogin(){
 
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Providers");
+        boolean errorFlag = false;
         String inputEmail = email.getText().toString().trim();
-        String parts [] = inputEmail.split(".com");
-        inputEmail = parts[0];
-
         String inputPassword = password.getText().toString().trim();
 
-        Query checkUser = reference.orderByChild("email").equalTo(inputEmail+".com");
-
-        String finalInputEmail = inputEmail;
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener(){
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                if (dataSnapshot.exists()){
-                    email.setError(null);
-
-                    String userPassword = dataSnapshot.child(finalInputEmail).child("password").getValue(String.class);
-                    if (userPassword.equals(inputPassword)){
-                        password.setError(null);
-                        Provider p = new Provider();
-                        p.setEmail(finalInputEmail+".com");
-                        p.setPassword(userPassword);
-                        p.setId(dataSnapshot.child(finalInputEmail).child("id").getValue(String.class));
-                        p.setUserName(dataSnapshot.child(finalInputEmail).child("userName").getValue(String.class));
-                        p.setJobDesc(dataSnapshot.child(finalInputEmail).child("jobDesc").getValue(String.class));
-                        p.setGender(dataSnapshot.child(finalInputEmail).child("gender").getValue(String.class));
-                        p.setAge(dataSnapshot.child(finalInputEmail).child("age").getValue(String.class));
-                        p.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
+        if (TextUtils.isEmpty(inputEmail)){
+            email.setError("Email Required");
+            //email.setBackgroundColor(0xFFFF0000);
+            errorFlag = true;
+        }
+        else if (!inputEmail.contains("@") || !inputEmail.contains(".com")){
+            email.setError("Invalid Email");
+            //email.setBackgroundColor(0xFFFF0000);
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(inputPassword)){
+            password.setError("Password Required");
+            //password.setBackgroundColor(0xFFFF0000);
+            errorFlag = true;
+        }
 
 
-                        Intent intent = new Intent(PLoginActivity.this, HomeActivity.class);
-                        intent.putExtra("provider",p);
-                        startActivity(intent);
+        if (errorFlag){ return;}
+        else {
+            String parts[] = inputEmail.split(".com");
+            inputEmail = parts[0];
+
+            Query checkUser = reference.orderByChild("email").equalTo(inputEmail + ".com");
+
+            String finalInputEmail = inputEmail;
+            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        email.setError(null);
+
+                        String userPassword = dataSnapshot.child(finalInputEmail).child("password").getValue(String.class);
+                        if (userPassword.equals(inputPassword)) {
+                            password.setError(null);
+                            Provider p = new Provider();
+                            p.setEmail(finalInputEmail + ".com");
+                            p.setPassword(userPassword);
+                            p.setId(dataSnapshot.child(finalInputEmail).child("id").getValue(String.class));
+                            p.setUserName(dataSnapshot.child(finalInputEmail).child("userName").getValue(String.class));
+                            p.setJobDesc(dataSnapshot.child(finalInputEmail).child("jobDesc").getValue(String.class));
+                            p.setGender(dataSnapshot.child(finalInputEmail).child("gender").getValue(String.class));
+                            p.setAge(dataSnapshot.child(finalInputEmail).child("age").getValue(String.class));
+                            p.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
+
+
+                            Intent intent = new Intent(PLoginActivity.this, HomeActivity.class);
+                            intent.putExtra("provider", p);
+                            startActivity(intent);
+                        } else {
+                            //Toast.makeText(PLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                            password.setError("Incorrect Password");
+                            //password.setBackgroundColor(0xFFFF0000);
+                            password.setText("");
+                        }
+
+                    } else {
+                        //Toast.makeText(PLoginActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
+                        email.setError("User does not exist!");
+                        //email.setBackgroundColor(0xFFFF0000);
+                        password.setText("");
                     }
-                    else{
-                        Toast.makeText(PLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-                else{
-                    Toast.makeText(PLoginActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError){
 
-            }
-
-        });
+            });
+        }
     }
 }
