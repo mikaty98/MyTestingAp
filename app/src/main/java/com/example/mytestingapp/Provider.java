@@ -1,8 +1,9 @@
 package com.example.mytestingapp;
 
 import java.io.Serializable;
-
 import java.awt.font.TextAttribute;
+
+
 
 public class Provider implements Serializable {
     String userName,jobDesc,gender,age,id,phoneNumber,email,password;
