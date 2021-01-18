@@ -2,6 +2,8 @@ package com.example.mytestingapp;
 
 import java.io.Serializable;
 
+// saljdlas;kd;laskd;laskd;lsakdl;askdl;ask;dlkasl;dkas;ldkasl;kdl;askd;laskdl;sakdl;ask;ldask;dkasl;k
+
 public class Provider implements Serializable {
     String userName,jobDesc,gender,age,id,phoneNumber,email,password;
 
