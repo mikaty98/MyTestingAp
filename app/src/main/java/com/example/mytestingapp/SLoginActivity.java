@@ -106,7 +106,7 @@ public class SLoginActivity extends AppCompatActivity {
                         s.setGender(dataSnapshot.child(finalInputEmail).child("gender").getValue(String.class));
                         s.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
 
-                        Intent intent = new Intent(SLoginActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(SLoginActivity.this, SeekerHome.class);
                         intent.putExtra("seeker",s);
                         startActivity(intent);
                     }

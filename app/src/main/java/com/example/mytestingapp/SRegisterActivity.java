@@ -95,7 +95,7 @@ public class SRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if (register()){
-                    startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(), SeekerHome.class));
                 }
 
             }
