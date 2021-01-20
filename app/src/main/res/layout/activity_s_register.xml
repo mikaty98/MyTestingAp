@@ -112,7 +112,7 @@
                 android:id="@+id/profilePic"
                 android:layout_width="249dp"
                 android:layout_height="163dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"/>
 
             <Button
                 android:layout_width="match_parent"

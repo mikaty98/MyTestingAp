@@ -7,7 +7,7 @@
     android:gravity="center"
     android:background="@drawable/background_colour"
     android:layout_height="match_parent"
-    tools:context=".PRegisterActivity">
+    tools:context=".ProviderProfileActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,19 +22,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registration Form For A Service Provider"
+                android:text="Profile"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 />
 
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="169dp"
+                android:layout_height="163dp"
+                android:background="@color/black"
+                tools:srcCompat="@drawable/ic_launcher_foreground" />
+
             <EditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:editable="false"
                 android:hint="Username"
-                android:textColorHint="@color/white"
-                android:id="@+id/username_reg"
-                />
+                android:textColorHint="@color/white" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -42,16 +49,18 @@
                 android:layout_margin="10dp"
                 android:hint="Job Description"
                 android:textColorHint="@color/white"
-                android:id="@+id/job_description_reg"
+                android:editable="false"
+                android:id="@+id/job_description"
                 />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
+                android:editable="false"
                 android:layout_margin="10dp"
                 android:hint="Gender"
-                android:id="@+id/gender_reg"
+                android:id="@+id/gender"
                 />
 
             <EditText
@@ -61,7 +70,8 @@
                 android:layout_margin="10dp"
                 android:hint="Age"
                 android:inputType="number"
-                android:id="@+id/age_reg"
+                android:editable="false"
+                android:id="@+id/age"
                 />
 
             <EditText
@@ -70,8 +80,9 @@
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
                 android:hint="ID Number"
+                android:editable="false"
                 android:inputType="number"
-                android:id="@+id/id_reg"
+                android:id="@+id/id"
                 />
 
 
@@ -81,8 +92,9 @@
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
                 android:hint="Phone Number"
+                android:editable="false"
                 android:inputType="phone"
-                android:id="@+id/phone_number_reg"
+                android:id="@+id/phone_number"
                 />
 
             <EditText
@@ -91,7 +103,8 @@
                 android:layout_margin="10dp"
                 android:hint="Email"
                 android:textColorHint="@color/white"
-                android:id="@+id/email_reg"
+                android:editable="false"
+                android:id="@+id/email"
                 />
 
             <EditText
@@ -101,53 +114,8 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
-                android:id="@+id/password_reg"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                android:textColorHint="@color/white"
-                android:id="@+id/confirm_password_reg"
-                />
-            <ImageView
-                android:id="@+id/profilePic"
-                android:layout_width="249dp"
-                android:layout_height="163dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:background="@color/black"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Register"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:id="@+id/button_reg"
-                />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Already have an account? Sign in!"
-                android:textColor="@color/white"
-                android:padding="10dp"
-                android:id="@+id/sign_in"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Register as a service seeker"
-                android:textColor="@color/white"
-                android:padding="10dp"
-                android:id="@+id/seeker"
+                android:editable="false"
+                android:id="@+id/password"
                 />
 
 
