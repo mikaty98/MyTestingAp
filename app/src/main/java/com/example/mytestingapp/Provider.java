@@ -2,18 +2,44 @@ package com.example.mytestingapp;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Provider implements Serializable {
+public class Provider implements Parcelable {
     private String userName,jobDesc,gender,age,id,phoneNumber,email,password;
     private Bitmap image;
 
-    public Bitmap getImageUri() {
+    protected Provider(Parcel in) {
+        userName = in.readString();
+        jobDesc = in.readString();
+        gender = in.readString();
+        age = in.readString();
+        id = in.readString();
+        phoneNumber = in.readString();
+        email = in.readString();
+        password = in.readString();
+        image = in.readParcelable(Bitmap.class.getClassLoader());
+    }
+
+    public static final Creator<Provider> CREATOR = new Creator<Provider>() {
+        @Override
+        public Provider createFromParcel(Parcel in) {
+            return new Provider(in);
+        }
+
+        @Override
+        public Provider[] newArray(int size) {
+            return new Provider[size];
+        }
+    };
+
+    public Bitmap getImageBitmap() {
         return image;
     }
 
-    public void setImageUri(Bitmap imageUri) {
+    public void setImageBitmap(Bitmap imageUri) {
         this.image = imageUri;
     }
 
@@ -96,5 +122,23 @@ public class Provider implements Serializable {
         this.email = email;
         this.password = password;
 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userName);
+        dest.writeString(jobDesc);
+        dest.writeString(gender);
+        dest.writeString(age);
+        dest.writeString(id);
+        dest.writeString(phoneNumber);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeParcelable(image, flags);
     }
 }

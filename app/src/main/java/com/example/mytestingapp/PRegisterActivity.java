@@ -129,7 +129,7 @@ public class PRegisterActivity extends AppCompatActivity {
 
     private void uploadPic() {
 
-        StorageReference riversRef = ref.child("images/"+id.getText().toString().trim());
+        StorageReference riversRef = ref.child("images/"+id.getText().toString().trim()+".jpg");
 
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

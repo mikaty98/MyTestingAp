@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -93,29 +94,29 @@ public class PLoginActivity extends AppCompatActivity {
     }
 
     private void getProfilePic(Provider provider){
-        storageReference = FirebaseStorage.getInstance().getReference().child("image/"+provider.getId());
+        storageReference = FirebaseStorage.getInstance().getReference().child("image/"+provider.getId()+".jpg");
 
         try{
-            File localfile = File.createTempFile( "profile"+provider.getId(),"jpg");
+            File localfile = File.createTempFile( provider.getId(),".jpg");
             storageReference.getFile(localfile)
                     .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                            provider.setImageUri(bitmap);
+                            provider.setImageBitmap(bitmap);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Bitmap bitmap = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
-                    provider.setImageUri(bitmap);
+                    Bitmap bitmap = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
+                    provider.setImageBitmap(bitmap);
                 }
             });
 
         }
         catch (Exception e){
             Bitmap bitmap = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
-            provider.setImageUri(bitmap);
+            provider.setImageBitmap(bitmap);
         }
 
 
@@ -175,8 +176,8 @@ public class PLoginActivity extends AppCompatActivity {
 
                             getProfilePic(p);
 
-                            Intent intent = new Intent(PLoginActivity.this, HomeActivity.class);
-                            intent.putExtra("provider", p);
+                            Intent intent = new Intent(PLoginActivity.this, ProviderProfileActivity.class);
+                            intent.putExtra("Provider user",(Parcelable) p);
                             startActivity(intent);
                         } else {
                             //Toast.makeText(PLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
