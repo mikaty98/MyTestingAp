@@ -112,9 +112,9 @@ public class SLoginActivity extends AppCompatActivity {
                         EditText editText = (EditText) findViewById(R.id.editTextTextEmailAddress);
                         String text = editText.getText().toString();
 
-                        Intent intent1 = new Intent(SLoginActivity.this, SeekerHome.class);
-                        intent1.putExtra(TEXT, text);
-                        startActivity(intent1);
+                        Intent intent = new Intent(SLoginActivity.this, SeekerHome.class);
+                        intent.putExtra(TEXT, text);
+                        startActivity(intent);
 
                     }
                     else{

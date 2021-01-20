@@ -28,6 +28,15 @@
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/one"
                 />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="two"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:id="@+id/two"
+                />
                 
 
             <Button

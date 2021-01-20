@@ -1,21 +1,29 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SeekerHome extends AppCompatActivity {
 
     private Button localRequest;
     private Button overboardRequest;
     private Button officialRequest;
-    private EditText one;
+    private EditText one, two;
+
 
 
     @Override
@@ -24,9 +32,9 @@ public class SeekerHome extends AppCompatActivity {
         setContentView(R.layout.activity_seeker_home);
 
         Intent intent = getIntent();
-        Intent intent1 = getIntent();
+        String text = intent.getStringExtra(SLoginActivity.TEXT);
 
-        String text = intent1.getStringExtra(SLoginActivity.TEXT);
+
 
 
 
@@ -34,8 +42,13 @@ public class SeekerHome extends AppCompatActivity {
         overboardRequest = findViewById(R.id.overboardService);
         officialRequest = findViewById(R.id.officialService);
         one = findViewById(R.id.one);
+        two = findViewById(R.id.two);
 
         one.setError(text);
+
+
+
+
 
 
 
