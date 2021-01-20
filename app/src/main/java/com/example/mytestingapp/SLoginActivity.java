@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SLoginActivity extends AppCompatActivity {
 
+    public static final String TEXT = "com.example.mytestingapp";
     private EditText email,password;
     private TextView registerbtn,providerbtn,forgetPassword;
     private Button loginbtn;
@@ -109,6 +110,14 @@ public class SLoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(SLoginActivity.this, SeekerHome.class);
                         intent.putExtra("seeker",s);
                         startActivity(intent);
+
+                        EditText editText = (EditText) findViewById(R.id.editTextTextEmailAddress);
+                        String text = editText.getText().toString();
+
+                        Intent intent1 = new Intent(SLoginActivity.this, SeekerHome.class);
+                        intent1.putExtra(TEXT, text);
+                        startActivity(intent1);
+
                     }
                     else{
                         Toast.makeText(SLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
