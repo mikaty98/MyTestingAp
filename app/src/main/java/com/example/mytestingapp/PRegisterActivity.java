@@ -1,17 +1,32 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
 
 public class PRegisterActivity extends AppCompatActivity {
 
@@ -19,8 +34,14 @@ public class PRegisterActivity extends AppCompatActivity {
     private Button registerbtn;
     private TextView loginbtn,seeker;
 
+    private ImageView profilePic;
+
+    public Uri imageUri;
+
     FirebaseDatabase rootNode;
     DatabaseReference reference;
+    private FirebaseStorage storage;
+    private StorageReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +60,25 @@ public class PRegisterActivity extends AppCompatActivity {
         registerbtn = findViewById(R.id.button_reg);
         loginbtn = findViewById(R.id.sign_in);
         seeker = findViewById(R.id.seeker);
+
+        profilePic = findViewById(R.id.profilePic);
+
+
+        storage = FirebaseStorage.getInstance();
+        ref = storage.getReference();
+
+        profilePic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+
+                choosePicture();
+
+
+            }
+
+
+        });
 
         loginbtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -68,6 +108,46 @@ public class PRegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void choosePicture(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+            imageUri = data.getData();
+            profilePic.setImageURI(imageUri);
+
+        }
+    }
+
+    private void uploadPic() {
+
+        StorageReference riversRef = ref.child("images/"+id.getText().toString().trim());
+
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        Snackbar.make(findViewById(android.R.id.content),"Image Uploaded.",Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(),"Failed to upload", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+
 
     private boolean register() {
         String Id = id.getText().toString().trim();
@@ -154,6 +234,11 @@ public class PRegisterActivity extends AppCompatActivity {
             errorFlag = true;
         }
 
+        if (imageUri == null){
+            Toast.makeText(getApplicationContext(),"Profile picture required", Toast.LENGTH_LONG).show();
+            errorFlag = true;
+        }
+
         if (errorFlag) {
 
             return false;
@@ -168,6 +253,7 @@ public class PRegisterActivity extends AppCompatActivity {
             } catch (Exception e) {
                 System.out.println("email not split");
             }
+            uploadPic();
 
             return true;
         }

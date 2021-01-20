@@ -1,9 +1,21 @@
 package com.example.mytestingapp;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import java.io.Serializable;
 
 public class Provider implements Serializable {
-    String userName,jobDesc,gender,age,id,phoneNumber,email,password;
+    private String userName,jobDesc,gender,age,id,phoneNumber,email,password;
+    private Bitmap image;
+
+    public Bitmap getImageUri() {
+        return image;
+    }
+
+    public void setImageUri(Bitmap imageUri) {
+        this.image = imageUri;
+    }
 
     public String getUserName() {
         return userName;

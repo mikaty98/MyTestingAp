@@ -113,6 +113,12 @@
                 android:textColorHint="@color/white"
                 android:id="@+id/confirm_password_reg"
                 />
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="249dp"
+                android:layout_height="163dp"
+                tools:srcCompat="@tools:sample/avatars"
+                android:background="@color/black"/>
 
             <Button
                 android:layout_width="match_parent"
