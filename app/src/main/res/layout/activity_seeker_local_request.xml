@@ -22,19 +22,38 @@
             android:layout_height="wrap_content">
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Request a service"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                android:id="@+id/requestDetails"
+                />
+
+
             <EditText
-                android:id="@+id/request"
+                android:id="@+id/requestTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Enter your request"
+                android:hint="Request Title"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/requestDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Request Description"
                 android:textColorHint="@color/white"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Location for your service"
+                android:text="Location for your request"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 android:id="@+id/requestLocation"

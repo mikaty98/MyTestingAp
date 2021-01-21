@@ -12,7 +12,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
 
     private Button currentLocation, confrim;
-    private EditText request,city,suburb,streetName,streetNumber,buildingName,buildingNumber,floorNumber,apartmentNumber;
+    private EditText requestTitle,requestDescription,city,suburb,streetName,streetNumber,buildingName,buildingNumber,floorNumber,apartmentNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,8 @@ public class SeekerLocalRequest extends AppCompatActivity {
         currentLocation = findViewById(R.id.currentLocation);
 
 
-        request = findViewById(R.id.request);
+        requestTitle = findViewById(R.id.requestTitle);
+        requestDescription = findViewById(R.id.requestDescription);
         city = findViewById(R.id.city);
         suburb = findViewById(R.id.suburb);
         streetName = findViewById(R.id.streetName);
