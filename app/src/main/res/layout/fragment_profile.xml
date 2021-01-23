@@ -7,7 +7,7 @@
     android:gravity="center"
     android:background="@drawable/background_colour"
     android:layout_height="match_parent"
-    tools:context=".ProviderProfileActivity">
+    tools:context=".ui.main.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
