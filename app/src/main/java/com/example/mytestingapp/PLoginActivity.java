@@ -164,7 +164,7 @@ public class PLoginActivity extends AppCompatActivity {
                         String userPassword = dataSnapshot.child(finalInputEmail).child("password").getValue(String.class);
                         if (userPassword.equals(inputPassword)) {
                             password.setError(null);
-                            Provider p = new Provider();
+                            /*Provider p = new Provider();
                             p.setEmail(finalInputEmail + ".com");
                             p.setPassword(userPassword);
                             p.setId(dataSnapshot.child(finalInputEmail).child("id").getValue(String.class));
@@ -174,10 +174,10 @@ public class PLoginActivity extends AppCompatActivity {
                             p.setAge(dataSnapshot.child(finalInputEmail).child("age").getValue(String.class));
                             p.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
 
-                            getProfilePic(p);
+                            getProfilePic(p);*/
 
-                            Intent intent = new Intent(PLoginActivity.this, ProviderProfileActivity.class);
-                            intent.putExtra("Provider user",(Parcelable) p);
+                            Intent intent = new Intent(PLoginActivity.this, ProviderHomeActivity.class);
+                            intent.putExtra("Provider email",finalInputEmail);
                             startActivity(intent);
                         } else {
                             //Toast.makeText(PLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();

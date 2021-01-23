@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Provider implements Parcelable {
+public class Provider {
     private String userName,jobDesc,gender,age,id,phoneNumber,email,password;
     private Bitmap image;
 
@@ -23,24 +23,13 @@ public class Provider implements Parcelable {
         image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
-    public static final Creator<Provider> CREATOR = new Creator<Provider>() {
-        @Override
-        public Provider createFromParcel(Parcel in) {
-            return new Provider(in);
-        }
-
-        @Override
-        public Provider[] newArray(int size) {
-            return new Provider[size];
-        }
-    };
 
     public Bitmap getImageBitmap() {
         return image;
     }
 
-    public void setImageBitmap(Bitmap imageUri) {
-        this.image = imageUri;
+    public void setImageBitmap(Bitmap bitmap) {
+        this.image = bitmap;
     }
 
     public String getUserName() {
@@ -124,21 +113,5 @@ public class Provider implements Parcelable {
 
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(userName);
-        dest.writeString(jobDesc);
-        dest.writeString(gender);
-        dest.writeString(age);
-        dest.writeString(id);
-        dest.writeString(phoneNumber);
-        dest.writeString(email);
-        dest.writeString(password);
-        dest.writeParcelable(image, flags);
-    }
 }
