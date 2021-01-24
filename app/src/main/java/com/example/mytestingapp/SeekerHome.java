@@ -85,6 +85,7 @@ public class SeekerHome extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+
                  userName = snapshot.child(inputEmail).child("userName").getValue(String.class);
                  userPassword = snapshot.child(inputEmail).child("password").getValue(String.class);
                  age = snapshot.child(inputEmail).child("age").getValue(String.class);

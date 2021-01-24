@@ -108,7 +108,6 @@ public class SLoginActivity extends AppCompatActivity {
                         s.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
 
 
-
                         EditText editText = (EditText) findViewById(R.id.editTextTextEmailAddress);
                         String text = editText.getText().toString();
 
