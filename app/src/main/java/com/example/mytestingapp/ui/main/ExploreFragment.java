@@ -61,7 +61,7 @@ public class ExploreFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String title = snapshot.child("requestTitle").getValue(String.class);
                 String location = snapshot.child("suburb").getValue(String.class);
-                String email = snapshot.child("city").getValue(String.class); //TODO change child value
+                String email = snapshot.child("seekerEmail").getValue(String.class); //TODO change child value
 
                 serviceTitle.add(title);
                 locationList.add(location);
