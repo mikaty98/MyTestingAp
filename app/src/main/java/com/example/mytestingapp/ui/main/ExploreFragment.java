@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.mytestingapp.LocalRequest;
 import com.example.mytestingapp.R;
@@ -21,10 +24,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 
 public class ExploreFragment extends Fragment {
+
+    private EditText locationEditText;
+    private Button filterBtn;
 
 
     ListView listView;
@@ -46,13 +55,14 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
 
+        locationEditText = view.findViewById(R.id.locationEditText);
+        filterBtn = view.findViewById(R.id.filterBtn);
 
         ServiceAdaptor serviceAdaptor = new ServiceAdaptor(getActivity(), serviceTitle,locationList,seekerEmail);
         listView = view.findViewById(R.id.serviceList);
         listView.setAdapter(serviceAdaptor);
 
 
-        List<LocalRequest> localRequestList = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequests");
 
@@ -61,7 +71,7 @@ public class ExploreFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String title = snapshot.child("requestTitle").getValue(String.class);
                 String location = snapshot.child("suburb").getValue(String.class);
-                String email = snapshot.child("city").getValue(String.class); //TODO change child value
+                String email = snapshot.child("seekerEmail").getValue(String.class); //TODO change child value
 
                 serviceTitle.add(title);
                 locationList.add(location);
@@ -91,7 +101,18 @@ public class ExploreFragment extends Fragment {
         });
 
 
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String locationFilter = locationEditText.getText().toString().trim();
+                locationEditText.setText("");
+            }
+        });
+
 
         return view;
     }
+
+
+
 }
