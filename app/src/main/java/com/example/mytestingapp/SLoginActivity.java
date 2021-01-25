@@ -115,6 +115,8 @@ public class SLoginActivity extends AppCompatActivity {
                         intent.putExtra(TEXT, text);
                         startActivity(intent);
 
+
+
                     }
                     else{
                         Toast.makeText(SLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();

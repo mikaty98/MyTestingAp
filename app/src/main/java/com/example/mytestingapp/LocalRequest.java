@@ -7,12 +7,24 @@ public class LocalRequest implements Serializable
 {
 
 
-    String requestTitle,requestDescription,city,suburb,streetName,streetNumber,buildingName,buildingNumber,floorNumber,apartmentNumber;
+    String requestTitle;
+    String requestDescription;
+    String city;
+    String suburb;
+    String streetName;
+    String streetNumber;
+    String buildingName;
+    String buildingNumber;
+    String floorNumber;
+    String apartmentNumber;
+    String seekerEmail;
+
+
 
     public LocalRequest() {
     }
 
-    public LocalRequest(String RequestTitle, String RequestDescription, String City, String Suburb, String StreetName, String StreetNumber, String BuildingName, String BuildingNumber, String FloorNumber, String ApartmentNumber)
+    public LocalRequest(String RequestTitle, String RequestDescription, String City, String Suburb, String StreetName, String StreetNumber, String BuildingName, String BuildingNumber, String FloorNumber, String ApartmentNumber,String SeekerEmail)
     {
         requestTitle = RequestTitle;
         requestDescription = RequestDescription;
@@ -24,6 +36,7 @@ public class LocalRequest implements Serializable
         buildingNumber = BuildingNumber;
         floorNumber = FloorNumber;
         apartmentNumber = ApartmentNumber;
+        seekerEmail = SeekerEmail;
     }
 
     public String getRequestTitle() {
@@ -106,6 +119,14 @@ public class LocalRequest implements Serializable
         this.apartmentNumber = apartmentNumber;
     }
 
+
+    public String getSeekerEmail() {
+        return seekerEmail;
+    }
+
+    public void setSeekerEmail(String seekerEmail) {
+        this.seekerEmail = seekerEmail;
+    }
 
 
 

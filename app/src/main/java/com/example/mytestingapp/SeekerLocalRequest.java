@@ -23,10 +23,15 @@ public class SeekerLocalRequest extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference ref;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeker_local_request);
+
+
+
 
         currentLocation = findViewById(R.id.currentLocation);
 
@@ -47,6 +52,8 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
 
 
+
+
         currentLocation.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -59,15 +66,21 @@ public class SeekerLocalRequest extends AppCompatActivity {
         confrim.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                confirmSeeker();
+
+                Intent intent = getIntent();
+                String text = intent.getStringExtra(SLoginActivity.TEXT);
+
+                String SeekerEmail = text;
+                confirmSeeker(SeekerEmail);
             }
         });
 
 
     }
 
-    private void confirmSeeker()
+    private void confirmSeeker(String SeekerEmail)
     {
+
         String RequestTitle = requestTitle.getText().toString().trim();
         String RequestDes = requestDescription.getText().toString().trim();
         String City = city.getText().toString().trim();
@@ -82,7 +95,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference().child("LocalRequests");
 
-        LocalRequest l = new LocalRequest(RequestTitle,RequestDes,City,Suburb,StreetName,StreetNumber.toString(),BuildingName,BuildingNumber.toString(),FloorNumber.toString(),ApartmentNumber.toString());
+        LocalRequest l = new LocalRequest(RequestTitle,RequestDes,City,Suburb,StreetName,StreetNumber.toString(),BuildingName,BuildingNumber.toString(),FloorNumber.toString(),ApartmentNumber.toString(),SeekerEmail);
 
         reference.child(RequestTitle).setValue(l);
 
