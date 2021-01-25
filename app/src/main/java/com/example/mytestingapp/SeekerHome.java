@@ -21,10 +21,14 @@ import java.util.ArrayList;
 
 public class SeekerHome extends AppCompatActivity {
 
+    public static final String TEXT1 = "com.example.mytestingapp";
+
+
     private Button localRequest;
     private Button overboardRequest;
     private Button officialRequest;
     public String inputEmail, userPassword, userName, age, id, phoneNumber, gender;
+
 
 
 
@@ -38,17 +42,21 @@ public class SeekerHome extends AppCompatActivity {
         Intent intent = getIntent();
         String text = intent.getStringExtra(SLoginActivity.TEXT);
 
+
         localRequest = findViewById(R.id.localService);
         overboardRequest = findViewById(R.id.overboardService);
         officialRequest = findViewById(R.id.officialService);
-
 
 
         localRequest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
 
-                startActivity(new Intent(getApplicationContext(), SeekerLocalRequest.class));
+                Intent intent = new Intent(SeekerHome.this, SeekerLocalRequest.class);
+                intent.putExtra(TEXT1, text);
+                startActivity(intent);
+
+
             }
         });
 
