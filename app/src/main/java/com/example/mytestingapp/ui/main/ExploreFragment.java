@@ -22,6 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,17 +34,54 @@ import java.util.Set;
 
 public class ExploreFragment extends Fragment {
 
-    private EditText locationEditText;
+    private EditText suburbEditText;
     private Button filterBtn;
 
 
     ListView listView;
-    List<String> serviceTitle = new ArrayList<>();
-    List<String> locationList = new ArrayList<>();
-    List<String> seekerEmail = new ArrayList<>();
+    List<LocalRequest> localRequestList = new ArrayList<>();
+
+    ServiceAdaptor serviceAdaptor;
 
 
     DatabaseReference reference;
+
+    ChildEventListener childEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            LocalRequest localRequest = snapshot.getValue(LocalRequest.class);
+
+            localRequestList.add(localRequest);
+
+            serviceAdaptor.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            serviceAdaptor.notifyDataSetChanged();
+
+            localRequestList.clear();
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+
 
     public ExploreFragment() {
         // Required empty public constructor
@@ -55,10 +94,10 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
 
-        locationEditText = view.findViewById(R.id.locationEditText);
+        suburbEditText = view.findViewById(R.id.suburbEditText);
         filterBtn = view.findViewById(R.id.filterBtn);
 
-        ServiceAdaptor serviceAdaptor = new ServiceAdaptor(getActivity(), serviceTitle,locationList,seekerEmail);
+        serviceAdaptor = new ServiceAdaptor(getActivity(),localRequestList);
         listView = view.findViewById(R.id.serviceList);
         listView.setAdapter(serviceAdaptor);
 
@@ -66,52 +105,37 @@ public class ExploreFragment extends Fragment {
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequests");
 
-        reference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String title = snapshot.child("requestTitle").getValue(String.class);
-                String location = snapshot.child("suburb").getValue(String.class);
-                String email = snapshot.child("seekerEmail").getValue(String.class); //TODO change child value
 
-                serviceTitle.add(title);
-                locationList.add(location);
-                seekerEmail.add(email);
-                serviceAdaptor.notifyDataSetChanged();
-            }
+        reference.addChildEventListener(childEventListener);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                serviceAdaptor.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String locationFilter = locationEditText.getText().toString().trim();
-                locationEditText.setText("");
+                serviceAdaptor.clear();
+                String suburbFilter = suburbEditText.getText().toString().trim();
+                suburbEditText.setText("");
+
+                if (!suburbFilter.equals("")) {
+                    Query query = reference.orderByChild("suburb").equalTo(suburbFilter);
+                    query.addChildEventListener(childEventListener);
+                }
+                else{
+                    Query query = reference.orderByChild("suburb");
+                    query.addChildEventListener(childEventListener);
+                }
+
+
             }
         });
 
 
         return view;
     }
+
+
 
 
 

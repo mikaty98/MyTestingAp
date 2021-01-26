@@ -14,20 +14,23 @@ import java.util.List;
 
 public class ServiceAdaptor extends ArrayAdapter {
 
-    List<String> titleList;
+   /* List<String> titleList;
     List<String> locationList;
-    List<String> seekerEmailList;
+    List<String> seekerEmailList;*/
+
+    List<LocalRequest> localRequestList;
     Context context;
 
 
-    public ServiceAdaptor(@NonNull Context context, List<String> titleList, List<String> locationList, List<String> seekerEmailList) {
-        super(context, R.layout.service_list_items,titleList);
+    public ServiceAdaptor(@NonNull Context context,List<LocalRequest> localRequestList) {
+        super(context, R.layout.service_list_items,localRequestList);
 
 
         this.context = context;
-        this.titleList = titleList;
-        this.locationList = locationList;
-        this.seekerEmailList = seekerEmailList;
+        /*this.titleList = titleList;
+        this.suburbList = suburbList;
+        this.seekerEmailList = seekerEmailList;*/
+        this.localRequestList = localRequestList;
     }
 
     @NonNull
@@ -36,12 +39,16 @@ public class ServiceAdaptor extends ArrayAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.service_list_items,parent,false);
 
         TextView textView1 = view.findViewById(R.id.titleValue);
-        TextView textView2 = view.findViewById(R.id.locationValue);
+        TextView textView2 = view.findViewById(R.id.suburbValue);
         TextView textView3 = view.findViewById(R.id.emailValue);
 
-        textView1.setText(titleList.get(position));
-        textView2.setText(locationList.get(position));
-        textView3.setText(seekerEmailList.get(position));
+        /*textView1.setText(titleList.get(position));
+        textView2.setText(suburbList.get(position));
+        textView3.setText(seekerEmailList.get(position));*/
+
+        textView1.setText(localRequestList.get(position).getRequestTitle());
+        textView2.setText(localRequestList.get(position).getSuburb());
+        textView3.setText(localRequestList.get(position).getSeekerEmail());
 
         return view;
     }
