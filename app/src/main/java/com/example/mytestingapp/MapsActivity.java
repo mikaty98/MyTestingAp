@@ -31,71 +31,66 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        if(mLocationPermissionGranted){
+            getCurrentLocation();
+        }
+    }
 
     private GoogleMap mMap;
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     SearchView searchView;
-    private boolean mLcationPermissionGranted = false;
+    private boolean mLocationPermissionGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         searchView = findViewById(R.id.sv_location);
-        getLoctationPermission();
+        getLocationPermission();
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation();
-        } else {
-            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
+
     }
     private void initMap(){
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                mMap = googleMap;
-                if(mLcationPermissionGranted){
-                    getCurrentLocation();
-                }
-            }
-        });
+        supportMapFragment.getMapAsync(MapsActivity.this);
     }
 
-    private void getLoctationPermission(){
+
+    private void getLocationPermission(){
         String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION) ==PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this.getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) ==PackageManager.PERMISSION_GRANTED){
-                mLcationPermissionGranted = true;
+                mLocationPermissionGranted = true;
                 initMap();
             }else{
-                ActivityCompat.requestPermissions(this,permissions,1234);
+                ActivityCompat.requestPermissions(this,permissions,44);
             }
         }else{
-            ActivityCompat.requestPermissions(this,permissions,1234);
+            ActivityCompat.requestPermissions(this,permissions,44);
         }
     }
 
-    private void moveCAmera(LatLng latLng,float zoom){
+    private void moveCamera(LatLng latLng,float zoom){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
     }
 
     private void getCurrentLocation() {
         client = LocationServices.getFusedLocationProviderClient(this);
         try {
-            if(mLcationPermissionGranted){
-                Task location = client.getLastLocation();
+            if(mLocationPermissionGranted){
+                final Task location = client.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
                             Location currentLocation = (Location) task.getResult();
-                            moveCAmera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),10f);
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),10f);
                         }
                     }
                 });
@@ -111,17 +106,19 @@ public class MapsActivity extends FragmentActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLcationPermissionGranted = false;
+        mLocationPermissionGranted = false;
         switch (requestCode){
-            case 1234:{
-                for(int i = 0; i < grantResults.length; i++){
-                    if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        mLcationPermissionGranted = false;
-                        return;
+            case 44:{
+                if(grantResults.length > 0) {
+                    for (int i = 0; i < grantResults.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                            mLocationPermissionGranted = false;
+                            return;
+                        }
                     }
+                    mLocationPermissionGranted = true;
+                    initMap();
                 }
-                mLcationPermissionGranted = true;
-                initMap();
             }
         }
     }
