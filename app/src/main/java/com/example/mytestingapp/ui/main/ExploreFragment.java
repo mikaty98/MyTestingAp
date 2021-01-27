@@ -1,20 +1,24 @@
 package com.example.mytestingapp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.mytestingapp.LocalRequest;
+import com.example.mytestingapp.LocalRequestInfoActivity;
 import com.example.mytestingapp.R;
 import com.example.mytestingapp.ServiceAdaptor;
 import com.google.firebase.database.ChildEventListener;
@@ -36,6 +40,7 @@ public class ExploreFragment extends Fragment {
 
     private EditText suburbEditText;
     private Button filterBtn;
+
 
 
     ListView listView;
@@ -128,6 +133,15 @@ public class ExploreFragment extends Fragment {
                 }
 
 
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), LocalRequestInfoActivity.class);
+                intent.putExtra("Request info", localRequestList.get(position));
+                startActivity(intent);
             }
         });
 
