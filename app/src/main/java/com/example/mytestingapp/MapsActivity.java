@@ -99,7 +99,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.e("MapsActivity","getCurrentLocaion: SecurityException: " + e.getMessage());
         }
 
-                        }
+    }
 
 
 
