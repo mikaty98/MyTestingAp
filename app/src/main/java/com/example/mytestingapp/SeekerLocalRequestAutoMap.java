@@ -68,7 +68,6 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeker_local_request_auto_map);
 
-        //Add permission
 
         ActivityCompat.requestPermissions(this, new String[]
                 {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -100,7 +99,6 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
     private void getLocation() {
 
-        //Check Permissions again
 
         if (ActivityCompat.checkSelfPermission(SeekerLocalRequestAutoMap.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SeekerLocalRequestAutoMap.this,
 
@@ -370,7 +368,6 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
                 }
             });
 
-            //Thats All Run Your App
         }
 
     }
