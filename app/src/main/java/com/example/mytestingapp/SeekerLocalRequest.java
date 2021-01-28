@@ -23,6 +23,8 @@ public class SeekerLocalRequest extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference ref;
 
+    public static final String TEXT2 = "com.example.mytestingapp";
+
 
 
     @Override
@@ -58,7 +60,15 @@ public class SeekerLocalRequest extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                Intent intent1 = getIntent();
+                String text = intent1.getStringExtra(SLoginActivity.TEXT);
+
+                Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
+                intent2.putExtra(TEXT2, text);
+                startActivity(intent2);
+
+
+                //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestAutoMap.class));
             }
         });
 
