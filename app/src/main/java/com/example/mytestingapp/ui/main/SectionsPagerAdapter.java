@@ -38,12 +38,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        Bundle args = new Bundle();
+        args.putString("provider email",p);
         switch (position){
-            case 0: return new ExploreFragment();
+            case 0:
+                ExploreFragment exploreFragment = new ExploreFragment();
+                exploreFragment.setArguments(args);
+                return exploreFragment;
             case 1: //return new ProfileFragment();
                 ProfileFragment profileFragment = new ProfileFragment();
-                Bundle args = new Bundle();
-                args.putString("provider email",p);
                 profileFragment.setArguments(args);
                 return profileFragment;
 

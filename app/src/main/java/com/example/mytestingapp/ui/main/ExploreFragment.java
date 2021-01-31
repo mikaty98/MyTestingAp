@@ -41,6 +41,8 @@ public class ExploreFragment extends Fragment {
     private EditText suburbEditText;
     private Button filterBtn;
 
+    private String providerEmail;
+
 
 
     ListView listView;
@@ -106,6 +108,10 @@ public class ExploreFragment extends Fragment {
         listView = view.findViewById(R.id.serviceList);
         listView.setAdapter(serviceAdaptor);
 
+        if (getArguments() != null){
+            providerEmail = getArguments().getString("provider email");
+        }
+
 
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequests");
@@ -141,6 +147,7 @@ public class ExploreFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), LocalRequestInfoActivity.class);
                 intent.putExtra("Request info", localRequestList.get(position));
+                intent.putExtra("Provider email",providerEmail);
                 startActivity(intent);
             }
         });
