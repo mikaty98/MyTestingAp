@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SeekerLocalRequestWaitingList extends AppCompatActivity {
 
@@ -39,8 +40,8 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String value = snapshot.getValue(String.class);
-                myArrayList.add(value);
+                Map<String, Object> map = (Map<String, Object>) snapshot.getValue(  );
+                myArrayList.add(String.valueOf(map));
                 myArrayAdapter.notifyDataSetChanged();
             }
 
