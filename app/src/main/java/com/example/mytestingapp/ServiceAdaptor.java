@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.mytestingapp.Classes.LocalRequest;
+
 import java.util.List;
 
 public class ServiceAdaptor extends ArrayAdapter {

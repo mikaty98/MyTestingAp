@@ -1,4 +1,4 @@
-package com.example.mytestingapp;
+package com.example.mytestingapp.Classes;
 
 import java.io.Serializable;
 

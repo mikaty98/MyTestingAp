@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mytestingapp.Classes.Seeker;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +47,7 @@ public class SLoginActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), SRegisterActivity.class));
+                finish();
             }
 
         });
@@ -54,6 +56,7 @@ public class SLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
+                finish();
             }
 
         });
@@ -62,6 +65,7 @@ public class SLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
+                finish();
             }
 
         });
@@ -70,6 +74,7 @@ public class SLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 SeekerLogin();
+
             }
         });
 
@@ -114,6 +119,7 @@ public class SLoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(SLoginActivity.this, SeekerHome.class);
                         intent.putExtra(TEXT, text);
                         startActivity(intent);
+                        finish();
 
 
 

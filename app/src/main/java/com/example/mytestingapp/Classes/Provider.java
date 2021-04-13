@@ -1,4 +1,4 @@
-package com.example.mytestingapp;
+package com.example.mytestingapp.Classes;
 
 import android.graphics.Bitmap;
 import android.net.Uri;

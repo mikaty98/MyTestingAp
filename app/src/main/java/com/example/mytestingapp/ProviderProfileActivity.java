@@ -2,11 +2,11 @@ package com.example.mytestingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.mytestingapp.Classes.Provider;
 
 public class ProviderProfileActivity extends AppCompatActivity {
 

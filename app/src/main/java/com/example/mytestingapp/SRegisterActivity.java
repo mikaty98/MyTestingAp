@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.mytestingapp.Classes.Seeker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -65,6 +66,7 @@ public class SRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 choosePicture();
+                finish();
             }
 
 
@@ -76,6 +78,7 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
+                finish();
             }
 
 
@@ -86,6 +89,7 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), PRegisterActivity.class));
+                finish();
             }
 
 
@@ -96,6 +100,7 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
                 if (register()){
                     startActivity(new Intent(getApplicationContext(), SeekerHome.class));
+                    finish();
                 }
 
             }
