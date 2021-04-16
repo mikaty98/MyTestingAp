@@ -117,7 +117,7 @@ public class SLoginActivity extends AppCompatActivity {
                         String text = editText.getText().toString();
 
                         Intent intent = new Intent(SLoginActivity.this, SeekerHome.class);
-                        intent.putExtra(TEXT, text);
+                        intent.putExtra("seeker email",text);
                         startActivity(intent);
                         finish();
 

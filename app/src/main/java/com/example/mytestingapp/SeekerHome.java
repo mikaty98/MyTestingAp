@@ -40,7 +40,7 @@ public class SeekerHome extends AppCompatActivity {
         setContentView(R.layout.activity_seeker_home);
 
         Intent intent = getIntent();
-        String text = intent.getStringExtra(SLoginActivity.TEXT);
+        String text = intent.getStringExtra("seeker email");
 
 
         localRequest = findViewById(R.id.localService);
@@ -53,7 +53,7 @@ public class SeekerHome extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent1 = new Intent(SeekerHome.this, SeekerLocalRequestWaitingList.class);
-                intent1.putExtra(TEXT1, text);
+                intent1.putExtra("seeker email", text);
                 startActivity(intent1);
             }
         });
@@ -63,7 +63,7 @@ public class SeekerHome extends AppCompatActivity {
             public void onClick(View v){
 
                 Intent intent = new Intent(SeekerHome.this, SeekerLocalRequest.class);
-                intent.putExtra(TEXT1, text);
+                intent.putExtra("seeker email", text);
                 startActivity(intent);
 
 
