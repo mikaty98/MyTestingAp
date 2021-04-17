@@ -23,7 +23,6 @@ public class SeekerHome extends AppCompatActivity {
 
     public static final String TEXT1 = "com.example.mytestingapp";
 
-    private Button waitinglist;
     private Button localRequest;
     private Button overboardRequest;
     private Button officialRequest;
@@ -46,17 +45,8 @@ public class SeekerHome extends AppCompatActivity {
         localRequest = findViewById(R.id.localService);
         overboardRequest = findViewById(R.id.overboardService);
         officialRequest = findViewById(R.id.officialService);
-        waitinglist = findViewById(R.id.waitingList);
 
-       // waitinglist.setOnClickListener(new View.OnClickListener() {
-          //  @Override
-           // public void onClick(View v) {
 
-              //  Intent intent1 = new Intent(SeekerHome.this, SeekerLocalRequestWaitingList.class);
-                //intent1.putExtra("seeker email", text);
-                //startActivity(intent1);
-           // }
-      //  });
 
         localRequest.setOnClickListener(new View.OnClickListener(){
             @Override

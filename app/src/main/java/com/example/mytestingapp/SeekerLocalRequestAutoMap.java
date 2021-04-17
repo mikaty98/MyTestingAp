@@ -345,10 +345,14 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
                 public void onClick(View v) {
 
                     Intent intent = getIntent();
-                    String text = intent.getStringExtra(SeekerLocalRequest.TEXT2);
+                    String text = intent.getStringExtra("seeker email");
 
                     String SeekerEmail = text;
                     confirmSeeker(SeekerEmail);
+
+                    Intent intent2 = new Intent(SeekerLocalRequestAutoMap.this, SeekerLocalRequestWaitingList.class);
+                    intent2.putExtra("seeker email", SeekerEmail);
+                    startActivity(intent2);
 
                 }
             });
@@ -407,7 +411,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
         reference.child(RequestTitle).setValue(l);
 
-        startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
+        //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
 
 
     }

@@ -61,12 +61,21 @@ public class SeekerLocalRequest extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent1 = getIntent();
-                String text = intent1.getStringExtra(SLoginActivity.TEXT);
+               // Intent intent1 = getIntent();
+                //String text = intent1.getStringExtra(SLoginActivity.TEXT);
 
-                Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
-                intent2.putExtra(TEXT2, text);
-                startActivity(intent2);
+                //Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
+                //intent2.putExtra(TEXT2, text);
+                //startActivity(intent2);
+
+                Intent intent = getIntent();
+                String text = intent.getStringExtra("seeker email");
+
+                Intent intent1 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
+                intent1.putExtra("seeker email", text);
+                startActivity(intent1);
+
+
 
 
                 //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestAutoMap.class));
@@ -79,14 +88,14 @@ public class SeekerLocalRequest extends AppCompatActivity {
             public void onClick(View v){
 
                 Intent intent = getIntent();
-                String text = intent.getStringExtra(SeekerHome.TEXT1);
+                String text = intent.getStringExtra("seeker email");
 
                 String SeekerEmail = text;
                 confirmSeeker(SeekerEmail);
 
-               // Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
-               // intent2.putExtra("seeker email", SeekerEmail);
-               // startActivity(intent2);
+                Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
+                intent2.putExtra("seeker email", SeekerEmail);
+                startActivity(intent2);
             }
         });
 
