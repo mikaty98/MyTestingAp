@@ -111,7 +111,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
                 LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(MinPriceValue,MaxPriceValue,EstimatedTime,providerEmail+".com");
 
-                String[] temp = localRequest.getSeekerEmail().split(".com");
+                String temp[] = localRequest.getSeekerEmail().split(".com");
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
                 reference.child(temp[0]).child(providerEmail).setValue(localRequestApplicant);
