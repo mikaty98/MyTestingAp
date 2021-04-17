@@ -79,7 +79,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
             public void onClick(View v){
 
                 Intent intent = getIntent();
-                String text = intent.getStringExtra(SeekerHome.TEXT1);
+                String text = intent.getStringExtra("seeker email");
 
                 String SeekerEmail = text;
                 confirmSeeker(SeekerEmail);
