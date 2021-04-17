@@ -79,10 +79,14 @@ public class SeekerLocalRequest extends AppCompatActivity {
             public void onClick(View v){
 
                 Intent intent = getIntent();
-                String text = intent.getStringExtra(SLoginActivity.TEXT);
+                String text = intent.getStringExtra(SeekerHome.TEXT1);
 
                 String SeekerEmail = text;
                 confirmSeeker(SeekerEmail);
+
+               // Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
+               // intent2.putExtra("seeker email", SeekerEmail);
+               // startActivity(intent2);
             }
         });
 
@@ -110,7 +114,9 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
         reference.child(RequestTitle).setValue(l);
 
-        startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
+        //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
+
+
 
 
 

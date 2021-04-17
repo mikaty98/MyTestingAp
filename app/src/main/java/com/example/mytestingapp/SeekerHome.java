@@ -48,15 +48,15 @@ public class SeekerHome extends AppCompatActivity {
         officialRequest = findViewById(R.id.officialService);
         waitinglist = findViewById(R.id.waitingList);
 
-        waitinglist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+       // waitinglist.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+           // public void onClick(View v) {
 
-                Intent intent1 = new Intent(SeekerHome.this, SeekerLocalRequestWaitingList.class);
-                intent1.putExtra("seeker email", text);
-                startActivity(intent1);
-            }
-        });
+              //  Intent intent1 = new Intent(SeekerHome.this, SeekerLocalRequestWaitingList.class);
+                //intent1.putExtra("seeker email", text);
+                //startActivity(intent1);
+           // }
+      //  });
 
         localRequest.setOnClickListener(new View.OnClickListener(){
             @Override
