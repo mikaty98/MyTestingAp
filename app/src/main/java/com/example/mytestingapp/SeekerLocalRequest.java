@@ -90,6 +90,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
                 Intent intent = getIntent();
                 String text = intent.getStringExtra("seeker email");
 
+
                 String SeekerEmail = text;
                 confirmSeeker(SeekerEmail);
 
@@ -121,16 +122,11 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
         LocalRequest l = new LocalRequest(RequestTitle,RequestDes,City,Suburb,StreetName,StreetNumber.toString(),BuildingName,BuildingNumber.toString(),FloorNumber.toString(),ApartmentNumber.toString(),SeekerEmail);
 
+
         reference.child(RequestTitle).setValue(l);
 
+
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
-
-
-
-
-
-
-
 
 
 

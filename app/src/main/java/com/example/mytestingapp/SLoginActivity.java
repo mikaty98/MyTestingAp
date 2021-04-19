@@ -21,13 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SLoginActivity extends AppCompatActivity {
 
-    public static final String TEXT = "com.example.mytestingapp";
     private EditText email,password;
     private TextView registerbtn,providerbtn,forgetPassword;
     private Button loginbtn;
 
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class SLoginActivity extends AppCompatActivity {
                         EditText editText = (EditText) findViewById(R.id.editTextTextEmailAddress);
                         String text = editText.getText().toString();
 
-                        Intent intent = new Intent(SLoginActivity.this, SeekerHome.class);
+                        Intent intent = new Intent(SLoginActivity.this, SeekerHome0.class);
                         intent.putExtra("seeker email",text);
                         startActivity(intent);
                         finish();

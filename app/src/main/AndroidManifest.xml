@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestingApp">
-        <activity android:name=".SeekerLocalRequestAutoMap"></activity>
+        <activity android:name=".SeekerHome0"></activity>
+        <activity android:name=".SeekerLocalRequestAutoMap" />
         <activity android:name=".LocalRequestInfoActivity" />
         <activity android:name=".SeekerLocalRequestWaitingList" />
         <activity android:name=".ProviderHomeActivity" />
