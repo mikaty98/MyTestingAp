@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
@@ -85,60 +86,78 @@ public class SLoginActivity extends AppCompatActivity {
     private void SeekerLogin(){
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Seekers");
+        boolean errorFlag = false;
         String inputEmail = email.getText().toString().trim();
-        String parts [] = inputEmail.split(".com");
-        inputEmail = parts[0];
-
         String inputPassword = password.getText().toString().trim();
 
-        Query checkUser = reference.orderByChild("email").equalTo(inputEmail+".com");
+        if (TextUtils.isEmpty(inputEmail)){
+            email.setError("Email Required");
+            //email.setBackgroundColor(0xFFFF0000);
+            errorFlag = true;
+        }
+        else if (!inputEmail.contains("@") || !inputEmail.contains(".com")){
+            email.setError("Invalid Email");
+            //email.setBackgroundColor(0xFFFF0000);
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(inputPassword)){
+            password.setError("Password Required");
+            //password.setBackgroundColor(0xFFFF0000);
+            errorFlag = true;
+        }
 
-        String finalInputEmail = inputEmail;
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener(){
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                if (dataSnapshot.exists()){
-                    email.setError(null);
-
-                    String userPassword = dataSnapshot.child(finalInputEmail).child("password").getValue(String.class);
-                    if (userPassword.equals(inputPassword)){
-                        password.setError(null);
-                        Seeker s = new Seeker();
-                        s.setEmail(finalInputEmail+".com");
-                        s.setPassword(userPassword);
-                        s.setId(dataSnapshot.child(finalInputEmail).child("id").getValue(String.class));
-                        s.setUserName(dataSnapshot.child(finalInputEmail).child("userName").getValue(String.class));
-                        s.setAge(dataSnapshot.child(finalInputEmail).child("age").getValue(String.class));
-                        s.setGender(dataSnapshot.child(finalInputEmail).child("gender").getValue(String.class));
-                        s.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
-
-
-                        EditText editText = (EditText) findViewById(R.id.editTextTextEmailAddress);
-                        String text = editText.getText().toString();
-
-                        Intent intent = new Intent(SLoginActivity.this, SeekerHome0.class);
-                        intent.putExtra("seeker email",text);
-                        startActivity(intent);
-                        finish();
+        if (errorFlag){return;}
+        else {
+            String parts[] = inputEmail.split(".com");
+            inputEmail = parts[0];
 
 
+            Query checkUser = reference.orderByChild("email").equalTo(inputEmail + ".com");
 
+            String finalInputEmail = inputEmail;
+            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        email.setError(null);
+
+                        String userPassword = dataSnapshot.child(finalInputEmail).child("password").getValue(String.class);
+                        if (userPassword.equals(inputPassword)) {
+                            password.setError(null);
+                            Seeker s = new Seeker();
+                            s.setEmail(finalInputEmail + ".com");
+                            s.setPassword(userPassword);
+                            s.setId(dataSnapshot.child(finalInputEmail).child("id").getValue(String.class));
+                            s.setUserName(dataSnapshot.child(finalInputEmail).child("userName").getValue(String.class));
+                            s.setAge(dataSnapshot.child(finalInputEmail).child("age").getValue(String.class));
+                            s.setGender(dataSnapshot.child(finalInputEmail).child("gender").getValue(String.class));
+                            s.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
+
+
+                            EditText editText = (EditText) findViewById(R.id.editTextTextEmailAddress);
+                            String text = editText.getText().toString();
+
+                            Intent intent = new Intent(SLoginActivity.this, SeekerHome0.class);
+                            intent.putExtra("seeker email", text);
+                            startActivity(intent);
+                            finish();
+
+
+                        } else {
+                            Toast.makeText(SLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(SLoginActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(SLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-                else{
-                    Toast.makeText(SLoginActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
-                    }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError){
 
-            }
-
-        });
-
+            });
+        }
     }
 }
