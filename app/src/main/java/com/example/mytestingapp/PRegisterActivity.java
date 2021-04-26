@@ -25,13 +25,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PRegisterActivity extends AppCompatActivity {
 
     private EditText userName,jobDesc,gender,age,id,phoneNumber,email,password,confirmPassword;
     private Button registerbtn;
     private TextView loginbtn,seeker;
 
-    private ImageView profilePic;
+    private CircleImageView profilePic;
 
     public Uri imageUri;
 
@@ -67,10 +69,7 @@ public class PRegisterActivity extends AppCompatActivity {
         profilePic.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
-
                 choosePicture();
-
 
             }
 

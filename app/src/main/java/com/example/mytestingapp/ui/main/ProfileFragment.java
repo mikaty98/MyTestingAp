@@ -29,11 +29,13 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ProfileFragment extends Fragment {
 
     private EditText username,jobDescription,gender,age,id,email,password,phoneNumber;
-    private ImageView profilePic;
+    private CircleImageView profilePic;
 
     private String providerEmail;
     private Provider provider = new Provider();

@@ -58,6 +58,7 @@ public class PLoginActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), PRegisterActivity.class));
+                finish();
             }
 
         });
@@ -66,6 +67,7 @@ public class PLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
+                finish();
             }
 
         });
@@ -175,6 +177,7 @@ public class PLoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(PLoginActivity.this, ProviderHomeActivity.class);
                             intent.putExtra("Provider email",finalInputEmail);
                             startActivity(intent);
+                            finish();
                         } else {
                             //Toast.makeText(PLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                             password.setError("Incorrect Password");

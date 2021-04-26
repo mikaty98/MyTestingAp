@@ -25,6 +25,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class SRegisterActivity extends AppCompatActivity {
 
@@ -32,7 +34,7 @@ public class SRegisterActivity extends AppCompatActivity {
     private Button registerbtn;
     private TextView loginbtn,provider;
 
-    private ImageView profilePic;
+    private CircleImageView profilePic;
     public Uri imageUri;
 
     private FirebaseDatabase rootNode;
