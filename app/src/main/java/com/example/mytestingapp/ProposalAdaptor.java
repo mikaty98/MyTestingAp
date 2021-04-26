@@ -33,15 +33,15 @@ public class ProposalAdaptor extends ArrayAdapter{
     public View getView(int position, @NonNull View convertView, @NotNull ViewGroup parent){
         View view = LayoutInflater.from(context).inflate(R.layout.proposal_list_items,parent,false);
 
-        TextView textView1 = view.findViewById(R.id.estimatedTimeValue);
-        TextView textView2 = view.findViewById(R.id.minRangeValue);
-        TextView textView3 = view.findViewById(R.id.maxRangeValue);
+        TextView textView1 = view.findViewById(R.id.PriceValue);
+        TextView textView2 = view.findViewById(R.id.EstimatedArrivalTime);
+        TextView textView3 = view.findViewById(R.id.EstimatedCompletionTime);
         TextView textView4 = view.findViewById(R.id.providerEmail);
 
 
-        textView1.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedTimeInHours()));
-        textView2.setText(String.valueOf(localRequestApplicantList.get(position).getMinPriceRange()));
-        textView3.setText(String.valueOf(localRequestApplicantList.get(position).getMaxPriceRange()));
+        textView1.setText(String.valueOf(localRequestApplicantList.get(position).getPriceValue())+" EGP");
+        textView2.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedArrivalTime())+" Hrs");
+        textView3.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedCompletionTime())+" Hrs");
         textView4.setText(localRequestApplicantList.get(position).getProviderEmail());
 
         return view;

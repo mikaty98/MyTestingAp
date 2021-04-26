@@ -1,15 +1,15 @@
 package com.example.mytestingapp.Classes;
 
 public class LocalRequestApplicant {
-    private float minPriceRange, maxPriceRange;
-    private int estimatedTimeInHours;
+    private int priceValue, EstimatedArrivalTime;
+    private int EstimatedCompletionTime;
     private String providerEmail;
 
-    public LocalRequestApplicant(float minPriceRange, float maxPriceRange, int estimatedTimeInHours,String providerEmail) {
+    public LocalRequestApplicant(int priceValue, int EstimatedArrivalTime, int EstimatedCompletionTime,String providerEmail) {
 
-        this.minPriceRange = minPriceRange;
-        this.maxPriceRange = maxPriceRange;
-        this.estimatedTimeInHours = estimatedTimeInHours;
+        this.priceValue = priceValue;
+        this.EstimatedArrivalTime = EstimatedArrivalTime;
+        this.EstimatedCompletionTime = EstimatedCompletionTime;
         this.providerEmail = providerEmail;
     }
 
@@ -24,27 +24,27 @@ public class LocalRequestApplicant {
         this.providerEmail = providerEmail;
     }
 
-    public float getMinPriceRange() {
-        return minPriceRange;
+    public int getPriceValue() {
+        return priceValue;
     }
 
-    public void setMinPriceRange(float minPriceRange) {
-        this.minPriceRange = minPriceRange;
+    public void setPriceValue(int priceValue) {
+        this.priceValue = priceValue;
     }
 
-    public float getMaxPriceRange() {
-        return maxPriceRange;
+    public int getEstimatedArrivalTime() {
+        return EstimatedArrivalTime;
     }
 
-    public void setMaxPriceRange(float maxPriceRange) {
-        this.maxPriceRange = maxPriceRange;
+    public void setEstimatedArrivalTime(int maxPriceRange) {
+        this.EstimatedArrivalTime = maxPriceRange;
     }
 
-    public int getEstimatedTimeInHours() {
-        return estimatedTimeInHours;
+    public int getEstimatedCompletionTime() {
+        return EstimatedCompletionTime;
     }
 
-    public void setEstimatedTimeInHours(int estimatedTimeInHours) {
-        this.estimatedTimeInHours = estimatedTimeInHours;
+    public void setEstimatedCompletionTime(int EstimatedCompletionTime) {
+        this.EstimatedCompletionTime = EstimatedCompletionTime;
     }
 }

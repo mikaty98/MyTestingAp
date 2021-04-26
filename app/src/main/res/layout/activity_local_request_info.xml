@@ -350,28 +350,28 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/minPriceValue"
+                android:id="@+id/priceValue"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="40dp"
-                android:hint="Min Price range" />
+                android:hint="Price Value" />
 
             <EditText
-                android:id="@+id/maxPriceValue"
+                android:id="@+id/estimatedArrivalTime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="40dp"
-                android:hint="Max Price range" />
+                android:hint="Estimated Arrival time in Hours" />
 
         </LinearLayout>
 
 
         <EditText
-            android:id="@+id/estimatedTimeValue"
+            android:id="@+id/estimatedCompletionTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Estimated Time" />
+            android:hint="Estimated Task Completion Time in Hours" />
 
         <Button
             android:id="@+id/submitBtn2"

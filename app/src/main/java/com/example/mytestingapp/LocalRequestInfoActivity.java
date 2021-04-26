@@ -24,7 +24,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
     private LinearLayout hiddenLayout;
     private ScrollView scrollable;
 
-    private EditText minPriceValue, maxPriceValue, estimatedTime;
+    private EditText priceValue, estimatedArrivalTime, estimatedCompletionTime;
 
     private String providerEmail;
 
@@ -51,9 +51,9 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn2 = findViewById(R.id.submitBtn2);
 
-        minPriceValue = findViewById(R.id.minPriceValue);
-        maxPriceValue = findViewById(R.id.maxPriceValue);
-        estimatedTime = findViewById(R.id.estimatedTimeValue);
+        priceValue = findViewById(R.id.priceValue);
+        estimatedArrivalTime = findViewById(R.id.estimatedArrivalTime);
+        estimatedCompletionTime = findViewById(R.id.estimatedCompletionTime);
 
         hiddenLayout = findViewById(R.id.hiddenLayout);
         scrollable = findViewById(R.id.scrollView);
@@ -93,23 +93,25 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                float MinPriceValue;
-                float MaxPriceValue;
-                int EstimatedTime;
+                int PriceValue;
+                int EstimatedArrivalTime;
+                int EstimatedCompletionTime;
 
                 try{
-                     MinPriceValue = Float.parseFloat(minPriceValue.getText().toString().trim());
-                     MaxPriceValue = Float.parseFloat(maxPriceValue.getText().toString().trim());
-                     EstimatedTime = Integer.parseInt(estimatedTime.getText().toString().trim());
+
+                    PriceValue = Integer.parseInt(priceValue.getText().toString().trim());
+                    EstimatedArrivalTime = Integer.parseInt(estimatedArrivalTime.getText().toString().trim());
+                    EstimatedCompletionTime= Integer.parseInt(estimatedCompletionTime.getText().toString().trim());
                 }
                 catch(Exception e){
-                     MinPriceValue = 0;
-                     MaxPriceValue = 10;
-                     EstimatedTime = 24;
+
+                    PriceValue = 0;
+                    EstimatedArrivalTime = 24;
+                    EstimatedCompletionTime = 24;
                 }
 
 
-                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(MinPriceValue,MaxPriceValue,EstimatedTime,providerEmail+".com");
+                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerEmail+".com");
 
                 String temp[] = localRequest.getSeekerEmail().split(".com");
 

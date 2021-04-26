@@ -63,12 +63,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Estimated time:">
+                        android:text="Price:">
 
                     </TextView>
 
                     <TextView
-                        android:id="@+id/estimatedTimeValue"
+                        android:id="@+id/PriceValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Value"
@@ -89,12 +89,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Min range:">
+                        android:text="Arrival Time:">
 
                     </TextView>
 
                     <TextView
-                        android:id="@+id/minRangeValue"
+                        android:id="@+id/EstimatedArrivalTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Value"
@@ -114,12 +114,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Max range:">
+                        android:text="Task Time:">
 
                     </TextView>
 
                     <TextView
-                        android:id="@+id/maxRangeValue"
+                        android:id="@+id/EstimatedCompletionTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Value"
