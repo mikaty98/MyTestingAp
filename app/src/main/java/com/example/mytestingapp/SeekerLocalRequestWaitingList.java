@@ -2,6 +2,7 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.example.mytestingapp.ui.main.ProfileFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -85,6 +88,26 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                String providerEmail = localRequestApplicantList.get(position).getProviderEmail();
+                int estimatedArrivalTime = localRequestApplicantList.get(position).getEstimatedArrivalTime();
+                int estimatedCompletionTime = localRequestApplicantList.get(position).getEstimatedCompletionTime();
+                int price = localRequestApplicantList.get(position).getPriceValue();
+
+
+
+                Intent intent2 = new Intent(SeekerLocalRequestWaitingList.this, ChosenProviderProfile.class);
+                intent2.putExtra("provider email", providerEmail);
+                intent2.putExtra("estimatedArrivalTime", estimatedArrivalTime);
+                intent2.putExtra("estimatedCompletionTime", estimatedCompletionTime);
+                intent2.putExtra("price", price);
+                intent2.putExtra("seeker email", seekerEmail);
+                startActivity(intent2);
+
+
+
+
+                //NotificationAlert exampleDialog = new NotificationAlert();
+                //exampleDialog.show(getSupportFragmentManager(), "example dialog");
 
             }
         });

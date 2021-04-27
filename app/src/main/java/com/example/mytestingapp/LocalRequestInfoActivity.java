@@ -2,6 +2,7 @@ package com.example.mytestingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -119,6 +120,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 reference.child(temp[0]).child(providerEmail).setValue(localRequestApplicant);
 
                 finish();
+
 
 
             }

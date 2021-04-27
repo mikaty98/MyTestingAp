@@ -139,6 +139,7 @@ public class ExploreFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent = new Intent(getActivity(), LocalRequestInfoActivity.class);
                 intent.putExtra("Request info", localRequestList.get(position));
                 intent.putExtra("Provider email",providerEmail);
