@@ -16,9 +16,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,6 +45,8 @@ public class PRegisterActivity extends AppCompatActivity {
     DatabaseReference reference;
     private FirebaseStorage storage;
     private StorageReference ref;
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class PRegisterActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         ref = storage.getReference();
+        auth = FirebaseAuth.getInstance();
 
         profilePic.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -250,6 +257,43 @@ public class PRegisterActivity extends AppCompatActivity {
                 System.out.println("email not split");
             }
             uploadPic();
+
+            auth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if(task.isSuccessful())
+                    {
+
+                    }
+
+                    else
+                    {
+
+                        auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(PRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if(!task.isSuccessful())
+                                {
+                                    Toast.makeText(PRegisterActivity.this, "Sign in Auth FAIL", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                else
+                                {
+                                    Toast.makeText(PRegisterActivity.this, "Sign in Auth SUCCESS", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+                        });
+
+                    }
+
+                }
+            });
+
 
             return true;
         }

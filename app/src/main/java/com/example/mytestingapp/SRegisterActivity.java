@@ -15,10 +15,15 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.Seeker;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,6 +46,7 @@ public class SRegisterActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private FirebaseStorage storage;
     private StorageReference ref;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +69,13 @@ public class SRegisterActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         ref = storage.getReference();
+        auth = FirebaseAuth.getInstance();
 
         profilePic.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 choosePicture();
-                finish();
+               // finish();
             }
 
 
@@ -80,7 +87,7 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
-                finish();
+                //finish();
             }
 
 
@@ -91,7 +98,7 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), PRegisterActivity.class));
-                finish();
+                //finish();
             }
 
 
@@ -101,8 +108,9 @@ public class SRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if (register()){
-                    startActivity(new Intent(getApplicationContext(), SeekerHome.class));
-                    finish();
+
+
+                    startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
                 }
 
             }
@@ -118,13 +126,14 @@ public class SRegisterActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             imageUri = data.getData();
             profilePic.setImageURI(imageUri);
-            uploadPic();
+
         }
     }
 
@@ -149,10 +158,8 @@ public class SRegisterActivity extends AppCompatActivity {
     }
 
     private boolean register(){
+
         String Id = id.getText().toString().trim();
-        String Email = email.getText().toString().trim();
-        String Password = password.getText().toString().trim();
-        String ConPassword = confirmPassword.getText().toString().trim();
         String UserName = userName.getText().toString().trim();
         String Gender = gender.getText().toString().trim();
         String Agetxt = age.getText().toString().trim();
@@ -164,21 +171,30 @@ public class SRegisterActivity extends AppCompatActivity {
         else{
             Age = Integer.parseInt(Agetxt);
         }
-        String Pnumber = phoneNumber.getText().toString().trim();
+
+        String Email = email.getText().toString().trim();
+        String PhoneNumber = phoneNumber.getText().toString().trim();
+        String Password = password.getText().toString().trim();
+        String ConPassword = confirmPassword.getText().toString().trim();
 
         boolean errorFlag = false;
 
-        if (TextUtils.isEmpty(UserName)){
+        if (TextUtils.isEmpty(Id) || Id.length() != 14) {
+            id.setError("*");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(UserName)) {
             userName.setError("*");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(Gender)){
+        if (TextUtils.isEmpty(Gender)) {
             gender.setError("*");
             errorFlag = true;
         }
 
-        if (!(Gender.equals("Male") || Gender.equals("male") || Gender.equals("Female") || Gender.equals("female"))){
+        if (!(Gender.equals("Male") || Gender.equals("male") || Gender.equals("Female") || Gender.equals("female"))) {
             gender.setError("Invalid input");
             errorFlag = true;
         }
@@ -188,68 +204,105 @@ public class SRegisterActivity extends AppCompatActivity {
             errorFlag = true;
         }
 
-        if (Age < 18 || Age > 100){
-            age.setError("Age is Innapropriate");
+        else if (Age < 18 || Age > 100){
+            age.setError("Inappropriate age");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(Id) || Id.length() != 14){
-            id.setError("*");
-            errorFlag = true;
-        }
-
-        if (TextUtils.isEmpty(Pnumber) || Pnumber.length() <= 10 || Pnumber.length() > 11 || !Pnumber.startsWith("01")){
+        if (TextUtils.isEmpty(PhoneNumber) || PhoneNumber.length() != 11){
             phoneNumber.setError("*");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(Email)){
+        if (TextUtils.isEmpty(Email)) {
             email.setError("*");
             errorFlag = true;
         }
-
         if (!Email.contains("@") || !Email.contains(".com")){
             email.setError("wrong format");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(Password)){
+        if (TextUtils.isEmpty(Password)) {
             password.setError("*");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(ConPassword)){
+        if (TextUtils.isEmpty(ConPassword)) {
             confirmPassword.setError("*");
             errorFlag = true;
         }
-        if (!TextUtils.equals(Password,ConPassword)){
+        if (!TextUtils.equals(Password, ConPassword)) {
             password.setText("");
             confirmPassword.setText("");
             confirmPassword.setError("Passwords don't match");
             errorFlag = true;
         }
 
-        if (errorFlag){
+        if (imageUri == null){
+            Toast.makeText(getApplicationContext(),"Profile picture required", Toast.LENGTH_LONG).show();
+            errorFlag = true;
+        }
+
+        if (errorFlag) {
 
             return false;
-        }
-        else {
+        } else {
             rootNode = FirebaseDatabase.getInstance();
             reference = rootNode.getReference().child("Seekers");
-            Seeker s = new Seeker(UserName,Gender,Age.toString(),Id,Pnumber,Email,Password);
+            Seeker s = new Seeker(UserName,Gender,Age.toString(),Id,PhoneNumber,Email,Password);
+
+
+
             try {
-                String[] parts = Email.split(".com",2);
+                String[] parts = Email.split(".com", 2);
                 String uniqueEmail = parts[0];
                 reference.child(uniqueEmail).setValue(s);
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println("email not split");
             }
+
+            uploadPic();
+
+            auth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if(task.isSuccessful())
+                    {
+
+                    }
+
+                    else
+                    {
+
+                        auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(SRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if(!task.isSuccessful())
+                                {
+                                    Toast.makeText(SRegisterActivity.this, "Sign in Auth FAIL", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                else
+                                {
+                                    Toast.makeText(SRegisterActivity.this, "Sign in Auth SUCCESS", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+                        });
+
+                    }
+
+                }
+            });
 
 
 
             return true;
         }
-        
+
 
 
     }
