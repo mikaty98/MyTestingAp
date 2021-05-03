@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Provider {
-    private String userName,jobDesc,gender,age,id,phoneNumber,email,password;
+    private String userName,jobDesc,gender,age,id,phoneNumber,email,password,userID;
     private Bitmap image;
 
     protected Provider(Parcel in) {
@@ -20,6 +20,7 @@ public class Provider {
         phoneNumber = in.readString();
         email = in.readString();
         password = in.readString();
+        userID = in.readString();
         image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
@@ -96,7 +97,13 @@ public class Provider {
         this.password = password;
     }
 
+    public String getUserID() {
+        return userID;
+    }
 
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public Provider() {
     }

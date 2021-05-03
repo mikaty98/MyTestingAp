@@ -18,7 +18,7 @@ public class ProviderHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_home);
 
-        String providerEmail = getIntent().getStringExtra("Provider email");
+        String providerEmail = getIntent().getStringExtra("provider email");
 
         TabLayout tabLayout = findViewById(R.id.tabBar);
         TabItem exploreTab = findViewById(R.id.exploreTab);

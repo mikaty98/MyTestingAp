@@ -8,9 +8,15 @@ import android.os.Parcelable;
 
 public class Seeker implements Serializable {
 
-    String UserName,Gender,Age,Id,PhoneNumber,Email,Password;
+    String UserName,Gender,Age,Id,PhoneNumber,Email,Password,userID;
 
+    public String getUserID() {
+        return userID;
+    }
 
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public Seeker() {
     }

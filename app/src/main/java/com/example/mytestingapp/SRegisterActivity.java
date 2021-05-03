@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,8 +25,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,6 +54,10 @@ public class SRegisterActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference ref;
     private FirebaseAuth auth;
+    private String userID;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +81,8 @@ public class SRegisterActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         ref = storage.getReference();
         auth = FirebaseAuth.getInstance();
+
+
 
         profilePic.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -107,11 +120,7 @@ public class SRegisterActivity extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (register()){
-
-
-                    startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
-                }
+                register();
 
             }
         });
@@ -139,7 +148,7 @@ public class SRegisterActivity extends AppCompatActivity {
 
     private void uploadPic() {
 
-        StorageReference riversRef = ref.child("images/"+id.getText().toString().trim());
+        StorageReference riversRef = ref.child("images/"+userID);
 
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -157,7 +166,7 @@ public class SRegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean register(){
+    private void register(){
 
         String Id = id.getText().toString().trim();
         String UserName = userName.getText().toString().trim();
@@ -218,7 +227,7 @@ public class SRegisterActivity extends AppCompatActivity {
             email.setError("*");
             errorFlag = true;
         }
-        if (!Email.contains("@") || !Email.contains(".com")){
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()){
             email.setError("wrong format");
             errorFlag = true;
         }
@@ -226,6 +235,10 @@ public class SRegisterActivity extends AppCompatActivity {
             password.setError("*");
             errorFlag = true;
         }
+        if (Password.length()<6){
+            password.setError("password must be more than 6 characters");
+        }
+
         if (TextUtils.isEmpty(ConPassword)) {
             confirmPassword.setError("*");
             errorFlag = true;
@@ -243,67 +256,81 @@ public class SRegisterActivity extends AppCompatActivity {
         }
 
         if (errorFlag) {
-
-            return false;
+            return;
         } else {
             rootNode = FirebaseDatabase.getInstance();
-            reference = rootNode.getReference().child("Seekers");
+
             Seeker s = new Seeker(UserName,Gender,Age.toString(),Id,PhoneNumber,Email,Password);
 
-
-
-            try {
-                String[] parts = Email.split(".com", 2);
-                String uniqueEmail = parts[0];
-                reference.child(uniqueEmail).setValue(s);
-            } catch (Exception e) {
-                System.out.println("email not split");
-            }
-
-            uploadPic();
-
-            auth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.fetchSignInMethodsForEmail(s.getEmail()).addOnCompleteListener(SRegisterActivity.this,new OnCompleteListener<SignInMethodQueryResult>() {  //Checking if email already exists or not
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if(task.isSuccessful())
-                    {
-
-                    }
-
-                    else
-                    {
-
-                        auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(SRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                    boolean check = !task.getResult().getSignInMethods().isEmpty();
+                    if (!check){ //email not found
+                        auth.createUserWithEmailAndPassword(s.getEmail(),s.getPassword()).addOnCompleteListener(SRegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(SRegisterActivity.this,"Registration successful",Toast.LENGTH_SHORT).show();
+                                    userID = auth.getCurrentUser().getUid();
+                                    auth.updateCurrentUser(task.getResult().getUser());
+                                    s.setUserID(userID);
 
-                                if(!task.isSuccessful())
-                                {
-                                    Toast.makeText(SRegisterActivity.this, "Sign in Auth FAIL", Toast.LENGTH_SHORT).show();
+                                    reference = rootNode.getReference().child("Seekers");
+                                    reference.child(userID).setValue(s);
 
+                                    uploadPic();
+                                    startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
+                                    finish();
                                 }
-
-                                else
-                                {
-                                    Toast.makeText(SRegisterActivity.this, "Sign in Auth SUCCESS", Toast.LENGTH_SHORT).show();
-
-                                }
-
                             }
                         });
 
                     }
+                    else{ //email already exists
+                        auth.signInWithEmailAndPassword(s.getEmail(),s.getPassword()).addOnCompleteListener(SRegisterActivity.this,new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){  //if user registered with the same email and password
+                                    userID = task.getResult().getUser().getUid();
+                                    auth.updateCurrentUser(task.getResult().getUser());
+                                    s.setUserID(userID);
+                                    reference = rootNode.getReference().child("Seekers");
+                                    Query checkuser = reference.orderByChild("userID").equalTo(userID);
+                                    checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()){
+                                                Toast.makeText(SRegisterActivity.this,"User already registered as a Seeker",Toast.LENGTH_LONG).show();
+                                            }
+                                            else{
+                                                reference.child(userID).setValue(s);
 
+                                                //uploadPic();  upload function commented because user has same id therefore same picture //TBD
+                                                startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
+                                                finish();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                                }
+                                else{ // if user registered with same email but different password
+                                    Toast.makeText(SRegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                    //registerSuccess = false;
+                                }
+                            }
+                        });
+
+                    }
                 }
             });
 
-
-
-            return true;
         }
-
-
 
     }
 

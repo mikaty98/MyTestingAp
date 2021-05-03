@@ -12,10 +12,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +44,9 @@ public class PLoginActivity extends AppCompatActivity {
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private FirebaseAuth mauth;
+
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,8 @@ public class PLoginActivity extends AppCompatActivity {
         registerbtn = findViewById(R.id.textView);
         seekerbtn = findViewById(R.id.textView2);
         loginbtn = findViewById(R.id.button);
+
+        mauth = FirebaseAuth.getInstance();
 
         registerbtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -123,7 +133,7 @@ public class PLoginActivity extends AppCompatActivity {
     private void ProviderLogin(){
 
         rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Providers");
+
         boolean errorFlag = false;
         String inputEmail = email.getText().toString().trim();
         String inputPassword = password.getText().toString().trim();
@@ -147,58 +157,42 @@ public class PLoginActivity extends AppCompatActivity {
 
         if (errorFlag){ return;}
         else {
-            String parts[] = inputEmail.split(".com");
-            inputEmail = parts[0];
+           mauth.signInWithEmailAndPassword(inputEmail,inputPassword).addOnCompleteListener(PLoginActivity.this, new OnCompleteListener<AuthResult>() {
+               @Override
+               public void onComplete(@NonNull Task<AuthResult> task) {
+                   if (task.isSuccessful()){ //email and passowrd found
+                       userID = task.getResult().getUser().getUid();
+                       mauth.updateCurrentUser(task.getResult().getUser());
+                       reference = rootNode.getReference().child("Providers");
+                       Query checkuser = reference.orderByChild("userID").equalTo(userID);
+                       checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(@NonNull DataSnapshot snapshot) {
+                               if (snapshot.exists()){ //email and password found in Provider database
+                                   String text = inputEmail;
+                                   Intent intent = new Intent(PLoginActivity.this,ProviderHomeActivity.class);
+                                   intent.putExtra("provider email", text);
+                                   startActivity(intent);
+                                   finish();
+                               }
+                               else{
+                                   Toast.makeText(PLoginActivity.this,"User not registered",Toast.LENGTH_LONG).show();
 
-            Query checkUser = reference.orderByChild("email").equalTo(inputEmail + ".com");
+                               }
+                           }
 
-            String finalInputEmail = inputEmail;
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        email.setError(null);
+                           @Override
+                           public void onCancelled(@NonNull DatabaseError error) {
 
-                        String userPassword = dataSnapshot.child(finalInputEmail).child("password").getValue(String.class);
-                        if (userPassword.equals(inputPassword)) {
-                            password.setError(null);
-                            /*Provider p = new Provider();
-                            p.setEmail(finalInputEmail + ".com");
-                            p.setPassword(userPassword);
-                            p.setId(dataSnapshot.child(finalInputEmail).child("id").getValue(String.class));
-                            p.setUserName(dataSnapshot.child(finalInputEmail).child("userName").getValue(String.class));
-                            p.setJobDesc(dataSnapshot.child(finalInputEmail).child("jobDesc").getValue(String.class));
-                            p.setGender(dataSnapshot.child(finalInputEmail).child("gender").getValue(String.class));
-                            p.setAge(dataSnapshot.child(finalInputEmail).child("age").getValue(String.class));
-                            p.setPhoneNumber(dataSnapshot.child(finalInputEmail).child("phoneNumber").getValue(String.class));
+                           }
+                       });
+                   }
+                   else {
+                       Toast.makeText(PLoginActivity.this,"User not registered",Toast.LENGTH_LONG).show();
 
-                            getProfilePic(p);*/
-
-                            Intent intent = new Intent(PLoginActivity.this, ProviderHomeActivity.class);
-                            intent.putExtra("Provider email",finalInputEmail);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            //Toast.makeText(PLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                            password.setError("Incorrect Password");
-                            //password.setBackgroundColor(0xFFFF0000);
-                            password.setText("");
-                        }
-
-                    } else {
-                        //Toast.makeText(PLoginActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
-                        email.setError("User does not exist!");
-                        //email.setBackgroundColor(0xFFFF0000);
-                        password.setText("");
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-
-            });
+                   }
+               }
+           });
         }
     }
 }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +24,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,6 +53,11 @@ public class PRegisterActivity extends AppCompatActivity {
     private StorageReference ref;
 
     private FirebaseAuth auth;
+
+    private String userID;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +83,8 @@ public class PRegisterActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         ref = storage.getReference();
         auth = FirebaseAuth.getInstance();
+
+
 
         profilePic.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -104,10 +117,8 @@ public class PRegisterActivity extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (register()){
-                    startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
-                }
 
+               register();
             }
         });
     }
@@ -132,7 +143,7 @@ public class PRegisterActivity extends AppCompatActivity {
 
     private void uploadPic() {
 
-        StorageReference riversRef = ref.child("images/"+id.getText().toString().trim()+".jpg");
+        StorageReference riversRef = ref.child("images/"+userID);
 
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -152,7 +163,7 @@ public class PRegisterActivity extends AppCompatActivity {
 
 
 
-    private boolean register() {
+    private void register() {
         String Id = id.getText().toString().trim();
         String UserName = userName.getText().toString().trim();
         String JobDesc = jobDesc.getText().toString().trim();
@@ -218,13 +229,16 @@ public class PRegisterActivity extends AppCompatActivity {
             email.setError("*");
             errorFlag = true;
         }
-        if (!Email.contains("@") || !Email.contains(".com")){
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()){
             email.setError("wrong format");
             errorFlag = true;
         }
         if (TextUtils.isEmpty(Password)) {
             password.setError("*");
             errorFlag = true;
+        }
+        if (Password.length()<6){
+            password.setError("password must be more than 6 characters");
         }
         if (TextUtils.isEmpty(ConPassword)) {
             confirmPassword.setError("*");
@@ -243,59 +257,82 @@ public class PRegisterActivity extends AppCompatActivity {
         }
 
         if (errorFlag) {
-
-            return false;
+            return;
         } else {
             rootNode = FirebaseDatabase.getInstance();
-            reference = rootNode.getReference().child("Providers");
+
             Provider p = new Provider(UserName,JobDesc,Gender,Age.toString(),Id,PhoneNumber,Email,Password);
-            try {
-                String[] parts = Email.split(".com", 2);
-                String uniqueEmail = parts[0];
-                reference.child(uniqueEmail).setValue(p);
-            } catch (Exception e) {
-                System.out.println("email not split");
-            }
-            uploadPic();
 
-            auth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.fetchSignInMethodsForEmail(p.getEmail()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {  //Checking id email already exists or not
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if(task.isSuccessful())
-                    {
-
-                    }
-
-                    else
-                    {
-
-                        auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(PRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                    boolean check = !task.getResult().getSignInMethods().isEmpty();
+                    if (!check){ //email not found
+                        auth.createUserWithEmailAndPassword(p.getEmail(),p.getPassword()).addOnCompleteListener(PRegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(PRegisterActivity.this,"Registration successful",Toast.LENGTH_SHORT).show();
+                                    userID = auth.getCurrentUser().getUid();
+                                    auth.updateCurrentUser(task.getResult().getUser());
+                                    p.setUserID(userID);
 
-                                if(!task.isSuccessful())
-                                {
-                                    Toast.makeText(PRegisterActivity.this, "Sign in Auth FAIL", Toast.LENGTH_SHORT).show();
+                                    reference = rootNode.getReference().child("Providers");
+                                    reference.child(userID).setValue(p);
 
-                                }
-
-                                else
-                                {
-                                    Toast.makeText(PRegisterActivity.this, "Sign in Auth SUCCESS", Toast.LENGTH_SHORT).show();
-
-                                }
-
+                                    uploadPic();
+                                    startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
+                                    finish();                                }
                             }
                         });
 
                     }
+                    else{ //email already exists
+                        Toast.makeText(PRegisterActivity.this,"Email already exists",Toast.LENGTH_SHORT).show();
+                        auth.signInWithEmailAndPassword(p.getEmail(),p.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){  //if user registered with the same email and password
+                                    userID = task.getResult().getUser().getUid();
+                                    auth.updateCurrentUser(task.getResult().getUser());
+                                    p.setUserID(userID);
+                                    reference = rootNode.getReference().child("Providers");
+                                    Query checkuser = reference.orderByChild("userID").equalTo(userID);
+                                    checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()){
+                                                Toast.makeText(PRegisterActivity.this,"User already registered as a Provider",Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+                                                reference.child(userID).setValue(p);
 
+                                                //uploadPic();  upload function commented because user has same id therefore same picture //TBD
+                                                startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
+                                                finish();
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                                }
+                                else{ // if user registered with same email but different password
+                                    Toast.makeText(PRegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                    //registerSuccess = false;
+                                }
+                            }
+                        });
+
+                    }
                 }
             });
 
-
-            return true;
         }
+
     }
 }
