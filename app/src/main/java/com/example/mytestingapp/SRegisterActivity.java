@@ -320,7 +320,8 @@ public class SRegisterActivity extends AppCompatActivity {
 
                                 }
                                 else{ // if user registered with same email but different password
-                                    Toast.makeText(SRegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(SRegisterActivity.this,"The email address you entered is associated with a different password. Change the email address or enter the same password.",Toast.LENGTH_LONG).show();
                                     //registerSuccess = false;
                                 }
                             }

@@ -288,7 +288,7 @@ public class PRegisterActivity extends AppCompatActivity {
 
                     }
                     else{ //email already exists
-                        Toast.makeText(PRegisterActivity.this,"Email already exists",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(PRegisterActivity.this,"Email already exists",Toast.LENGTH_SHORT).show();
                         auth.signInWithEmailAndPassword(p.getEmail(),p.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -322,7 +322,7 @@ public class PRegisterActivity extends AppCompatActivity {
 
                                 }
                                 else{ // if user registered with same email but different password
-                                    Toast.makeText(PRegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                    Toast.makeText(PRegisterActivity.this,"The email address you entered is associated with a different password. Change the email address or enter the same password.",Toast.LENGTH_LONG).show();
                                     //registerSuccess = false;
                                 }
                             }
