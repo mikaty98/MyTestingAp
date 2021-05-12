@@ -17,6 +17,7 @@ import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +46,8 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
+
+    private String userID;
     
 
 
@@ -55,10 +58,10 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getProfilePic(){
-        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+provider.getId()+".jpg");
+        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+userID);
         final Bitmap[] bitmap = new Bitmap[1];
         try{
-            File localfile = File.createTempFile( provider.getId(),".jpg");
+            File localfile = File.createTempFile(userID,".jpg");
             storageReference.getFile(localfile)
                     .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
@@ -103,26 +106,28 @@ public class ProfileFragment extends Fragment {
         phoneNumber = view.findViewById(R.id.phone_number);
         profilePic = view.findViewById(R.id.profilePic);
 
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         if (getArguments() != null){
             providerEmail = getArguments().getString("provider email");
         }
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Providers");
 
-        Query checkUser = reference.orderByChild("email").equalTo(providerEmail + ".com");
+        Query checkUser = reference.orderByChild("userID").equalTo(userID);
         
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    provider.setEmail(providerEmail + ".com");
-                    provider.setPassword(snapshot.child(providerEmail).child("password").getValue(String.class));
-                    provider.setId(snapshot.child(providerEmail).child("id").getValue(String.class));
-                    provider.setUserName(snapshot.child(providerEmail).child("userName").getValue(String.class));
-                    provider.setJobDesc(snapshot.child(providerEmail).child("jobDesc").getValue(String.class));
-                    provider.setGender(snapshot.child(providerEmail).child("gender").getValue(String.class));
-                    provider.setAge(snapshot.child(providerEmail).child("age").getValue(String.class));
-                    provider.setPhoneNumber(snapshot.child(providerEmail).child("phoneNumber").getValue(String.class));
+                    provider.setEmail(snapshot.child(userID).child("email").getValue(String.class));
+                    provider.setPassword(snapshot.child(userID).child("password").getValue(String.class));
+                    provider.setId(snapshot.child(userID).child("id").getValue(String.class));
+                    provider.setUserName(snapshot.child(userID).child("userName").getValue(String.class));
+                    provider.setJobDesc(snapshot.child(userID).child("jobDesc").getValue(String.class));
+                    provider.setGender(snapshot.child(userID).child("gender").getValue(String.class));
+                    provider.setAge(snapshot.child(userID).child("age").getValue(String.class));
+                    provider.setPhoneNumber(snapshot.child(userID).child("phoneNumber").getValue(String.class));
                     getProfilePic();
 
                     username.setText(provider.getUserName());

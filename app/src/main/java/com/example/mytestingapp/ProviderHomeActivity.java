@@ -10,6 +10,8 @@ import android.widget.Adapter;
 import com.example.mytestingapp.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProviderHomeActivity extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class ProviderHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_home);
 
-        String providerEmail = getIntent().getStringExtra("provider email");
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         TabLayout tabLayout = findViewById(R.id.tabBar);
         TabItem exploreTab = findViewById(R.id.exploreTab);
@@ -27,7 +29,7 @@ public class ProviderHomeActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
 
         SectionsPagerAdapter sectionsPagerAdapter = new
-                SectionsPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),providerEmail);
+                SectionsPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),userID);
 
         viewPager.setAdapter(sectionsPagerAdapter);
 

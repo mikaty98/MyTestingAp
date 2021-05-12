@@ -19,24 +19,23 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 
     private int numOfTabs;
-    private String p;
+    private String userID;
     private FragmentManager fragmentManager;
 
 
 
 
-    public SectionsPagerAdapter(FragmentManager fm,int num,String providerEmail) {
+    public SectionsPagerAdapter(FragmentManager fm,int num,String userID) {
         super(fm);
         fragmentManager = fm;
         numOfTabs = num;
-        p = providerEmail;
+        this.userID = userID;
     }
 
     @Override
     public Fragment getItem(int position) {
 
         Bundle args = new Bundle();
-        args.putString("provider email",p);
         switch (position){
             case 0:
                 ExploreFragment exploreFragment = new ExploreFragment();

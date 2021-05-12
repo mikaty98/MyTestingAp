@@ -97,6 +97,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
                 Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
                 intent2.putExtra("seeker email", SeekerEmail);
                 startActivity(intent2);
+                finish();
             }
         });
 

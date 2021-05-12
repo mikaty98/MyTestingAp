@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,7 +28,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private EditText priceValue, estimatedArrivalTime, estimatedCompletionTime;
 
-    private String providerEmail;
+    private String userID;
 
 
     private DatabaseReference reference;
@@ -73,7 +74,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         apartmentNumber.setText(localRequest.getApartmentNumber());
         seekerEmail.setText(localRequest.getSeekerEmail());
 
-        providerEmail = getIntent().getStringExtra("Provider email");
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,12 +113,12 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 }
 
 
-                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerEmail+".com");
+                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, userID);
 
                 String temp[] = localRequest.getSeekerEmail().split(".com");
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
-                reference.child(temp[0]).child(providerEmail).setValue(localRequestApplicant);
+                reference.child(temp[0]).child(userID).setValue(localRequestApplicant);
 
                 finish();
 

@@ -3,25 +3,25 @@ package com.example.mytestingapp.Classes;
 public class LocalRequestApplicant {
     private int priceValue, EstimatedArrivalTime;
     private int EstimatedCompletionTime;
-    private String providerEmail;
+    private String userID;
 
-    public LocalRequestApplicant(int priceValue, int EstimatedArrivalTime, int EstimatedCompletionTime,String providerEmail) {
+    public LocalRequestApplicant(int priceValue, int EstimatedArrivalTime, int EstimatedCompletionTime,String userID) {
 
         this.priceValue = priceValue;
         this.EstimatedArrivalTime = EstimatedArrivalTime;
         this.EstimatedCompletionTime = EstimatedCompletionTime;
-        this.providerEmail = providerEmail;
+        this.userID = userID;
     }
 
     public LocalRequestApplicant() {
     }
 
     public String getProviderEmail() {
-        return providerEmail;
+        return userID;
     }
 
     public void setProviderEmail(String providerEmail) {
-        this.providerEmail = providerEmail;
+        this.userID = providerEmail;
     }
 
     public int getPriceValue() {
