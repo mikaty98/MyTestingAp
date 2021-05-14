@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,13 +41,49 @@ public class PLoginActivity extends AppCompatActivity {
     private Button loginbtn;
 
     private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Providers");
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private FirebaseAuth mauth;
 
     private String userID;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mauth.getCurrentUser();
+        if (user!=null){
+            userID = user.getUid();
+            Query checkuser = reference.orderByChild("userID").equalTo(userID);
+            checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        String email = snapshot.child(userID).child("email").getValue(String.class);
+                        Intent intent = new Intent(PLoginActivity.this,ProviderHomeActivity.class);
+                        intent.putExtra("provider email", email);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        //user must log in
+                        mauth.signOut();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else{
+            //user must log in
+            mauth.signOut();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

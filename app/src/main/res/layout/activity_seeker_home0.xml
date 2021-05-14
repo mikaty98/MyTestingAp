@@ -9,16 +9,22 @@
     android:layout_height="match_parent"
     tools:context=".SeekerHome">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/welcomeUser">
+
+            </TextView>
 
 
 
@@ -40,12 +46,20 @@
                 android:id="@+id/waiting"
                 />
 
-
+            <Button
+                android:id="@+id/signOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Sign out"
+                android:textAppearance="?android:textAppearanceMedium" />
 
 
         </LinearLayout>
 
 
-    </ScrollView>
+
+
+
 
 </LinearLayout>

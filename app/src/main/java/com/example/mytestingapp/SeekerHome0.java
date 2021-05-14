@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Seeker;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 public class SeekerHome0 extends AppCompatActivity {
 
     private Button service;
-    private Button waiting;
+    private Button waiting,signOut;
+    private TextView welcomeUser;
 
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
@@ -33,9 +36,13 @@ public class SeekerHome0 extends AppCompatActivity {
 
         service = findViewById(R.id.service);
         waiting = findViewById(R.id.waiting);
+        welcomeUser = findViewById(R.id.welcomeUser);
+        signOut = findViewById(R.id.signOut);
 
         Intent intent = getIntent();
         String text = intent.getStringExtra("seeker email");
+
+        welcomeUser.setText("Welcome "+ text);
 
 
 
@@ -127,6 +134,15 @@ public class SeekerHome0 extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(SeekerHome0.this,SLoginActivity.class));
+                finish();
             }
         });
 
