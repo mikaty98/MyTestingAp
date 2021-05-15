@@ -55,6 +55,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
         Intent intent = getIntent();
         String providerEmail = intent.getStringExtra("provider email");
         String seekerEmail = intent.getStringExtra("seeker email");
+        String userID = intent.getStringExtra("userID");
 
         int estimatedArrivaltime = intent.getIntExtra("estimatedArrivalTime", 1);
         int estimatedCompletionTime = intent.getIntExtra("estimatedCompletionTime", 1);
@@ -82,7 +83,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Providers");
 
-        Query checkUser = reference.orderByChild("email").equalTo(providerEmail);
+        Query checkUser = reference.orderByChild("userID").equalTo(userID);
 
 
 
@@ -90,16 +91,16 @@ public class ChosenProviderProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    provider.setEmail(trimmedEmail);
-                    provider.setId(snapshot.child(trimmedEmail).child("id").getValue(String.class));
-                    provider.setUserName(snapshot.child(trimmedEmail).child("userName").getValue(String.class));
-                    provider.setJobDesc(snapshot.child(trimmedEmail).child("jobDesc").getValue(String.class));
-                    provider.setGender(snapshot.child(trimmedEmail).child("gender").getValue(String.class));
-                    provider.setAge(snapshot.child(trimmedEmail).child("age").getValue(String.class));
-                    provider.setPhoneNumber(snapshot.child(trimmedEmail).child("phoneNumber").getValue(String.class));
+                    provider.setEmail(snapshot.child(userID).child("email").getValue().toString());
+                    provider.setId(snapshot.child(userID).child("id").getValue(String.class));
+                    provider.setUserName(snapshot.child(userID).child("userName").getValue(String.class));
+                    provider.setJobDesc(snapshot.child(userID).child("jobDesc").getValue(String.class));
+                    provider.setGender(snapshot.child(userID).child("gender").getValue(String.class));
+                    provider.setAge(snapshot.child(userID).child("age").getValue(String.class));
+                    provider.setPhoneNumber(snapshot.child(userID).child("phoneNumber").getValue(String.class));
 
 
-                    storageReference = FirebaseStorage.getInstance().getReference().child("images/"+provider.getId()+".jpg");
+                    storageReference = FirebaseStorage.getInstance().getReference().child("images/"+userID);
                     final Bitmap[] bitmap = new Bitmap[1];
                     try{
                         File localfile = File.createTempFile( provider.getId(),".jpg");

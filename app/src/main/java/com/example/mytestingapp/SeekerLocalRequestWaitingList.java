@@ -92,6 +92,7 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
                 int estimatedArrivalTime = localRequestApplicantList.get(position).getEstimatedArrivalTime();
                 int estimatedCompletionTime = localRequestApplicantList.get(position).getEstimatedCompletionTime();
                 int price = localRequestApplicantList.get(position).getPriceValue();
+                String userID = localRequestApplicantList.get(position).getUserID();
 
 
 
@@ -101,6 +102,7 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
                 intent2.putExtra("estimatedCompletionTime", estimatedCompletionTime);
                 intent2.putExtra("price", price);
                 intent2.putExtra("seeker email", seekerEmail);
+                intent2.putExtra("userID",userID);
                 startActivity(intent2);
 
 

@@ -3,25 +3,17 @@ package com.example.mytestingapp.Classes;
 public class LocalRequestApplicant {
     private int priceValue, EstimatedArrivalTime;
     private int EstimatedCompletionTime;
-    private String userID;
-
-    public LocalRequestApplicant(int priceValue, int EstimatedArrivalTime, int EstimatedCompletionTime,String userID) {
-
-        this.priceValue = priceValue;
-        this.EstimatedArrivalTime = EstimatedArrivalTime;
-        this.EstimatedCompletionTime = EstimatedCompletionTime;
-        this.userID = userID;
-    }
+    private String userID,providerEmail;
 
     public LocalRequestApplicant() {
     }
 
-    public String getProviderEmail() {
-        return userID;
-    }
-
-    public void setProviderEmail(String providerEmail) {
-        this.userID = providerEmail;
+    public LocalRequestApplicant(int priceValue, int estimatedArrivalTime, int estimatedCompletionTime, String userID, String providerEmail) {
+        this.priceValue = priceValue;
+        EstimatedArrivalTime = estimatedArrivalTime;
+        EstimatedCompletionTime = estimatedCompletionTime;
+        this.userID = userID;
+        this.providerEmail = providerEmail;
     }
 
     public int getPriceValue() {
@@ -36,15 +28,31 @@ public class LocalRequestApplicant {
         return EstimatedArrivalTime;
     }
 
-    public void setEstimatedArrivalTime(int maxPriceRange) {
-        this.EstimatedArrivalTime = maxPriceRange;
+    public void setEstimatedArrivalTime(int estimatedArrivalTime) {
+        EstimatedArrivalTime = estimatedArrivalTime;
     }
 
     public int getEstimatedCompletionTime() {
         return EstimatedCompletionTime;
     }
 
-    public void setEstimatedCompletionTime(int EstimatedCompletionTime) {
-        this.EstimatedCompletionTime = EstimatedCompletionTime;
+    public void setEstimatedCompletionTime(int estimatedCompletionTime) {
+        EstimatedCompletionTime = estimatedCompletionTime;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getProviderEmail() {
+        return providerEmail;
+    }
+
+    public void setProviderEmail(String providerEmail) {
+        this.providerEmail = providerEmail;
     }
 }

@@ -142,7 +142,6 @@ public class ExploreFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), LocalRequestInfoActivity.class);
                 intent.putExtra("Request info", localRequestList.get(position));
-                intent.putExtra("Provider email",providerEmail);
                 startActivity(intent);
             }
         });
