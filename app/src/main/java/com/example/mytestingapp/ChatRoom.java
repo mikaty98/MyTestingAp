@@ -2,14 +2,18 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.mytestingapp.Classes.Provider;
@@ -27,11 +31,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.util.HashMap;
 
 public class ChatRoom extends AppCompatActivity {
 
     TextView username;
     ImageView imageView;
+
+    EditText msg_text;
+    RecyclerView recyclerView;
+    ImageButton SendBtn;
+
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -51,6 +61,9 @@ public class ChatRoom extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
 
         storage = FirebaseStorage.getInstance();
+
+        SendBtn = findViewById(R.id.btn_send);
+        msg_text = findViewById(R.id.text_send);
 
 
 
@@ -118,9 +131,45 @@ public class ChatRoom extends AppCompatActivity {
 
             }
         });
+
+        SendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String msg = msg_text.getText().toString();
+
+                if(!msg.equals(""))
+                {
+                    sendMessage(firebaseUser.getUid(), providerId, msg);
+                }
+                else
+                {
+                    Toast.makeText(ChatRoom.this, "You can't send an empty message!", Toast.LENGTH_SHORT).show();
+                }
+
+                msg_text.setText("");
+            }
+        });
+
+
+
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
+
+    private void sendMessage(String sender, String receiver, String message)
+    {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", sender);
+        hashMap.put("receiver", receiver);
+        hashMap.put("message", message);
+
+        reference.child("Chats").push().setValue(hashMap);
+
+
+
 
     }
+
+
 }
