@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestingApp">
+        <activity android:name=".ChatRoom"></activity>
         <activity android:name=".ChosenProviderProfile" />
         <activity android:name=".SeekerHome0" />
         <activity android:name=".SeekerLocalRequestAutoMap" />
