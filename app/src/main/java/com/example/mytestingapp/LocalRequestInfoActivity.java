@@ -141,6 +141,12 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
                 reference.child(temp[0]).child(userID).setValue(localRequestApplicant);
 
+                String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
+
+                //Intent intent = new Intent(LocalRequestInfoActivity.this, ChatRoom.class);
+                //intent.putExtra("receiver id", one);
+                //startActivity(intent);
+
                 finish();
 
 

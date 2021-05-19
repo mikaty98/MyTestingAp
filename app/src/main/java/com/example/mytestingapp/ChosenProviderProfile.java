@@ -177,7 +177,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         sendNotifications(userToken,"Accepted",seekerEmail+" has accepted your proposal!");
 
                         Intent intent = new Intent(ChosenProviderProfile.this, ChatRoom.class);
-                        intent.putExtra("provider id", providerUserID);
+                        intent.putExtra("receiver id", providerUserID);
                         startActivity(intent);
 
                     }
