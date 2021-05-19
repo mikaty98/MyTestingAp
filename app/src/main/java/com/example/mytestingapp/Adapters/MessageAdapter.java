@@ -1,26 +1,21 @@
-package com.example.mytestingapp;
+package com.example.mytestingapp.Adapters;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.mytestingapp.Adapters.MessageAdapter;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mytestingapp.Classes.Chats;
 import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.Seeker;
+import com.example.mytestingapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,79 +30,67 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatRoom extends AppCompatActivity {
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
 
-    TextView username;
-    ImageView imageView;
 
-    EditText msg_text;
-    RecyclerView recyclerView;
-    ImageButton SendBtn;
-    int flag = 0;
-
+    Context context;
+    List<Chats> chatslist;
+    String receiverId;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     DatabaseReference reference1;
-    Intent intent;
+    int flag = 0;
+    ImageView imageView;
+
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
-
-    List<Chats> chatsList;
-    MessageAdapter messageAdapter;
-
+    public static final int MESSAGE_RIGHT = 0;
+    public static final int MESSAGE_LEFT = 1;
 
 
 
+    public MessageAdapter(Context context, List<Chats> chatslist, String receiverId)
+    {
+        this.context = context;
+        this.chatslist = chatslist;
+        this.receiverId = receiverId;
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
+
+        if (viewType == MESSAGE_RIGHT)
+        {
+
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_right, parent, false);
+            return new MyViewHolder(view);
 
 
+        }
+        else
+        {
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false);
+            return new MyViewHolder(view);
+        }
 
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_room);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
+    {
 
-        storage = FirebaseStorage.getInstance();
+        Chats chats  = chatslist.get(position);
 
-        SendBtn = findViewById(R.id.btn_send);
-        msg_text = findViewById(R.id.text_send);
-
-
-
-        imageView = findViewById(R.id.imageview_profile);
-        username = findViewById(R.id.username1);
-
-       // Toolbar toolbar = findViewById(R.id.toolbar2);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-           // @Override
-          //  public void onClick(View v) {
-            //    finish();
-            //}
-        //});
-
-        recyclerView = findViewById(R.id.recyclerview_messages);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-
-
-
-
-        intent = getIntent();
-        String receiverId = intent.getStringExtra("receiver id");
+        holder.messagetext.setText(chats.getMessage());
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -123,7 +106,6 @@ public class ChatRoom extends AppCompatActivity {
                     flag = 1;
 
                     Provider provider = snapshot.getValue(Provider.class);
-                    username.setText(provider.getUserName());
 
                     storageReference = FirebaseStorage.getInstance().getReference().child("images/"+receiverId);
                     final Bitmap[] bitmap = new Bitmap[1];
@@ -134,14 +116,14 @@ public class ChatRoom extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                         bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                                        imageView.setImageBitmap(bitmap[0]);
+                                        holder.imageView.setImageBitmap(bitmap[0]);
                                         provider.setImageBitmap(bitmap[0]);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
-                                imageView.setImageBitmap(bitmap[0]);
+                                holder.imageView.setImageBitmap(bitmap[0]);
                                 provider.setImageBitmap(bitmap[0]);
                             }
                         });
@@ -149,14 +131,12 @@ public class ChatRoom extends AppCompatActivity {
                     }
                     catch (Exception e){
                         bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
-                        imageView.setImageBitmap(bitmap[0]);
+                        holder.imageView.setImageBitmap(bitmap[0]);
                         provider.setImageBitmap(bitmap[0]);
                     }
 
-                    imageView.setImageBitmap(provider.getImageBitmap());
+                    holder.imageView.setImageBitmap(provider.getImageBitmap());
 
-
-                    readMessages(receiverId);
 
 
                 }
@@ -172,6 +152,9 @@ public class ChatRoom extends AppCompatActivity {
             }
         });
 
+
+
+
         if (flag == 0)
         {
 
@@ -186,7 +169,6 @@ public class ChatRoom extends AppCompatActivity {
                     {
 
                         Seeker seeker = snapshot.getValue(Seeker.class);
-                        username.setText(seeker.getUserName());
 
                         storageReference = FirebaseStorage.getInstance().getReference().child("images/"+receiverId);
                         final Bitmap[] bitmap = new Bitmap[1];
@@ -197,7 +179,7 @@ public class ChatRoom extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                             bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                                            imageView.setImageBitmap(bitmap[0]);
+                                            holder.imageView.setImageBitmap(bitmap[0]);
                                             seeker.setImageBitmap(bitmap[0]);
 
                                         }
@@ -205,7 +187,7 @@ public class ChatRoom extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
-                                    imageView.setImageBitmap(bitmap[0]);
+                                    holder.imageView.setImageBitmap(bitmap[0]);
                                     seeker.setImageBitmap(bitmap[0]);
                                 }
                             });
@@ -213,13 +195,12 @@ public class ChatRoom extends AppCompatActivity {
                         }
                         catch (Exception e){
                             bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
-                            imageView.setImageBitmap(bitmap[0]);
+                            holder.imageView.setImageBitmap(bitmap[0]);
                             seeker.setImageBitmap(bitmap[0]);
                         }
 
-                        imageView.setImageBitmap(seeker.getImageBitmap());
+                        holder.imageView.setImageBitmap(seeker.getImageBitmap());
 
-                        readMessages(receiverId);
 
 
                     }
@@ -241,91 +222,46 @@ public class ChatRoom extends AppCompatActivity {
 
 
 
-        SendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = msg_text.getText().toString();
-
-                if(!msg.equals(""))
-                {
-                    sendMessage(firebaseUser.getUid(), receiverId, msg);
-                }
-                else
-                {
-                    Toast.makeText(ChatRoom.this, "You can't send an empty message!", Toast.LENGTH_SHORT).show();
-                }
-
-                msg_text.setText("");
-            }
-        });
-
-
-
-
     }
 
-    private void readMessages(String receiverId)
+    @Override
+    public int getItemCount()
     {
-         chatsList = new ArrayList<>();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
-
-
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-
-                if(snapshot.exists())
-                {
-                    chatsList.clear();
-
-                    for (DataSnapshot ds: snapshot.getChildren())
-                    {
-
-                        Chats chats = ds.getValue(Chats.class);
-
-                        if (chats.getSender().equals(firebaseUser.getUid()) && chats.getReceiver().equals(receiverId) ||
-                               chats.getSender().equals(receiverId) && chats.getReceiver().equals(firebaseUser.getUid()))
-                        {
-                            chatsList.add(chats);
-                        }
-
-                        messageAdapter = new MessageAdapter(ChatRoom.this, chatsList, receiverId);
-
-                        recyclerView.setAdapter(messageAdapter);
-                    }
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        return chatslist.size();
     }
 
-
-    private void sendMessage(String sender, String receiver, String message)
+    class MyViewHolder extends RecyclerView.ViewHolder
     {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("sender", sender);
-        hashMap.put("receiver", receiver);
-        hashMap.put("message", message);
+        TextView messagetext;
+        CircleImageView imageView;
 
-        reference.child("Chats").push().setValue(hashMap);
+        public MyViewHolder(@NonNull View itemView)
+        {
+            super(itemView);
 
-
-
-
+            messagetext = itemView.findViewById(R.id.show_message);
+            imageView = itemView.findViewById(R.id.profile_image);
+        }
     }
 
+    @Override
+    public int getItemViewType(int position)
+    {
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        assert user != null;
+
+        if (chatslist.get(position).getSender().equals(user.getUid()))
+        {
+            return MESSAGE_RIGHT;
+        }
+        else
+        {
+            return MESSAGE_LEFT;
+
+        }
+
+    }
 }

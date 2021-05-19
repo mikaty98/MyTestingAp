@@ -41,24 +41,22 @@
             android:background="@drawable/ic_image" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recyclerview_messages"
             android:layout_width="wrap_content"
-            android:layout_height="238dp"
-            android:layout_marginTop="70dp"
-            android:visibility="visible"
-            tools:ignore="MissingConstraints" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:visibility="visible" />
 
         <androidx.appcompat.widget.Toolbar
 
             android:id="@+id/toolbar2"
-            android:layout_width="406dp"
-            android:layout_height="wrap_content"
+            android:layout_width="400dp"
+            android:layout_height="1000dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="526dp"
+            android:layout_marginBottom="580dp"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            tools:ignore="MissingConstraints">
+            android:theme="?attr/actionBarTheme">
 
             <ImageView
                 android:id="@+id/imageview_profile"
