@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mytestingapp.ChatRoom;
+import com.example.mytestingapp.ChatRoomFragment;
 import com.example.mytestingapp.Classes.Chats;
 import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.Seeker;
@@ -37,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
 
 
-    Context context;
+    ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
     List<Chats> chatslist;
     String receiverId;
 
@@ -56,9 +58,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
 
 
-    public MessageAdapter(Context context, List<Chats> chatslist, String receiverId)
+    public MessageAdapter(ChatRoomFragment chatRoomFragment, List<Chats> chatslist, String receiverId)
     {
-        this.context = context;
+        this.chatRoomFragment = chatRoomFragment;
         this.chatslist = chatslist;
         this.receiverId = receiverId;
     }
@@ -71,14 +73,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         if (viewType == MESSAGE_RIGHT)
         {
 
-            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_right, parent, false);
+            View view = LayoutInflater.from(chatRoomFragment.getContext()).inflate(R.layout.chat_item_right, parent, false);
             return new MyViewHolder(view);
 
 
         }
         else
         {
-            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false);
+            View view = LayoutInflater.from(chatRoomFragment.getContext()).inflate(R.layout.chat_item_left, parent, false);
             return new MyViewHolder(view);
         }
 

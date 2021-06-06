@@ -176,7 +176,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         String userToken= snapshot.getValue(String.class);
                         sendNotifications(userToken,"Accepted",seekerEmail+" has accepted your proposal!");
 
-                        Intent intent = new Intent(ChosenProviderProfile.this, ChatRoom.class);
+                        Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
                         intent.putExtra("receiver id", providerUserID);
                         startActivity(intent);
 
