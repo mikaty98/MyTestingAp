@@ -130,7 +130,7 @@ public class ChatRoomFragment extends Fragment {
 
 
         LocalRequestEnd1 localRequestEnd1 = (LocalRequestEnd1) getActivity();
-        receiverId = localRequestEnd1.getMyData();
+        receiverId = localRequestEnd1.getReceiverId();
 
         storage = FirebaseStorage.getInstance();
 

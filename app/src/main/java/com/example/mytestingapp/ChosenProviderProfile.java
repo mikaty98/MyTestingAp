@@ -73,9 +73,9 @@ public class ChosenProviderProfile extends AppCompatActivity {
         String seekerEmail = intent.getStringExtra("seeker email");
         String providerUserID = intent.getStringExtra("userID");
 
-        int estimatedArrivaltime = intent.getIntExtra("estimatedArrivalTime", 1);
-        int estimatedCompletionTime = intent.getIntExtra("estimatedCompletionTime", 1);
-        int price = intent.getIntExtra("price", 1);
+        int estimatedArrivaltime = intent.getIntExtra("estimatedArrivalTime", 0);
+        int estimatedCompletionTime = intent.getIntExtra("estimatedCompletionTime", 0);
+        int price = intent.getIntExtra("price", 0);
 
 
 
@@ -178,6 +178,9 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
                         Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
                         intent.putExtra("receiver id", providerUserID);
+                        intent.putExtra("arrival time", estimatedArrivaltime);
+                        intent.putExtra("completion time", estimatedCompletionTime);
+                        intent.putExtra("price", price);
                         startActivity(intent);
 
                     }

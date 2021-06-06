@@ -21,6 +21,7 @@ public class LocalRequestEnd1 extends AppCompatActivity {
     FragmentAdapter adapter;
     Intent intent;
     String receiverId;
+    int arrivalTime, completionTime, price;
 
 
     @Override
@@ -31,6 +32,10 @@ public class LocalRequestEnd1 extends AppCompatActivity {
 
         intent = getIntent();
         receiverId = intent.getStringExtra("receiver id");
+        arrivalTime = intent.getIntExtra("arrival time", 0);
+        completionTime = intent.getIntExtra("completion time", 0);
+        price = intent.getIntExtra("price", 0);
+
 
 
 
@@ -73,8 +78,24 @@ public class LocalRequestEnd1 extends AppCompatActivity {
 
     }
 
-    public String getMyData()
+    public String getReceiverId()
     {
         return receiverId;
     }
+
+    public int getArrivalTime()
+    {
+        return arrivalTime;
+    }
+
+    public int getCompletionTime()
+    {
+        return completionTime;
+    }
+
+    public int getPrice()
+    {
+        return price;
+    }
+
 }
