@@ -143,7 +143,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
                 //String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
 
-                //Intent intent = new Intent(LocalRequestInfoActivity.this, ChatRoom.class);
+                //Intent intent = new Intent(LocalRequestInfoActivity.this, LocalRequestEnd1.class);
                 //intent.putExtra("receiver id", one);
                 //startActivity(intent);
 
