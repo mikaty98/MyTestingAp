@@ -122,10 +122,15 @@ public class StopWatchFragment extends Fragment {
 
         note.setText("Note: Each 3 minute-period after the arrival time will deduct 1 EGP from the price to be paid by the seeker to the provider");
 
+        if(userType.equals("seeker"))
+        {
+            hiddenLayout.setVisibility(View.VISIBLE);
+        }
+
 
         long duration = TimeUnit.MINUTES.toMillis(arrivalTime);
 
-        new CountDownTimer(duration, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(duration, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 long secondsInMilli = 1000;
@@ -141,19 +146,11 @@ public class StopWatchFragment extends Fragment {
                 textView.setText(yy);
 
 
-
-
             }
 
             public void onFinish() {
 
-
-                if(userType.equals("seeker"))
-                {
-                    hiddenLayout.setVisibility(View.VISIBLE);
-                }
-
-                textView.setText("00:00:00");
+                textView.setText("00:00");
 
                 timer.setBase(SystemClock.elapsedRealtime());
                 timer.start();
@@ -167,6 +164,11 @@ public class StopWatchFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+
+                textView.setText("00:00");
+
+                countDownTimer.cancel();
+
                 timer.stop();
 
                 passedTime = Long.MIN_VALUE;

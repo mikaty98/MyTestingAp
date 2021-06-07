@@ -45,6 +45,9 @@ public class LocalRequestEnd2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_request_end2);
 
+
+        setTitle("Completion Time Tracking");
+
         intent = getIntent();
         completionTime = intent.getIntExtra("completion time", 0);
         price = intent.getLongExtra("price", 0);
@@ -67,9 +70,14 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
         note.setText("Note: Each 5 minute-period after the completion time will deduct 1 EGP from the price to be paid by the seeker to the provider");
 
+        if(userType.equals("seeker"))
+        {
+            hiddenLayout.setVisibility(View.VISIBLE);
+        }
+
         long duration = TimeUnit.MINUTES.toMillis(completionTime);
 
-        new CountDownTimer(duration, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(duration, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 long secondsInMilli = 1000;
@@ -91,12 +99,7 @@ public class LocalRequestEnd2 extends AppCompatActivity {
             public void onFinish()
             {
 
-                if(userType.equals("seeker"))
-                {
-                    hiddenLayout.setVisibility(View.VISIBLE);
-                }
-
-                textView.setText("00:00:00");
+                textView.setText("00:00");
 
                 timer.setBase(SystemClock.elapsedRealtime());
                 timer.start();
@@ -109,6 +112,11 @@ public class LocalRequestEnd2 extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
+                textView.setText("00:00");
+
+                countDownTimer.cancel();
+
                 timer.stop();
 
                 passedTime = Long.MIN_VALUE;
