@@ -20,7 +20,9 @@
             android:drawableTop="@drawable/ic_timer"
             android:gravity="center"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:editable="false"
+            />
 
 
 
@@ -40,7 +42,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:editable="false"
+            />
 
 
     </LinearLayout>
@@ -58,7 +62,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:editable="false"
+            />
 
 
     </LinearLayout>
@@ -77,6 +83,7 @@
             android:id="@+id/timer"
             android:textSize="20sp"
             android:gravity="center"
+            android:editable="false"
             />
 
 
@@ -95,7 +102,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:editable="false"
+            />
 
 
 
