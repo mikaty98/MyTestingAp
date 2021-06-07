@@ -1,11 +1,13 @@
 package com.example.mytestingapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -301,7 +303,8 @@ public class ChatRoomFragment extends Fragment {
                 }
                 else
                 {
-                    //Toast.makeText(ChatRoom.this, "You can't send an empty message!", Toast.LENGTH_SHORT).show();
+                    //Context context = null;
+                    //Toast.makeText(context.getApplicationContext(), "You can't send an empty message!", Toast.LENGTH_SHORT).show();
                 }
 
                 msg_text.setText("");
@@ -314,6 +317,8 @@ public class ChatRoomFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
+
 
 
     private void readMessages(String receiverId)
@@ -376,4 +381,8 @@ public class ChatRoomFragment extends Fragment {
 
 
     }
+
+
+
+
 }

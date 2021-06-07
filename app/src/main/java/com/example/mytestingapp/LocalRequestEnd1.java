@@ -1,10 +1,12 @@
 package com.example.mytestingapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -74,6 +76,7 @@ public class LocalRequestEnd1 extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
+
             }
         });
 
@@ -102,6 +105,17 @@ public class LocalRequestEnd1 extends AppCompatActivity {
     public String getUserType()
     {
         return userType;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Alert")
+                .setMessage("Cannot leave this page until the transaction is complete.")
+                .setPositiveButton("Ok", null)
+                .show();
     }
 
 }

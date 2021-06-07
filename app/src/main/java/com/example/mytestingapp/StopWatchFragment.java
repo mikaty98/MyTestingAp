@@ -1,10 +1,12 @@
 package com.example.mytestingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -179,6 +181,28 @@ public class StopWatchFragment extends Fragment {
                 finalPricee = String.valueOf(finalPrice);
 
                 final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
+                        intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
+                        intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
+                        intent.putExtra("price", finalPrice);
+                        intent.putExtra("user type", localRequestEnd1.getUserType());
+                        startActivity(intent);
+                    }
+                }, 10000);
+
+
+
+
+
+
 
             }
         });
