@@ -42,7 +42,6 @@ public class StopWatchFragment extends Fragment {
     EditText editText, note, final_price;
     Chronometer timer;
     Long passedTime;
-    int arrive;
 
     private LinearLayout hiddenLayout;
 
@@ -100,7 +99,6 @@ public class StopWatchFragment extends Fragment {
 
         LocalRequestEnd1 localRequestEnd1 = (LocalRequestEnd1) getActivity();
 
-        arrive = 0;
 
 
         arrivalTime = localRequestEnd1.getArrivalTime();
@@ -169,7 +167,38 @@ public class StopWatchFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                arrive = 1;
+                timer.stop();
+
+                passedTime = Long.MIN_VALUE;
+
+                passedTime = SystemClock.elapsedRealtime() - timer.getBase();
+
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+
+                long deductedMoney = minutes / 3;
+
+                finalPrice = finalPrice - deductedMoney;
+
+                finalPricee = String.valueOf(finalPrice);
+
+                final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
+                        intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
+                        intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
+                        intent.putExtra("price", finalPrice);
+                        intent.putExtra("user type", localRequestEnd1.getUserType());
+                        startActivity(intent);
+                    }
+                }, 10000);
+
             }
 
 
@@ -178,37 +207,7 @@ public class StopWatchFragment extends Fragment {
 
 
 
-        timer.stop();
 
-        passedTime = Long.MIN_VALUE;
-
-        passedTime = SystemClock.elapsedRealtime() - timer.getBase();
-
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
-
-        long deductedMoney = minutes / 3;
-
-        finalPrice = finalPrice - deductedMoney;
-
-        finalPricee = String.valueOf(finalPrice);
-
-        final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
-
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
-                intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
-                intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
-                intent.putExtra("price", finalPrice);
-                intent.putExtra("user type", localRequestEnd1.getUserType());
-                startActivity(intent);
-            }
-        }, 10000);
 
 
 
