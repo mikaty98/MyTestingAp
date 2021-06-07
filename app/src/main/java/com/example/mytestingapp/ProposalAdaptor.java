@@ -40,8 +40,8 @@ public class ProposalAdaptor extends ArrayAdapter{
 
 
         textView1.setText(String.valueOf(localRequestApplicantList.get(position).getPriceValue())+" EGP");
-        textView2.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedArrivalTime())+" Hrs");
-        textView3.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedCompletionTime())+" Hrs");
+        textView2.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedArrivalTime())+" Mins");
+        textView3.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedCompletionTime())+" Mins");
         textView4.setText(localRequestApplicantList.get(position).getProviderEmail());
 
         return view;

@@ -361,7 +361,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="40dp"
-                android:hint="Estimated Arrival time in Hours" />
+                android:hint="Estimated Arrival time in Minutes" />
 
         </LinearLayout>
 
@@ -371,7 +371,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Estimated Task Completion Time in Hours" />
+            android:hint="Estimated Task Completion Time in Minutes" />
 
         <Button
             android:id="@+id/submitBtn2"

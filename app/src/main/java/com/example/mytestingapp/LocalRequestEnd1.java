@@ -20,7 +20,7 @@ public class LocalRequestEnd1 extends AppCompatActivity {
     ViewPager2 pager2;
     FragmentAdapter adapter;
     Intent intent;
-    String receiverId;
+    String receiverId, userType;
     int arrivalTime, completionTime, price;
 
 
@@ -35,6 +35,7 @@ public class LocalRequestEnd1 extends AppCompatActivity {
         arrivalTime = intent.getIntExtra("arrival time", 0);
         completionTime = intent.getIntExtra("completion time", 0);
         price = intent.getIntExtra("price", 0);
+        userType = intent.getStringExtra("user type");
 
 
 
@@ -96,6 +97,11 @@ public class LocalRequestEnd1 extends AppCompatActivity {
     public int getPrice()
     {
         return price;
+    }
+
+    public String getUserType()
+    {
+        return userType;
     }
 
 }

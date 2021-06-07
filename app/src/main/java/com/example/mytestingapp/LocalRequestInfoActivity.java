@@ -33,7 +33,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private EditText priceValue, estimatedArrivalTime, estimatedCompletionTime;
 
-    private String userID,providerEmail;
+    private String userID,providerEmail, userType;
 
 
     private DatabaseReference reference;
@@ -141,11 +141,18 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
                 reference.child(temp[0]).child(userID).setValue(localRequestApplicant);
 
-                //String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
+                String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
 
-                //Intent intent = new Intent(LocalRequestInfoActivity.this, LocalRequestEnd1.class);
-                //intent.putExtra("receiver id", one);
-                //startActivity(intent);
+                userType = "provider";
+
+                Intent intent = new Intent(LocalRequestInfoActivity.this, LocalRequestEnd1.class);
+                intent.putExtra("receiver id", one);
+                intent.putExtra("arrival time", EstimatedArrivalTime);
+                intent.putExtra("completion time", EstimatedCompletionTime);
+                intent.putExtra("price", PriceValue);
+                intent.putExtra("user type", userType);
+                startActivity(intent);
+
 
                 finish();
 

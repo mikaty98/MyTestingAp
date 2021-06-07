@@ -5,12 +5,18 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Time;
 import java.util.Locale;
@@ -31,12 +37,20 @@ public class StopWatchFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     TextView textView;
-    EditText editText, note;
+    EditText editText, note, final_price;
     Chronometer timer;
+    Long passedTime;
 
+    private LinearLayout hiddenLayout;
+
+
+    Button seekerBtn;
 
     int arrivalTime, completionTime, price;
+    long finalPrice;
+    String userType;
     String pricee;
+    String finalPricee;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -87,29 +101,32 @@ public class StopWatchFragment extends Fragment {
         arrivalTime = localRequestEnd1.getArrivalTime();
         completionTime = localRequestEnd1.getCompletionTime();
         price = localRequestEnd1.getPrice();
+        userType = localRequestEnd1.getUserType();
         pricee = Integer.toString(price);
+
+        finalPrice = price;
 
         textView = view.findViewById(R.id.text_view2021);
         editText = view.findViewById(R.id.price_value);
         note = view.findViewById(R.id.note);
         timer = view.findViewById(R.id.timer);
+        final_price = view.findViewById(R.id.final_price);
+        hiddenLayout = view.findViewById(R.id.hidden_layout);
+        seekerBtn = view.findViewById(R.id.seekerBtn);
 
-        editText.setText("Price to be paid by the seeker to the provider: "+pricee+" EGP");
+
+        editText.setText("Initial Price to be paid by the seeker to the provider: "+pricee+" EGP");
 
         note.setText("Note: Each 3 minute-period after the arrival time will deduct 1 EGP from the price to be paid by the seeker to the provider");
 
 
-        long duration = TimeUnit.HOURS.toMillis(arrivalTime); //6 hours
+        long duration = TimeUnit.MINUTES.toMillis(arrivalTime);
 
         new CountDownTimer(duration, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 long secondsInMilli = 1000;
                 long minutesInMilli = secondsInMilli * 60;
-                long hoursInMilli = minutesInMilli * 60;
-
-                long elapsedHours = millisUntilFinished / hoursInMilli;
-                millisUntilFinished = millisUntilFinished % hoursInMilli;
 
                 long elapsedMinutes = millisUntilFinished / minutesInMilli;
                 millisUntilFinished = millisUntilFinished % minutesInMilli;
@@ -117,20 +134,54 @@ public class StopWatchFragment extends Fragment {
                 long elapsedSeconds = millisUntilFinished / secondsInMilli;
 
 
-                String yy = String.format("%02d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);
+                String yy = String.format("%02d:%02d", elapsedMinutes, elapsedSeconds);
                 textView.setText(yy);
+
+
 
 
             }
 
             public void onFinish() {
 
+
+                if(userType.equals("seeker"))
+                {
+                    hiddenLayout.setVisibility(View.VISIBLE);
+                }
+
                 textView.setText("00:00:00");
 
+                timer.setBase(SystemClock.elapsedRealtime());
                 timer.start();
+
 
             }
         }.start();
+
+
+        seekerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                timer.stop();
+
+                passedTime = Long.MIN_VALUE;
+
+                passedTime = SystemClock.elapsedRealtime() - timer.getBase();
+
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+
+                long deductedMoney = minutes / 3;
+
+                finalPrice = finalPrice - deductedMoney;
+
+                finalPricee = String.valueOf(finalPrice);
+
+                final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+
+            }
+        });
 
 
 

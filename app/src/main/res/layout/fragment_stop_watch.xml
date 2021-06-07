@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="420dp"
         android:layout_marginBottom="20dp">
 
         <Chronometer
@@ -78,6 +78,48 @@
             android:textSize="20sp"
             android:gravity="center"
             />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="480dp"
+        android:layout_marginBottom="20dp">
+
+        <EditText
+            android:id="@+id/final_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="600dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        android:id="@+id/hidden_layout">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekerBtn"
+            android:text="Click here when the provider arrives to you"
+            android:textAlignment="center"
+            android:textAllCaps="false"/>
+
+
 
 
     </LinearLayout>

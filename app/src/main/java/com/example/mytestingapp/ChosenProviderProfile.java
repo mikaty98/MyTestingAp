@@ -50,6 +50,8 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
     private Button acceptButton, backButton;
 
+    private String userType;
+
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
 
@@ -176,11 +178,14 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         String userToken= snapshot.getValue(String.class);
                         sendNotifications(userToken,"Accepted",seekerEmail+" has accepted your proposal!");
 
+                        userType = "seeker";
+
                         Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
                         intent.putExtra("receiver id", providerUserID);
                         intent.putExtra("arrival time", estimatedArrivaltime);
                         intent.putExtra("completion time", estimatedCompletionTime);
                         intent.putExtra("price", price);
+                        intent.putExtra("user type", userType);
                         startActivity(intent);
 
                     }
