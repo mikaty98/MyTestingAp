@@ -3,7 +3,9 @@ package com.example.mytestingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
@@ -42,6 +45,13 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_request_info);
+
+
+        //SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
+        //int intent2 = mySharedPreferences.getInt("intent", 1);
+
+
+        //Toast.makeText(LocalRequestInfoActivity.this,"INTENT DONEEEE"+ "   "+ intent2,Toast.LENGTH_LONG).show();
 
         requestTitle = findViewById(R.id.requestTitleValue);
         requestDescription = findViewById(R.id.requestDescriptionValue);
@@ -145,12 +155,13 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
                 userType = "provider";
 
-                Intent intent = new Intent(LocalRequestInfoActivity.this, LocalRequestEnd1.class);
+                Intent intent = new Intent(LocalRequestInfoActivity.this, ChatRoom.class);
                 intent.putExtra("receiver id", one);
+                intent.putExtra("user type", userType);
                 intent.putExtra("arrival time", EstimatedArrivalTime);
                 intent.putExtra("completion time", EstimatedCompletionTime);
                 intent.putExtra("price", PriceValue);
-                intent.putExtra("user type", userType);
+
                 startActivity(intent);
 
 

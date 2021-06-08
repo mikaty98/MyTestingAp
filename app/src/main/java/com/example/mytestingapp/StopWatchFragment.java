@@ -1,9 +1,12 @@
 package com.example.mytestingapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -50,9 +53,11 @@ public class StopWatchFragment extends Fragment {
 
     int arrivalTime, completionTime, price;
     long finalPrice;
+    int flag;
     String userType;
     String pricee;
     String finalPricee;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -95,11 +100,11 @@ public class StopWatchFragment extends Fragment {
 
     {
 
+        flag = 0;
+
         View view = inflater.inflate(R.layout.fragment_stop_watch, container, false);
 
         LocalRequestEnd1 localRequestEnd1 = (LocalRequestEnd1) getActivity();
-
-
 
         arrivalTime = localRequestEnd1.getArrivalTime();
         completionTime = localRequestEnd1.getCompletionTime();
@@ -175,6 +180,7 @@ public class StopWatchFragment extends Fragment {
 
                 passedTime = SystemClock.elapsedRealtime() - timer.getBase();
 
+
                 long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
 
                 long deductedMoney = minutes / 3;
@@ -185,6 +191,7 @@ public class StopWatchFragment extends Fragment {
 
                 final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
 
+                flag = 1;
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable()
@@ -192,29 +199,24 @@ public class StopWatchFragment extends Fragment {
                     @Override
                     public void run()
                     {
-                        Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
+                        Intent intent = new Intent(getContext(), LocalRequestEndBuffer1.class);
                         intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
                         intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
-                        intent.putExtra("price", finalPrice);
+                        intent.putExtra("price", finalPricee);
                         intent.putExtra("user type", localRequestEnd1.getUserType());
+                        intent.putExtra("flag", flag);
+
                         startActivity(intent);
                     }
-                }, 10000);
-
+                }, 5000);
             }
 
 
         });
 
 
-
-
-
-
-
-
-
         // Inflate the layout for this fragment
+
         return view;
     }
 }

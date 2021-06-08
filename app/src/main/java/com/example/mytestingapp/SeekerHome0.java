@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.service.chooser.ChooserTargetService;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,6 +101,15 @@ public class SeekerHome0 extends AppCompatActivity {
         waiting.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
+
+                //int flag = 999;
+
+                //SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
+                //SharedPreferences.Editor editor = mySharedPreferences.edit();
+                //editor.putInt("intent",flag);
+               // editor.commit();
+               // editor.apply();
 
 
                 DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("LocalRequests");

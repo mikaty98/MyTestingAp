@@ -2,10 +2,15 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,6 +23,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.mytestingapp.Adapters.MessageAdapter;
+import com.example.mytestingapp.Adapters.MessageAdapterProvider;
 import com.example.mytestingapp.Classes.Chats;
 import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.Seeker;
@@ -40,6 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Single;
 
 public class ChatRoom extends AppCompatActivity {
 
@@ -51,6 +58,7 @@ public class ChatRoom extends AppCompatActivity {
     ImageButton SendBtn;
     int flag = 0;
 
+    int flagg = 0;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -62,7 +70,7 @@ public class ChatRoom extends AppCompatActivity {
 
 
     List<Chats> chatsList;
-    MessageAdapter messageAdapter;
+    MessageAdapterProvider messageAdapterProvider;
 
 
 
@@ -108,6 +116,11 @@ public class ChatRoom extends AppCompatActivity {
 
         intent = getIntent();
         String receiverId = intent.getStringExtra("receiver id");
+        int arrivalTime = intent.getIntExtra("arrival time", 60);
+        int completionTime = intent.getIntExtra("completion time", 60);
+        int price = intent.getIntExtra("price", 0);
+        String userType = intent.getStringExtra("user type");
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -260,6 +273,26 @@ public class ChatRoom extends AppCompatActivity {
         });
 
 
+        SharedPreferences sharedPreferencess = getSharedPreferences("intentt", Context.MODE_PRIVATE);
+        int intentt = sharedPreferencess.getInt("intentt", 0);
+
+
+        Toast.makeText(ChatRoom.this,"INTENT DONEEEE"+ "   "+ intentt,Toast.LENGTH_LONG).show();
+
+
+        if(intentt == 1)
+        {
+            Intent intent = new Intent(ChatRoom.this, LocalRequestEnd2.class);  // destination activity can be changed
+            intent.putExtra("receiver id", receiverId);
+            intent.putExtra("arrival time", arrivalTime);
+            intent.putExtra("completion time", completionTime);
+            intent.putExtra("price", price);
+            intent.putExtra("user type", userType);
+            startActivity(intent);
+
+        }
+
+
 
 
     }
@@ -292,9 +325,9 @@ public class ChatRoom extends AppCompatActivity {
                             chatsList.add(chats);
                         }
 
-                       // messageAdapter = new MessageAdapter(ChatRoom.this, chatsList, receiverId);
+                        messageAdapterProvider = new MessageAdapterProvider(ChatRoom.this, chatsList, receiverId);
 
-                        recyclerView.setAdapter(messageAdapter);
+                        recyclerView.setAdapter(messageAdapterProvider);
                     }
 
                 }

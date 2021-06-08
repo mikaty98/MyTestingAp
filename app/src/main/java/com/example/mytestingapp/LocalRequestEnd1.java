@@ -6,8 +6,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.mytestingapp.Classes.FragmentAdapter;
@@ -26,16 +28,19 @@ public class LocalRequestEnd1 extends AppCompatActivity {
     int arrivalTime, completionTime, price;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_request_end1);
 
 
+
+
         intent = getIntent();
         receiverId = intent.getStringExtra("receiver id");
-        arrivalTime = intent.getIntExtra("arrival time", 0);
-        completionTime = intent.getIntExtra("completion time", 0);
+        arrivalTime = intent.getIntExtra("arrival time", 60);
+        completionTime = intent.getIntExtra("completion time", 60);
         price = intent.getIntExtra("price", 0);
         userType = intent.getStringExtra("user type");
 
@@ -58,6 +63,7 @@ public class LocalRequestEnd1 extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pager2.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -106,7 +112,6 @@ public class LocalRequestEnd1 extends AppCompatActivity {
     {
         return userType;
     }
-
 
     @Override
     public void onBackPressed() {

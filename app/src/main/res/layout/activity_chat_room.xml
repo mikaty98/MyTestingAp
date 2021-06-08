@@ -23,7 +23,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="57dp"
             android:layout_marginRight="6dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
             android:layout_toLeftOf="@+id/btn_send"
             android:background="@android:color/transparent"
             android:hint="Type a message..." />
@@ -38,13 +39,15 @@
             android:layout_marginEnd="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="-1dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/ic_image" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_messages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="40dp"
             android:visibility="visible" />
 
         <androidx.appcompat.widget.Toolbar
@@ -53,7 +56,7 @@
             android:layout_width="400dp"
             android:layout_height="1000dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="580dp"
+            android:layout_marginBottom="560dp"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme">

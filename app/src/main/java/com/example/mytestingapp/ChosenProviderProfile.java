@@ -3,7 +3,9 @@ package com.example.mytestingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -75,8 +77,17 @@ public class ChosenProviderProfile extends AppCompatActivity {
         String seekerEmail = intent.getStringExtra("seeker email");
         String providerUserID = intent.getStringExtra("userID");
 
-        int estimatedArrivaltime = intent.getIntExtra("estimatedArrivalTime", 0);
-        int estimatedCompletionTime = intent.getIntExtra("estimatedCompletionTime", 0);
+       // SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
+       // int intent2 = mySharedPreferences.getInt("intent", 1);
+
+
+        //Toast.makeText(ChosenProviderProfile.this,"INTENT DONEEEE"+ "   "+ intent2,Toast.LENGTH_LONG).show();
+
+
+
+
+        int estimatedArrivaltime = intent.getIntExtra("estimatedArrivalTime", 60);
+        int estimatedCompletionTime = intent.getIntExtra("estimatedCompletionTime", 60);
         int price = intent.getIntExtra("price", 0);
 
 
