@@ -46,6 +46,7 @@ import retrofit2.Response;
 
 public class ChosenProviderProfile extends AppCompatActivity {
 
+
     private EditText username, jobDescription, gender, age, id, email, phoneNumber;
     private CircleImageView profilePic;
 
@@ -67,6 +68,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chosen_provider_profile);
 
+        UpdateToken();
         Intent intent = getIntent();
         String providerEmail = intent.getStringExtra("provider email");
         String seekerEmail = intent.getStringExtra("seeker email");
@@ -105,8 +107,8 @@ public class ChosenProviderProfile extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Providers");
 
-        // fcm settings for particular user
-        UpdateToken();
+
+
 
 
         Query checkUser = reference.orderByChild("userID").equalTo(providerUserID);
@@ -219,13 +221,14 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
 
     }
-
-    private void UpdateToken() {
+    private void UpdateToken(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken = FirebaseInstanceId.getInstance().getToken();
         Token userToken = new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(userToken);
     }
+
+
 
 
 }

@@ -23,6 +23,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 
 import com.example.mytestingapp.ProviderHomeActivity;
+import com.example.mytestingapp.ProviderWaitingRoomActivity;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -64,7 +65,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
 
-        Intent resultIntent = new Intent(this, ProviderHomeActivity.class);
+        Intent resultIntent = new Intent(this, ProviderWaitingRoomActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 

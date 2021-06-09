@@ -50,7 +50,7 @@ public class FcmNotificationsSender {
             JSONObject notiObject = new JSONObject();
             notiObject.put("title", title);
             notiObject.put("body", body);
-            notiObject.put("icon", R.drawable.ic_image); // enter icon that exists in drawable only
+            notiObject.put("icon",android.R.drawable.ic_dialog_alert); // enter icon that exists in drawable only
 
 
             mainObj.put("notification", notiObject);

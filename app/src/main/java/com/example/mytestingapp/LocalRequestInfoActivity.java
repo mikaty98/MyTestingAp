@@ -151,18 +151,24 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
                 reference.child(temp[0]).child(userID).setValue(localRequestApplicant);
 
-                String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
+                /*After submitting proposal, Provider will be sent to a waiting room waiting for the seeker to accept his proposal*/
 
-                userType = "provider";
-
-                Intent intent = new Intent(LocalRequestInfoActivity.this, ChatRoom.class);
-                intent.putExtra("receiver id", one);
-                intent.putExtra("user type", userType);
-                intent.putExtra("arrival time", EstimatedArrivalTime);
-                intent.putExtra("completion time", EstimatedCompletionTime);
-                intent.putExtra("price", PriceValue);
-
+                Intent intent = new Intent(LocalRequestInfoActivity.this, ProviderWaitingRoomActivity.class);
+                intent.putExtra("seeker email",localRequest.getSeekerEmail());
                 startActivity(intent);
+
+//                String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
+//
+//                userType = "provider";
+//
+//                Intent intent = new Intent(LocalRequestInfoActivity.this, ChatRoom.class);
+//                intent.putExtra("receiver id", one);
+//                intent.putExtra("user type", userType);
+//                intent.putExtra("arrival time", EstimatedArrivalTime);
+//                intent.putExtra("completion time", EstimatedCompletionTime);
+//                intent.putExtra("price", PriceValue);
+//
+//                startActivity(intent);
 
 
                 finish();

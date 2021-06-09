@@ -59,7 +59,7 @@ public class SLoginActivity extends AppCompatActivity {
                     }
                     else {
                         //user must log in
-                        mauth.signOut();
+                        //mauth.signOut();
                     }
                 }
 

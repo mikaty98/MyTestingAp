@@ -17,13 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Seeker;
+import com.example.mytestingapp.SendNotificationPack.Token;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SeekerHome0 extends AppCompatActivity {
 
@@ -38,6 +42,8 @@ public class SeekerHome0 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeker_home0);
+
+        UpdateToken();
 
         service = findViewById(R.id.service);
         waiting = findViewById(R.id.waiting);
@@ -154,9 +160,15 @@ public class SeekerHome0 extends AppCompatActivity {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(SeekerHome0.this,SLoginActivity.class));
-                finish();
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getUid());
+                reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(SeekerHome0.this, PLoginActivity.class));
+                        finish();
+                    }
+                });
             }
         });
 
@@ -182,5 +194,12 @@ public class SeekerHome0 extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    private void UpdateToken() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String refreshToken = FirebaseInstanceId.getInstance().getToken();
+        Token userToken = new Token(refreshToken);
+        FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(userToken);
     }
 }

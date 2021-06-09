@@ -14,7 +14,10 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.mytestingapp.PLoginActivity;
 import com.example.mytestingapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SettingsFragment extends Fragment {
 
@@ -34,9 +37,16 @@ public class SettingsFragment extends Fragment {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), PLoginActivity.class));
-                getActivity().finish();
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getUid());
+                reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getActivity(), PLoginActivity.class));
+                        getActivity().finish();
+                    }
+                });
+
             }
         });
 
