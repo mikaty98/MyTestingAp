@@ -16,12 +16,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
-import com.example.mytestingapp.SendNotificationPack.APIService;
-import com.example.mytestingapp.SendNotificationPack.Client;
-import com.example.mytestingapp.SendNotificationPack.Data;
-import com.example.mytestingapp.SendNotificationPack.MyResponse;
-import com.example.mytestingapp.SendNotificationPack.NotificationSender;
+import com.example.mytestingapp.SendNotificationPack.FcmNotificationsSender;
 import com.example.mytestingapp.SendNotificationPack.Token;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -34,11 +31,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -47,7 +46,7 @@ import retrofit2.Response;
 
 public class ChosenProviderProfile extends AppCompatActivity {
 
-    private EditText username,jobDescription,gender,age,id,email,phoneNumber;
+    private EditText username, jobDescription, gender, age, id, email, phoneNumber;
     private CircleImageView profilePic;
 
     private Button acceptButton, backButton;
@@ -61,10 +60,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
     private StorageReference storageReference;
 
     private Provider provider = new Provider();
-
-    private APIService apiService;
-
-
 
 
     @Override
@@ -91,7 +86,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
         int price = intent.getIntExtra("price", 0);
 
 
-
         String parts[] = providerEmail.split(".com");
         String trimmedEmail = parts[0];
 
@@ -108,15 +102,18 @@ public class ChosenProviderProfile extends AppCompatActivity {
         backButton = findViewById(R.id.backButton);
 
 
-
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Providers");
+
+        // fcm settings for particular user
+        UpdateToken();
+
 
         Query checkUser = reference.orderByChild("userID").equalTo(providerUserID);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     provider.setEmail(snapshot.child(providerUserID).child("email").getValue().toString());
                     provider.setId(snapshot.child(providerUserID).child("id").getValue(String.class));
                     provider.setUserName(snapshot.child(providerUserID).child("userName").getValue(String.class));
@@ -126,10 +123,10 @@ public class ChosenProviderProfile extends AppCompatActivity {
                     provider.setPhoneNumber(snapshot.child(providerUserID).child("phoneNumber").getValue(String.class));
 
 
-                    storageReference = FirebaseStorage.getInstance().getReference().child("images/"+providerUserID);
+                    storageReference = FirebaseStorage.getInstance().getReference().child("images/" + providerUserID);
                     final Bitmap[] bitmap = new Bitmap[1];
-                    try{
-                        File localfile = File.createTempFile( provider.getId(),".jpg");
+                    try {
+                        File localfile = File.createTempFile(provider.getId(), ".jpg");
                         storageReference.getFile(localfile)
                                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                     @Override
@@ -147,23 +144,22 @@ public class ChosenProviderProfile extends AppCompatActivity {
                             }
                         });
 
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
                         profilePic.setImageBitmap(bitmap[0]);
                         provider.setImageBitmap(bitmap[0]);
                     }
 
 
-                    username.setText("User Name:   "+provider.getUserName());
-                    jobDescription.setText("Job Description:   "+provider.getJobDesc());
-                    gender.setText("Gender:   "+provider.getGender());
+                    username.setText("User Name:   " + provider.getUserName());
+                    jobDescription.setText("Job Description:   " + provider.getJobDesc());
+                    gender.setText("Gender:   " + provider.getGender());
 
 
-                    age.setText("Age:   "+provider.getAge());
-                    id.setText("ID Number:   "+provider.getId());
-                    email.setText("Email:   "+provider.getEmail());
-                    phoneNumber.setText("Phone Number:   "+provider.getPhoneNumber());
+                    age.setText("Age:   " + provider.getAge());
+                    id.setText("ID Number:   " + provider.getId());
+                    email.setText("Email:   " + provider.getEmail());
+                    phoneNumber.setText("Phone Number:   " + provider.getPhoneNumber());
 
                     profilePic.setImageBitmap(provider.getImageBitmap());
 
@@ -176,8 +172,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
             }
         });
 
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
 
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,8 +180,11 @@ public class ChosenProviderProfile extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference("Tokens").child(providerUserID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String userToken= snapshot.getValue(String.class);
-                        sendNotifications(userToken,"Accepted",seekerEmail+" has accepted your proposal!");
+                        String userToken = snapshot.getValue(String.class);
+
+
+                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(userToken, "Good new!", "Someone chose you to be their provider", getApplicationContext(), ChosenProviderProfile.this);
+                        notificationsSender.SendNotifications();
 
                         userType = "seeker";
 
@@ -209,7 +206,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                 //Notification part ends here
             }
         });
-        UpdateToken();
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,43 +218,14 @@ public class ChosenProviderProfile extends AppCompatActivity {
         });
 
 
-
     }
 
-    private void UpdateToken(){
+    private void UpdateToken() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken = FirebaseInstanceId.getInstance().getToken();
-        Token token = new Token(refreshToken);
-        FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(token);
+        Token userToken = new Token(refreshToken);
+        FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(userToken);
     }
-
-    public void sendNotifications(String userToken,String title,String message) {
-        Data data = new Data(title,message);
-        NotificationSender sender = new NotificationSender(data, userToken);
-        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
-            @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if (response.code() == 200){
-                    if (response.body().success != 1){
-                        Toast.makeText(ChosenProviderProfile.this,"Failed",Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(ChosenProviderProfile.this,"Notification sent",Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-
-
-
 
 
 }

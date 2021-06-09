@@ -18,7 +18,7 @@ import android.widget.ListView;
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.LocalRequestInfoActivity;
 import com.example.mytestingapp.R;
-import com.example.mytestingapp.ServiceAdaptor;
+import com.example.mytestingapp.Adapters.ServiceAdaptor;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,6 +97,8 @@ public class ExploreFragment extends Fragment {
 
         suburbEditText = view.findViewById(R.id.suburbEditText);
         filterBtn = view.findViewById(R.id.filterBtn);
+
+        localRequestList.clear();
 
         serviceAdaptor = new ServiceAdaptor(getActivity(),localRequestList);
         listView = view.findViewById(R.id.serviceList);

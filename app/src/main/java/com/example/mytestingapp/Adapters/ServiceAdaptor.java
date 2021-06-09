@@ -1,4 +1,4 @@
-package com.example.mytestingapp;
+package com.example.mytestingapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mytestingapp.Classes.LocalRequest;
+import com.example.mytestingapp.R;
 
 import java.util.List;
 

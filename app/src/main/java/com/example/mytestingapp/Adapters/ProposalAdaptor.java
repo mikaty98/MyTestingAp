@@ -1,4 +1,4 @@
-package com.example.mytestingapp;
+package com.example.mytestingapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.example.mytestingapp.R;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +23,7 @@ public class ProposalAdaptor extends ArrayAdapter{
     Context context;
 
     public ProposalAdaptor(@NonNull Context context,List<LocalRequestApplicant> localRequestApplicantList){
-        super(context,R.layout.proposal_list_items,localRequestApplicantList);
+        super(context, R.layout.proposal_list_items,localRequestApplicantList);
 
         this.context = context;
         this.localRequestApplicantList = localRequestApplicantList;

@@ -3,13 +3,10 @@ package com.example.mytestingapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.Adapter;
 
-import com.example.mytestingapp.SendNotificationPack.MyFbMessagingService;
 import com.example.mytestingapp.SendNotificationPack.Token;
 import com.example.mytestingapp.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabItem;
@@ -21,9 +18,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class ProviderHomeActivity extends AppCompatActivity {
 
-    public MyFbMessagingService myFbMessagingService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        UpdateToken();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_home);
 
@@ -62,12 +60,18 @@ public class ProviderHomeActivity extends AppCompatActivity {
             }
         });
 
-        UpdateToken();
 
 
 
 
 
+
+    }
+    private void UpdateToken(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String refreshToken = FirebaseInstanceId.getInstance().getToken();
+        Token userToken = new Token(refreshToken);
+        FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(userToken);
     }
 
     @Override
@@ -88,10 +92,5 @@ public class ProviderHomeActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void UpdateToken(){
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String refreshToken = FirebaseInstanceId.getInstance().getToken();
-        Token token = new Token(refreshToken);
-        FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(token);
-    }
+
 }

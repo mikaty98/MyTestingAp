@@ -16,7 +16,7 @@ public class NotificationAlert extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Information")
                 .setMessage("This is a Dialog")
-               // .setNegativeButton()
+                // .setNegativeButton()
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -27,7 +27,6 @@ public class NotificationAlert extends AppCompatDialogFragment {
 
         return builder.create();
     }
-
 
 
 }
