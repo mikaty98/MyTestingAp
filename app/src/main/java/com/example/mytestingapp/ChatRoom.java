@@ -277,18 +277,27 @@ public class ChatRoom extends AppCompatActivity {
         int intentt = sharedPreferencess.getInt("intentt", 0);
 
 
-        Toast.makeText(ChatRoom.this,"INTENT DONEEEE"+ "   "+ intentt,Toast.LENGTH_LONG).show();
+        SharedPreferences sharedPreferencesss = getSharedPreferences("flag2", Context.MODE_PRIVATE);
+        String flag2 = sharedPreferencesss.getString("flag2", "zzz");
+
+
+        //Toast.makeText(ChatRoom.this,"INTENT DONEEEE"+ "   "+ intentt+" "+flag2,Toast.LENGTH_LONG).show();
 
 
         if(intentt == 1)
         {
-            Intent intent = new Intent(ChatRoom.this, LocalRequestEnd2.class);  // destination activity can be changed
-            intent.putExtra("receiver id", receiverId);
-            intent.putExtra("arrival time", arrivalTime);
-            intent.putExtra("completion time", completionTime);
-            intent.putExtra("price", price);
-            intent.putExtra("user type", userType);
-            startActivity(intent);
+            if(flag2.equals(receiverId))
+            {
+                Intent intent = new Intent(ChatRoom.this, LocalRequestEnd2.class);  // destination activity can be changed
+                intent.putExtra("receiver id", receiverId);
+                intent.putExtra("arrival time", arrivalTime);
+                intent.putExtra("completion time", completionTime);
+                intent.putExtra("price", price);
+                intent.putExtra("user type", userType);
+                startActivity(intent);
+
+            }
+
 
         }
 

@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Time;
@@ -46,6 +48,11 @@ public class StopWatchFragment extends Fragment {
     Chronometer timer;
     Long passedTime;
 
+    FirebaseUser firebaseUser;
+
+
+    String zzz, zzzz;
+
     private LinearLayout hiddenLayout;
 
 
@@ -57,6 +64,7 @@ public class StopWatchFragment extends Fragment {
     String userType;
     String pricee;
     String finalPricee;
+
 
 
     // TODO: Rename and change types of parameters
@@ -99,6 +107,10 @@ public class StopWatchFragment extends Fragment {
                              Bundle savedInstanceState)
 
     {
+
+        zzz = "zzz";
+
+        zzzz = "zzz";
 
         flag = 0;
 
@@ -193,6 +205,12 @@ public class StopWatchFragment extends Fragment {
 
                 flag = 1;
 
+                firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
+
+                zzz = firebaseUser.getUid();
+
+                zzzz = zzz;
+
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable()
                 {
@@ -205,6 +223,9 @@ public class StopWatchFragment extends Fragment {
                         intent.putExtra("price", finalPricee);
                         intent.putExtra("user type", localRequestEnd1.getUserType());
                         intent.putExtra("flag", flag);
+
+                        intent.putExtra("zzz", zzzz);
+
 
                         startActivity(intent);
                     }
