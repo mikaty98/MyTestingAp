@@ -66,6 +66,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
         Intent resultIntent = new Intent(this, ProviderWaitingRoomActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 

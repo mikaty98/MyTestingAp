@@ -1,5 +1,9 @@
 package com.example.mytestingapp.Classes;
 
+import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
+
 public class LocalRequestApplicant {
     private int priceValue, EstimatedArrivalTime;
     private int EstimatedCompletionTime;
@@ -54,5 +58,17 @@ public class LocalRequestApplicant {
 
     public void setProviderEmail(String providerEmail) {
         this.providerEmail = providerEmail;
+    }
+
+
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof LocalRequestApplicant)){
+            return false;
+        }
+        LocalRequestApplicant other = (LocalRequestApplicant)obj;
+        return priceValue==other.getPriceValue() && EstimatedArrivalTime==other.getEstimatedArrivalTime() && EstimatedCompletionTime==other.getEstimatedCompletionTime()
+                && userID.equals(other.getUserID()) && providerEmail.equals(other.getProviderEmail());
     }
 }

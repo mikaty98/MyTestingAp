@@ -156,6 +156,8 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(LocalRequestInfoActivity.this, ProviderWaitingRoomActivity.class);
                 intent.putExtra("seeker email",localRequest.getSeekerEmail());
                 startActivity(intent);
+                finish();
+
 
 //                String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
 //
@@ -171,7 +173,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 //                startActivity(intent);
 
 
-                finish();
+
 
 
 

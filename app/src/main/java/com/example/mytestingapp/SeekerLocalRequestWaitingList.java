@@ -49,7 +49,9 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+            LocalRequestApplicant localRequestApplicant = snapshot.getValue(LocalRequestApplicant.class);
+            localRequestApplicantList.remove(localRequestApplicant);
+            proposalAdaptor.notifyDataSetChanged();
         }
 
         @Override
@@ -77,6 +79,7 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
         String semail = temp[0];
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(semail);
+        reference.keepSynced(true);
 
         reference.addChildEventListener(childEventListener);
 

@@ -51,5 +51,33 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
             }
         });
 
+
     }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Canceling Proposal")
+                .setMessage("Are you sure you want to cancel proposal?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String seekerEmail = getIntent().getStringExtra("seeker email");
+                        String temp[] = seekerEmail.split(".com");
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(temp[0]).child(FirebaseAuth.getInstance().getUid());
+                        ref.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                finish();
+                            }
+                        });
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
 }
