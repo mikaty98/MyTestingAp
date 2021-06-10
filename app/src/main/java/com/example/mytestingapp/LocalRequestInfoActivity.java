@@ -36,7 +36,8 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private EditText priceValue, estimatedArrivalTime, estimatedCompletionTime;
 
-    private String userID,providerEmail, userType;
+    private String providerID,providerEmail,seekerID;
+    private SharedPreferences sp;
 
 
     private DatabaseReference reference;
@@ -88,15 +89,16 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         floorNumber.setText(localRequest.getFloorNumber());
         apartmentNumber.setText(localRequest.getApartmentNumber());
         seekerEmail.setText(localRequest.getSeekerEmail());
+        seekerID = localRequest.getSeekerID();
 
-        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        providerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reference = FirebaseDatabase.getInstance().getReference("Providers");
-        Query checkuser = reference.orderByChild("userID").equalTo(userID);
+        Query checkuser = reference.orderByChild("userID").equalTo(providerID);
         checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    providerEmail = snapshot.child(userID).child("email").getValue().toString();
+                    providerEmail = snapshot.child(providerID).child("email").getValue().toString();
                 }
             }
 
@@ -144,17 +146,24 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 }
 
 
-                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, userID, providerEmail);
+                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, providerEmail);
 
                 String temp[] = localRequest.getSeekerEmail().split(".com");
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
-                reference.child(temp[0]).child(userID).setValue(localRequestApplicant);
+                reference.child(temp[0]).child(providerID).setValue(localRequestApplicant);
 
                 /*After submitting proposal, Provider will be sent to a waiting room waiting for the seeker to accept his proposal*/
 
                 Intent intent = new Intent(LocalRequestInfoActivity.this, ProviderWaitingRoomActivity.class);
-                intent.putExtra("seeker email",localRequest.getSeekerEmail());
+                sp = getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("receiver id", seekerID);
+                editor.putString("user type","provider");
+                editor.putInt("arrival time", EstimatedArrivalTime);
+                editor.putInt("completion time", EstimatedCompletionTime);
+                editor.putInt("price", PriceValue);
+                editor.commit();
                 startActivity(intent);
                 finish();
 

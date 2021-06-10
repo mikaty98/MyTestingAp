@@ -23,6 +23,7 @@ import android.provider.Settings;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequest;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -407,7 +408,8 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference().child("LocalRequests");
 
-        LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), SeekerEmail);
+        LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), SeekerEmail,
+                FirebaseAuth.getInstance().getUid());
 
         reference.child(RequestTitle).setValue(l);
 

@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -22,6 +23,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 
+import com.example.mytestingapp.ChatRoom;
+import com.example.mytestingapp.ChosenProviderProfile;
 import com.example.mytestingapp.ProviderHomeActivity;
 import com.example.mytestingapp.ProviderWaitingRoomActivity;
 import com.google.firebase.messaging.RemoteMessage;
@@ -29,6 +32,7 @@ import com.google.firebase.messaging.RemoteMessage;
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
      NotificationManager mNotificationManager;
+     SharedPreferences sp;
 
 
     @Override
@@ -64,8 +68,15 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
 
 
+        sp = getApplicationContext().getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
 
-        Intent resultIntent = new Intent(this, ProviderWaitingRoomActivity.class);
+        Intent resultIntent = new Intent(this, ChatRoom.class);
+        resultIntent.putExtra("receiver id", sp.getString("receiver id",""));
+        resultIntent.putExtra("user type", sp.getString("user type","provider"));
+        resultIntent.putExtra("arrival time", sp.getInt("arrival time",0));
+        resultIntent.putExtra("completion time", sp.getInt("completion time",0));
+        resultIntent.putExtra("price", sp.getInt("price",0));
+        //TODO here if we need to clear shared preferences
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -18,13 +18,14 @@ public class LocalRequest implements Serializable
     String floorNumber;
     String apartmentNumber;
     String seekerEmail;
+    String seekerID;
 
 
 
     public LocalRequest() {
     }
 
-    public LocalRequest(String RequestTitle, String RequestDescription, String City, String Suburb, String StreetName, String StreetNumber, String BuildingName, String BuildingNumber, String FloorNumber, String ApartmentNumber,String SeekerEmail)
+    public LocalRequest(String RequestTitle, String RequestDescription, String City, String Suburb, String StreetName, String StreetNumber, String BuildingName, String BuildingNumber, String FloorNumber, String ApartmentNumber,String SeekerEmail,String seekerID)
     {
         requestTitle = RequestTitle;
         requestDescription = RequestDescription;
@@ -37,6 +38,7 @@ public class LocalRequest implements Serializable
         floorNumber = FloorNumber;
         apartmentNumber = ApartmentNumber;
         seekerEmail = SeekerEmail;
+        this.seekerID = seekerID;
     }
 
     public String getRequestTitle() {
@@ -119,6 +121,13 @@ public class LocalRequest implements Serializable
         this.apartmentNumber = apartmentNumber;
     }
 
+    public String getSeekerID() {
+        return seekerID;
+    }
+
+    public void setSeekerID(String seekerID) {
+        this.seekerID = seekerID;
+    }
 
     public String getSeekerEmail() {
         return seekerEmail;

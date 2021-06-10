@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Provider {
     private String userName,jobDesc,gender,age,id,phoneNumber,email,password,userID;
     private Bitmap image;
+    private boolean inProgress;
 
     protected Provider(Parcel in) {
         userName = in.readString();
@@ -105,8 +106,18 @@ public class Provider {
         this.userID = userID;
     }
 
-    public Provider() {
+    public boolean isInProgress() {
+        return inProgress;
     }
+
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
+    }
+
+    public Provider() {
+        this.inProgress = false;
+    }
+
 
     public Provider(String userName, String jobDesc, String gender, String age, String id, String phoneNumber, String email, String password) {
         this.userName = userName;
@@ -117,6 +128,7 @@ public class Provider {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
+        this.inProgress = false;
 
     }
 
