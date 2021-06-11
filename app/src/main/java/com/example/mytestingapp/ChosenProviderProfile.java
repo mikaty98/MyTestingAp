@@ -1,8 +1,11 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,8 +16,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mytestingapp.Classes.ConnectedSandP;
 import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.SendNotificationPack.FcmNotificationsSender;
 import com.example.mytestingapp.SendNotificationPack.Token;
@@ -24,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -52,7 +59,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
     private Button acceptButton, backButton;
 
-    private String userType;
+    private String userType, providerUserID;
 
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
@@ -61,6 +68,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
     private StorageReference storageReference;
 
     private Provider provider = new Provider();
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -72,15 +80,13 @@ public class ChosenProviderProfile extends AppCompatActivity {
         Intent intent = getIntent();
         String providerEmail = intent.getStringExtra("provider email");
         String seekerEmail = intent.getStringExtra("seeker email");
-        String providerUserID = intent.getStringExtra("userID");
+        providerUserID = intent.getStringExtra("userID");
 
-       // SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
-       // int intent2 = mySharedPreferences.getInt("intent", 1);
+        // SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
+        // int intent2 = mySharedPreferences.getInt("intent", 1);
 
 
         //Toast.makeText(ChosenProviderProfile.this,"INTENT DONEEEE"+ "   "+ intent2,Toast.LENGTH_LONG).show();
-
-
 
 
         int estimatedArrivaltime = intent.getIntExtra("estimatedArrivalTime", 60);
@@ -108,11 +114,9 @@ public class ChosenProviderProfile extends AppCompatActivity {
         reference = rootNode.getReference("Providers");
 
 
-
-
-
         Query checkUser = reference.orderByChild("userID").equalTo(providerUserID);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -178,6 +182,11 @@ public class ChosenProviderProfile extends AppCompatActivity {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = new ProgressDialog(ChosenProviderProfile.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog);
+
+
                 //Sending notification to provider part
                 FirebaseDatabase.getInstance().getReference("Tokens").child(providerUserID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -188,6 +197,11 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         FcmNotificationsSender notificationsSender = new FcmNotificationsSender(userToken, "Good new!", "Someone chose you to be their provider", getApplicationContext(), ChosenProviderProfile.this);
                         notificationsSender.SendNotifications();
 
+                        ConnectedSandP connectedSandP = new ConnectedSandP(FirebaseAuth.getInstance().getUid(), providerUserID);
+                        reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+                        reference.child(FirebaseAuth.getInstance().getUid() + providerUserID).setValue(connectedSandP);
+
+
                         userType = "seeker";
 
                         Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
@@ -196,7 +210,33 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         intent.putExtra("completion time", estimatedCompletionTime);
                         intent.putExtra("price", price);
                         intent.putExtra("user type", userType);
-                        startActivity(intent);
+
+                        reference.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
                     }
 
@@ -221,14 +261,13 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
 
     }
-    private void UpdateToken(){
+
+    private void UpdateToken() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken = FirebaseInstanceId.getInstance().getToken();
         Token userToken = new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(firebaseUser.getUid()).setValue(userToken);
     }
-
-
 
 
 }

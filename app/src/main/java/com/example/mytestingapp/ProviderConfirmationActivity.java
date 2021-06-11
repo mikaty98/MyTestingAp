@@ -7,11 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class ProviderConfirmationActivity extends AppCompatActivity {
 
     private Button cancelBtn, acceptBtn;
     private String receiverId, usertype;
     private int arrivalTime,completionTime,price;
+    private DatabaseReference reference;
 
 
     @Override
@@ -38,6 +43,10 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+                reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(true);
+
+
                 Intent intent = new Intent(ProviderConfirmationActivity.this, ChatRoom.class);
                 intent.putExtra("receiver id", receiverId);
                 intent.putExtra("user type", usertype);
