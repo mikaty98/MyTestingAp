@@ -292,7 +292,8 @@ public class ChatRoom extends AppCompatActivity {
 
 
         SeekerLocalRequestArrivalConfirm seekerLocalRequestArrivalConfirm = new SeekerLocalRequestArrivalConfirm(receiverId);
-        reference3 = FirebaseDatabase.getInstance().getReference().child("SeekerLocalRequestArrivalConfirm");
+        reference3 = FirebaseDatabase.getInstance().getReference().child("SeekerLocalRequestArrivalConfirm").child(receiverId);
+
 
 
         reference3.addChildEventListener(new ChildEventListener() {
