@@ -1,6 +1,7 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,25 +27,32 @@ import android.widget.Toolbar;
 import com.example.mytestingapp.Adapters.MessageAdapter;
 import com.example.mytestingapp.Adapters.MessageAdapterProvider;
 import com.example.mytestingapp.Classes.Chats;
+import com.example.mytestingapp.Classes.ConnectedSandP;
 import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.Seeker;
+import com.example.mytestingapp.Classes.SeekerLocalRequestArrivalConfirm;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Single;
@@ -73,6 +82,14 @@ public class ChatRoom extends AppCompatActivity {
     MessageAdapterProvider messageAdapterProvider;
 
 
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("SeekerLocalRequestArrivalConfirm");
+    private DatabaseReference reference3;
+
+
+    private FirebaseAuth mauth;
+
+
 
 
 
@@ -93,6 +110,7 @@ public class ChatRoom extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageview_profile);
         username = findViewById(R.id.username1);
+
 
        // Toolbar toolbar = findViewById(R.id.toolbar2);
         //setSupportActionBar(toolbar);
@@ -273,20 +291,64 @@ public class ChatRoom extends AppCompatActivity {
         });
 
 
-        SharedPreferences sharedPreferencess = getSharedPreferences("intentt", Context.MODE_PRIVATE);
-        int intentt = sharedPreferencess.getInt("intentt", 0);
+        SeekerLocalRequestArrivalConfirm seekerLocalRequestArrivalConfirm = new SeekerLocalRequestArrivalConfirm(receiverId);
+        reference3 = FirebaseDatabase.getInstance().getReference().child("SeekerLocalRequestArrivalConfirm");
 
+
+        reference3.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                if (snapshot.exists())
+                {
+                    Toast.makeText(ChatRoom.this,"DONEEEEEEEEEEEEEEEEEEEEEE",Toast.LENGTH_LONG).show();
+
+                    // will send provider to localrequestend2 here
+
+                }
+                else
+                {
+                    Toast.makeText(ChatRoom.this,"NOOOOOOOOOOOOOOOOO",Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        /*SharedPreferences sharedPreferencess = getSharedPreferences("intentt", Context.MODE_PRIVATE);
+        int intentt = sharedPreferencess.getInt("intentt", 0);
 
         SharedPreferences sharedPreferencesss = getSharedPreferences("flag2", Context.MODE_PRIVATE);
         String flag2 = sharedPreferencesss.getString("flag2", "zzz");
 
+       // Toast.makeText(ChatRoom.this,"INTENT DONEEEE"+ "   "+ intentt+" "+flag2,Toast.LENGTH_LONG).show();
 
-        //Toast.makeText(ChatRoom.this,"INTENT DONEEEE"+ "   "+ intentt+" "+flag2,Toast.LENGTH_LONG).show();
-
-
-        if(intentt == 1)
-        {
-            if(flag2.equals(receiverId))
+       // if(intentt == 1)
+       // {
+            /*if(flag2.equals(receiverId))
             {
                 Intent intent = new Intent(ChatRoom.this, LocalRequestEnd2.class);  // destination activity can be changed
                 intent.putExtra("receiver id", receiverId);
@@ -298,8 +360,9 @@ public class ChatRoom extends AppCompatActivity {
 
             }
 
+       // }
 
-        }
+             */
 
 
 

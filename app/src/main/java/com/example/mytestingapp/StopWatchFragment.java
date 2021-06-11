@@ -21,9 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.example.mytestingapp.Classes.Seeker;
+import com.example.mytestingapp.Classes.SeekerLocalRequestArrivalConfirm;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.sql.Time;
 import java.util.Locale;
@@ -42,6 +47,12 @@ public class StopWatchFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
+    private FirebaseStorage storage;
+    private StorageReference ref;
+    private FirebaseAuth auth;
 
     TextView textView;
     EditText editText, note, final_price;
@@ -107,6 +118,10 @@ public class StopWatchFragment extends Fragment {
                              Bundle savedInstanceState)
 
     {
+
+        storage = FirebaseStorage.getInstance();
+        ref = storage.getReference();
+        auth = FirebaseAuth.getInstance();
 
         zzz = "zzz";
 
@@ -210,6 +225,17 @@ public class StopWatchFragment extends Fragment {
                 zzz = firebaseUser.getUid();
 
                 zzzz = zzz;
+
+
+                rootNode = FirebaseDatabase.getInstance();
+                SeekerLocalRequestArrivalConfirm s = new SeekerLocalRequestArrivalConfirm(zzz);
+                s.setUserId(zzz);
+
+                reference = rootNode.getReference().child("SeekerLocalRequestArrivalConfirm");
+                reference.child(zzz).setValue(s);
+
+
+
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable()

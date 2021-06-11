@@ -41,20 +41,24 @@ public class LocalRequestEndBuffer1 extends AppCompatActivity {
         flag = intent.getIntExtra("flag", 0);
         zzz = intent.getStringExtra("zzz");
 
-        //Toast.makeText(LocalRequestEndBuffer1.this,"INTENT DONEEEE"+ "   "+flag +" "+zzz,Toast.LENGTH_LONG).show();
+        Toast.makeText(LocalRequestEndBuffer1.this,"INTENT DONEEEE"+ "   "+flag +" "+zzz,Toast.LENGTH_LONG).show();
 
-
-        SharedPreferences sharedPreferencess = getSharedPreferences("intentt", Context.MODE_PRIVATE);
+       /* SharedPreferences sharedPreferencess = getSharedPreferences("intentt", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferencess.edit();
         editor.putInt("intentt",flag);
         editor.commit();
         editor.apply();
 
+
         SharedPreferences sharedPreferencesss = getSharedPreferences("flag2", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = sharedPreferencesss.edit();
         editor1.putString("flag2", zzz);
+        editor1.clear();
         editor1.commit();
         editor1.apply();
+
+        */
+
 
 
 
@@ -62,7 +66,7 @@ public class LocalRequestEndBuffer1 extends AppCompatActivity {
         intent1 = new Intent(LocalRequestEndBuffer1.this, LocalRequestEnd2.class);
         intent1.putExtra("receiver id", receiverId);
         intent1.putExtra("completion time", completionTime);
-        intent1.putExtra("price", price);
+        intent1.putExtra("price", priceNumber);
         intent1.putExtra("user type", userType);
         startActivity(intent1);
 

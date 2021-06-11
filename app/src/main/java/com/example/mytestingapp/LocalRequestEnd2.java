@@ -32,7 +32,8 @@ public class LocalRequestEnd2 extends AppCompatActivity {
     Button confirmBtn;
 
     int  completionTime;
-    long finalPrice, price;
+    long finalPrice;
+    int price;
     String userType;
 
     String pricee;
@@ -50,11 +51,11 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
         intent = getIntent();
         completionTime = intent.getIntExtra("completion time", 0);
-        price = intent.getLongExtra("price", 0);
+        price = intent.getIntExtra("price", 0);
         receiverId = intent.getStringExtra("receiver id");
         userType = intent.getStringExtra("user type");
 
-        pricee = Long.toString(price);
+        pricee = Integer.toString(price);
 
         finalPrice = price;
 
