@@ -72,6 +72,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         sp = getApplicationContext().getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
 
         Intent resultIntent = new Intent(this, ProviderConfirmationActivity.class);
+        resultIntent.putExtra("flag", false);
         resultIntent.putExtra("receiver id", sp.getString("receiver id",""));
         resultIntent.putExtra("user type", sp.getString("user type","provider"));
         resultIntent.putExtra("arrival time", sp.getInt("arrival time",0));
