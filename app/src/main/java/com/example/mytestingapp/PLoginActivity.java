@@ -64,7 +64,6 @@ public class PLoginActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         Provider provider = snapshot.child(userID).getValue(Provider.class);
-                        //TODO if conditions for other shit
                         if ((!provider.isSentProposal()) && (!provider.isGotAccepted())){
                             String email = snapshot.child(userID).child("email").getValue(String.class);
                             Intent intent = new Intent(PLoginActivity.this,ProviderHomeActivity.class);
@@ -77,6 +76,13 @@ public class PLoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
+                        else if ((provider.isSentProposal())&&(provider.isGotAccepted())){
+                            Intent intent = new Intent(PLoginActivity.this,ProviderConfirmationActivity.class);
+                            intent.putExtra("flag", true);
+                            startActivity(intent);
+                            finish();
+                        }
+
 
                     }
                     else {

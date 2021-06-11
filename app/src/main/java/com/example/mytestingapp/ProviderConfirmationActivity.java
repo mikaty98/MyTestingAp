@@ -24,6 +24,22 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_confirmation);
 
+        boolean flag = getIntent().getBooleanExtra("flag",true);
+        if (flag){
+            reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+            reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(true);
+
+
+            Intent intent = new Intent(ProviderConfirmationActivity.this, ChatRoom.class);
+            intent.putExtra("receiver id", receiverId);
+            intent.putExtra("user type", usertype);
+            intent.putExtra("arrival time", arrivalTime);
+            intent.putExtra("completion time", completionTime);
+            intent.putExtra("price", price);
+            startActivity(intent);
+        }
+
+
         cancelBtn = findViewById(R.id.cancelBtn);
         acceptBtn = findViewById(R.id.acceptBtn);
 

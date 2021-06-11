@@ -185,6 +185,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                 progressDialog = new ProgressDialog(ChosenProviderProfile.this);
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
 
                 //Sending notification to provider part
