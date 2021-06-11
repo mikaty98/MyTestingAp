@@ -130,6 +130,7 @@
                 android:text="Register"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/button_reg"
+                android:background="@drawable/custom_button"
                 />
 
 

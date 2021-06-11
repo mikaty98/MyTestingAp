@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StopWatchFragment">
+    tools:context=".StopWatchFragment"
+    android:background="@drawable/background_colour">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,7 +127,8 @@
             android:id="@+id/seekerBtn"
             android:text="Click here when the provider arrives to you"
             android:textAlignment="center"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:background="@drawable/custom_button"/>
 
 
 

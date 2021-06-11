@@ -51,14 +51,16 @@
             android:layout_height="wrap_content"
             android:text="No"
             android:id="@+id/cancelBtn"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginRight="30dp"
+            android:background="@drawable/custom_button"/>
 
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Accept"
             android:id="@+id/acceptBtn"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/custom_button"/>
 
     </LinearLayout>
 

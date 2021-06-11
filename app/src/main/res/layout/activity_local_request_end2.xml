@@ -129,7 +129,8 @@
             android:id="@+id/confirmBtn"
             android:text="Confirm service completion"
             android:textAlignment="center"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:background="@drawable/custom_button"/>
 
 
 

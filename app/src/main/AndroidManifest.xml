@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyTestingApp">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".ProviderConfirmationActivity"></activity>
         <activity android:name=".ProviderWaitingRoomActivity" />
         <activity android:name=".LocalRequestEndBuffer1" />
