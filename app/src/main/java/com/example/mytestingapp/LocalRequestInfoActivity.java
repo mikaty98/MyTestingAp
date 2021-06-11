@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.example.mytestingapp.Classes.Provider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,8 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private EditText priceValue, estimatedArrivalTime, estimatedCompletionTime;
 
-    private String providerID,providerEmail,seekerID;
+    private String providerID,seekerID;
+    private Provider provider;
     private SharedPreferences sp;
 
 
@@ -98,7 +100,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    providerEmail = snapshot.child(providerID).child("email").getValue().toString();
+                    provider = snapshot.child(providerID).getValue(Provider.class);
                 }
             }
 
@@ -146,7 +148,11 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 }
 
 
-                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, providerEmail);
+                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, provider.getEmail());
+
+                provider.setSentProposal(true);
+                reference = FirebaseDatabase.getInstance().getReference("Providers");
+                reference.child(providerID).setValue(provider);
 
                 String temp[] = localRequest.getSeekerEmail().split(".com");
 
@@ -163,6 +169,10 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 editor.putInt("arrival time", EstimatedArrivalTime);
                 editor.putInt("completion time", EstimatedCompletionTime);
                 editor.putInt("price", PriceValue);
+                editor.commit();
+                sp = getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putString("seeker email", localRequest.getSeekerEmail());
                 editor.commit();
                 startActivity(intent);
                 finish();

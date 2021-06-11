@@ -3,7 +3,9 @@ package com.example.mytestingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -48,6 +50,7 @@ public class PLoginActivity extends AppCompatActivity {
     private FirebaseAuth mauth;
 
     private String userID;
+    private SharedPreferences sp;
 
     @Override
     protected void onStart() {
@@ -60,11 +63,21 @@ public class PLoginActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
-                        String email = snapshot.child(userID).child("email").getValue(String.class);
-                        Intent intent = new Intent(PLoginActivity.this,ProviderHomeActivity.class);
-                        intent.putExtra("provider email", email);
-                        startActivity(intent);
-                        finish();
+                        Provider provider = snapshot.child(userID).getValue(Provider.class);
+                        //TODO if conditions for other shit
+                        if ((!provider.isSentProposal()) && (!provider.isGotAccepted())){
+                            String email = snapshot.child(userID).child("email").getValue(String.class);
+                            Intent intent = new Intent(PLoginActivity.this,ProviderHomeActivity.class);
+                            intent.putExtra("provider email", email);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if ((provider.isSentProposal())&&(!provider.isGotAccepted())){
+                            Intent intent = new Intent(PLoginActivity.this,ProviderWaitingRoomActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
                     else {
                         //user must log in

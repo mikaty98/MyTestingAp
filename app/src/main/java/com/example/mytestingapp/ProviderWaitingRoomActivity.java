@@ -1,21 +1,32 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mytestingapp.Classes.Provider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProviderWaitingRoomActivity extends AppCompatActivity {
 
     private Button cancelBtn;
+    private Provider provider;
+    private DatabaseReference reference;
+    private SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +45,7 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String seekerEmail = getIntent().getStringExtra("seeker email");
-                                String temp[] = seekerEmail.split(".com");
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(temp[0]).child(FirebaseAuth.getInstance().getUid());
-                                ref.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        finish();
-                                    }
-                                });
+                                goBack();
                             }
 
                         })
@@ -63,20 +66,44 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String seekerEmail = getIntent().getStringExtra("seeker email");
-                        String temp[] = seekerEmail.split(".com");
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(temp[0]).child(FirebaseAuth.getInstance().getUid());
-                        ref.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                finish();
-                            }
-                        });
+                        goBack();
                     }
 
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    private void goBack(){
+        sp = getApplicationContext().getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
+        String seekerEmail = sp.getString("seeker email","");
+        String temp[] = seekerEmail.split(".com");
+        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(temp[0]).child(FirebaseAuth.getInstance().getUid());
+        reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                reference = FirebaseDatabase.getInstance().getReference("Providers");
+                reference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            provider = snapshot.child(FirebaseAuth.getInstance().getUid()).getValue(Provider.class);
+                            provider.setSentProposal(false);
+                            reference.child(FirebaseAuth.getInstance().getUid()).setValue(provider);
+                            Intent intent = new Intent(ProviderWaitingRoomActivity.this, ProviderHomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
     }
 
 

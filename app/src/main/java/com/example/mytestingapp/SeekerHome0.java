@@ -32,7 +32,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class SeekerHome0 extends AppCompatActivity {
 
     private Button service;
-    private Button waiting,signOut;
+    private Button waiting, signOut;
     private TextView welcomeUser;
 
     private FirebaseDatabase rootNode;
@@ -53,33 +53,25 @@ public class SeekerHome0 extends AppCompatActivity {
         Intent intent = getIntent();
         String text = intent.getStringExtra("seeker email");
 
-        welcomeUser.setText("Welcome "+ text);
+        welcomeUser.setText("Welcome " + text);
 
 
-
-        service.setOnClickListener(new View.OnClickListener(){
+        service.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
 
-
-                DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener()
-                {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
+                ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                        if(dataSnapshot.exists())
-                        {
+                        if (dataSnapshot.exists()) {
                             Toast.makeText(SeekerHome0.this, "You can't request two services at the same time!", Toast.LENGTH_SHORT).show();
 
 
-                        }
-
-                        else
-                        {
+                        } else {
                             Toast.makeText(SeekerHome0.this, "Loading...", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(SeekerHome0.this, SeekerHome.class);
@@ -99,14 +91,12 @@ public class SeekerHome0 extends AppCompatActivity {
                 });
 
 
-
-
             }
         });
 
-        waiting.setOnClickListener(new View.OnClickListener(){
+        waiting.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
 
                 //int flag = 999;
@@ -114,30 +104,24 @@ public class SeekerHome0 extends AppCompatActivity {
                 //SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
                 //SharedPreferences.Editor editor = mySharedPreferences.edit();
                 //editor.putInt("intent",flag);
-               // editor.commit();
-               // editor.apply();
+                // editor.commit();
+                // editor.apply();
 
 
-                DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener()
-                {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
+                ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                        if(dataSnapshot.exists())
-                        {
+                        if (dataSnapshot.exists()) {
                             Toast.makeText(SeekerHome0.this, "Loading...", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(SeekerHome0.this, SeekerLocalRequestWaitingList.class);
                             intent.putExtra("seeker email", text);
                             startActivity(intent);
 
-                        }
-
-                        else
-                        {
+                        } else {
                             Toast.makeText(SeekerHome0.this, "You didn't request a service yet", Toast.LENGTH_SHORT).show();
 
                         }
@@ -153,7 +137,6 @@ public class SeekerHome0 extends AppCompatActivity {
                 });
 
 
-
             }
         });
 
@@ -165,15 +148,12 @@ public class SeekerHome0 extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(SeekerHome0.this, PLoginActivity.class));
+                        startActivity(new Intent(SeekerHome0.this, SLoginActivity.class));
                         finish();
                     }
                 });
             }
         });
-
-
-
 
 
     }
@@ -184,8 +164,7 @@ public class SeekerHome0 extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Closing Activity")
                 .setMessage("Are you sure you want to close the app?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();

@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Provider {
     private String userName,jobDesc,gender,age,id,phoneNumber,email,password,userID;
     private Bitmap image;
-    private boolean inProgress;
+    private boolean sentProposal, gotAccepted;
 
     protected Provider(Parcel in) {
         userName = in.readString();
@@ -106,18 +106,26 @@ public class Provider {
         this.userID = userID;
     }
 
-    public boolean isInProgress() {
-        return inProgress;
+    public boolean isSentProposal() {
+        return sentProposal;
     }
 
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
+    public void setSentProposal(boolean sentProposal) {
+        this.sentProposal = sentProposal;
+    }
+
+    public boolean isGotAccepted() {
+        return gotAccepted;
+    }
+
+    public void setGotAccepted(boolean gotAccepted) {
+        this.gotAccepted = gotAccepted;
     }
 
     public Provider() {
-        this.inProgress = false;
+        this.gotAccepted = false;
+        this.sentProposal = false;
     }
-
 
     public Provider(String userName, String jobDesc, String gender, String age, String id, String phoneNumber, String email, String password) {
         this.userName = userName;
@@ -128,7 +136,8 @@ public class Provider {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
-        this.inProgress = false;
+        this.gotAccepted = false;
+        this.sentProposal = false;
 
     }
 

@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestingApp">
-        <activity android:name=".ProviderWaitingRoomActivity"></activity>
+        <activity android:name=".ProviderConfirmationActivity"></activity>
+        <activity android:name=".ProviderWaitingRoomActivity" />
         <activity android:name=".LocalRequestEndBuffer1" />
         <activity android:name=".LocalRequestEnd2" />
         <activity android:name=".LocalRequestEnd1" />
