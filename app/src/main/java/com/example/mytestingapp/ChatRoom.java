@@ -2,6 +2,7 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -292,27 +294,53 @@ public class ChatRoom extends AppCompatActivity {
 
 
         SeekerLocalRequestArrivalConfirm seekerLocalRequestArrivalConfirm = new SeekerLocalRequestArrivalConfirm(receiverId);
-        reference3 = FirebaseDatabase.getInstance().getReference().child("SeekerLocalRequestArrivalConfirm").child(receiverId);
+        reference3 = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestArrivalConfirm").child(receiverId);
 
 
 
         reference3.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+            {
                 if (snapshot.exists())
                 {
                     Toast.makeText(ChatRoom.this,"DONEEEEEEEEEEEEEEEEEEEEEE",Toast.LENGTH_LONG).show();
 
-                    // will send provider to localrequestend2 here
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
+                            if (!isFinishing()){
+                                new AlertDialog.Builder(ChatRoom.this)
+                                        .setTitle("Confirmation check")
+                                        .setMessage("Please confirm your arrival")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which)
+                                            {
+                                                reference3.child("flag").setValue(1);
+
+                                            }
+                                        }).show();
+                            }
+                        }
+                    });
+
+
+
+                    // will send provider to localrequestend2 here
                 }
                 else
                 {
                     Toast.makeText(ChatRoom.this,"NOOOOOOOOOOOOOOOOO",Toast.LENGTH_LONG).show();
                 }
 
+
             }
+
+
+
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

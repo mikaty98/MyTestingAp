@@ -1,10 +1,14 @@
 package com.example.mytestingapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -19,12 +23,16 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
 import com.example.mytestingapp.Classes.Seeker;
 import com.example.mytestingapp.Classes.SeekerLocalRequestArrivalConfirm;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -60,6 +68,8 @@ public class StopWatchFragment extends Fragment {
     Long passedTime;
 
     FirebaseUser firebaseUser;
+    private DatabaseReference reference3;
+
 
 
     String zzz, zzzz;
@@ -196,28 +206,6 @@ public class StopWatchFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-
-                textView.setText("00:00");
-
-                countDownTimer.cancel();
-
-                timer.stop();
-
-                passedTime = Long.MIN_VALUE;
-
-                passedTime = SystemClock.elapsedRealtime() - timer.getBase();
-
-
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
-
-                long deductedMoney = minutes / 3;
-
-                finalPrice = finalPrice - deductedMoney;
-
-                finalPricee = String.valueOf(finalPrice);
-
-                final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
-
                 flag = 1;
 
                 firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
@@ -228,34 +216,92 @@ public class StopWatchFragment extends Fragment {
 
 
                 rootNode = FirebaseDatabase.getInstance();
-                SeekerLocalRequestArrivalConfirm s = new SeekerLocalRequestArrivalConfirm(zzz);
-                s.setUserId(zzz);
+                SeekerLocalRequestArrivalConfirm s = new SeekerLocalRequestArrivalConfirm(zzzz);
+                s.setUserId(zzzz);
+                s.setFlag(0);
 
                 reference = rootNode.getReference().child("SeekerLocalRequestArrivalConfirm");
-                reference.child(zzz).setValue(s);
+                reference.child(zzzz).setValue(s);
 
 
+                SeekerLocalRequestArrivalConfirm seekerLocalRequestArrivalConfirm = new SeekerLocalRequestArrivalConfirm(zzzz);
+                reference3 = FirebaseDatabase.getInstance().getReference().child("SeekerLocalRequestArrivalConfirm").child(zzzz);
 
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable()
-                {
+                reference3.addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void run()
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
                     {
-                        Intent intent = new Intent(getContext(), LocalRequestEndBuffer1.class);
-                        intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
-                        intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
-                        intent.putExtra("price", finalPricee);
-                        intent.putExtra("user type", localRequestEnd1.getUserType());
-                        intent.putExtra("flag", flag);
 
-                        intent.putExtra("zzz", zzzz);
-
-
-                        startActivity(intent);
                     }
-                }, 5000);
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+                    {
+                        textView.setText("00:00");
+
+                        countDownTimer.cancel();
+
+                        timer.stop();
+
+                        passedTime = Long.MIN_VALUE;
+
+                        passedTime = SystemClock.elapsedRealtime() - timer.getBase();
+
+
+                        long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+
+                        long deductedMoney = minutes / 3;
+
+                        finalPrice = finalPrice - deductedMoney;
+
+                        finalPricee = String.valueOf(finalPrice);
+
+                        final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+
+                        reference3.child("finalPrice").setValue(finalPricee);
+
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                Intent intent = new Intent(getContext(), LocalRequestEndBuffer1.class);
+                                intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
+                                intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
+                                intent.putExtra("price", finalPricee);
+                                intent.putExtra("user type", localRequestEnd1.getUserType());
+                                intent.putExtra("flag", flag);
+
+                                intent.putExtra("zzz", zzzz);
+
+
+                                startActivity(intent);
+                            }
+                        }, 5000);
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
             }
 
 
