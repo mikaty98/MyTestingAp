@@ -29,6 +29,7 @@
                 android:text="Request a local service"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/localService"
+                android:background="@drawable/custom_button"
                 />
 
             <Button
@@ -38,6 +39,7 @@
                 android:text="Request a service from overboard (Shopping)"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/overboardService"
+                android:background="@drawable/custom_button"
                 />
 
             <Button
@@ -47,6 +49,7 @@
                 android:text="Request a local service from a company/corporate"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/officialService"
+                android:background="@drawable/custom_button"
                 />
 
 

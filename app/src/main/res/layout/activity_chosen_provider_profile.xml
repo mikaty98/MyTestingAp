@@ -117,6 +117,7 @@
                 android:text="Click here if you want this service provider to perform your task"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/acceptButton"
+                android:background="@drawable/custom_button"
                 />
 
             <Button
@@ -126,6 +127,7 @@
                 android:text="Click here if you want to go back to the waiting list"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/backButton"
+                android:background="@drawable/custom_button"
                 />
 
 

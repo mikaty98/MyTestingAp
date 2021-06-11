@@ -78,7 +78,11 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         resultIntent.putExtra("arrival time", sp.getInt("arrival time",0));
         resultIntent.putExtra("completion time", sp.getInt("completion time",0));
         resultIntent.putExtra("price", sp.getInt("price",20));
-        //TODO here if we need to clear shared preferences
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.apply();
+
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
