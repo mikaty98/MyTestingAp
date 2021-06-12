@@ -321,7 +321,7 @@ public class ChatRoom extends AppCompatActivity {
                                             {
                                                 reference3.child("flag").setValue(1);
 
-                                                Intent intent = new Intent(ChatRoom.this, ProviderLocalRequestEnd2.class);
+                                                Intent intent = new Intent(ChatRoom.this, ProviderLocalRequestEndBuffer2.class);
                                                 intent.putExtra("receiver id", receiverId);
                                                 intent.putExtra("completion time", completionTime);
                                                 intent.putExtra("user type", userType);

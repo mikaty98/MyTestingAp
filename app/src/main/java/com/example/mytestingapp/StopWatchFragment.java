@@ -273,8 +273,8 @@ public class StopWatchFragment extends Fragment {
                                 intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
                                 intent.putExtra("price", finalPricee);
                                 intent.putExtra("user type", localRequestEnd1.getUserType());
-                                intent.putExtra("flag", flag);
 
+                                intent.putExtra("flag", flag);
                                 intent.putExtra("zzz", zzzz);
 
 
