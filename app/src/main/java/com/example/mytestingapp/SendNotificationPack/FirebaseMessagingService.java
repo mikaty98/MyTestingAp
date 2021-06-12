@@ -69,19 +69,19 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
 
 
-        sp = getApplicationContext().getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
+        //sp = getApplicationContext().getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
 
         Intent resultIntent = new Intent(this, ProviderConfirmationActivity.class);
-        resultIntent.putExtra("flag", false);
-        resultIntent.putExtra("receiver id", sp.getString("receiver id",""));
-        resultIntent.putExtra("user type", sp.getString("user type","provider"));
-        resultIntent.putExtra("arrival time", sp.getInt("arrival time",60));
-        resultIntent.putExtra("completion time", sp.getInt("completion time",60));
-        resultIntent.putExtra("price", sp.getInt("price",0));
+        //resultIntent.putExtra("flag", false);
+        //resultIntent.putExtra("receiver id", sp.getString("receiver id",""));
+        //resultIntent.putExtra("user type", sp.getString("user type","provider"));
+        //resultIntent.putExtra("arrival time", sp.getInt("arrival time",60));
+        //resultIntent.putExtra("completion time", sp.getInt("completion time",60));
+        //resultIntent.putExtra("price", sp.getInt("price",0));
 
-        SharedPreferences.Editor editor = sp.edit();
+        //SharedPreferences.Editor editor = sp.edit();
         //editor.clear();
-        editor.apply();
+        //editor.apply();
 
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

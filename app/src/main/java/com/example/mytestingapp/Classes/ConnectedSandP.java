@@ -12,13 +12,17 @@ import com.google.firebase.database.ValueEventListener;
 public class ConnectedSandP {
     private String seekerID, providerID;
     private boolean startFlag;
+    private String userType;
+    private int completionTime;
     private DatabaseReference reference;
 
 
-    public ConnectedSandP(String seekerID, String providerID) {
+    public ConnectedSandP(String seekerID, String providerID, int completionTime, String userType) {
         this.seekerID = seekerID;
         this.providerID = providerID;
         this.startFlag = false;
+        this.completionTime = completionTime;
+        this.userType = userType;
         this.reference = FirebaseDatabase.getInstance().getReference("StartingConnections");
     }
 
@@ -61,5 +65,21 @@ public class ConnectedSandP {
 
             }
         });
+    }
+
+    public int getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(int completionTime) {
+        this.completionTime = completionTime;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }
