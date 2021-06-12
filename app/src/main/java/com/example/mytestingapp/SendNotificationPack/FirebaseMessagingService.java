@@ -75,12 +75,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         resultIntent.putExtra("flag", false);
         resultIntent.putExtra("receiver id", sp.getString("receiver id",""));
         resultIntent.putExtra("user type", sp.getString("user type","provider"));
-        resultIntent.putExtra("arrival time", sp.getInt("arrival time",0));
-        resultIntent.putExtra("completion time", sp.getInt("completion time",0));
-        resultIntent.putExtra("price", sp.getInt("price",20));
+        resultIntent.putExtra("arrival time", sp.getInt("arrival time",60));
+        resultIntent.putExtra("completion time", sp.getInt("completion time",60));
+        resultIntent.putExtra("price", sp.getInt("price",0));
 
         SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
+        //editor.clear();
         editor.apply();
 
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
