@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_colour"
-    tools:context=".LocalRequestEndBuffer1">
+    tools:context=".ProviderLocalRequestEnd2">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

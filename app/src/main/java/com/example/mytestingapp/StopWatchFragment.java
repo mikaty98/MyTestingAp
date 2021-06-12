@@ -268,7 +268,7 @@ public class StopWatchFragment extends Fragment {
                             @Override
                             public void run()
                             {
-                                Intent intent = new Intent(getContext(), LocalRequestEndBuffer1.class);
+                                Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
                                 intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
                                 intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
                                 intent.putExtra("price", finalPricee);

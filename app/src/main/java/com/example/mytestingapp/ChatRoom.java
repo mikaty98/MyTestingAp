@@ -304,7 +304,7 @@ public class ChatRoom extends AppCompatActivity {
             {
                 if (snapshot.exists())
                 {
-                    Toast.makeText(ChatRoom.this,"DONEEEEEEEEEEEEEEEEEEEEEE",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(ChatRoom.this,"DONEEEEEEEEEEEEEEEEEEEEEE",Toast.LENGTH_LONG).show();
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -321,6 +321,12 @@ public class ChatRoom extends AppCompatActivity {
                                             {
                                                 reference3.child("flag").setValue(1);
 
+                                                Intent intent = new Intent(ChatRoom.this, ProviderLocalRequestEnd2.class);
+                                                intent.putExtra("receiver id", receiverId);
+                                                intent.putExtra("completion time", completionTime);
+                                                intent.putExtra("user type", userType);
+
+                                                startActivity(intent);
                                             }
                                         }).show();
                             }

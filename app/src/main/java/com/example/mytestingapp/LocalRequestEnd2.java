@@ -33,10 +33,10 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
     int  completionTime;
     long finalPrice;
-    int price;
+    String price;
     String userType;
 
-    String pricee;
+    int pricee;
     String finalPricee;
 
 
@@ -51,13 +51,13 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
         intent = getIntent();
         completionTime = intent.getIntExtra("completion time", 0);
-        price = intent.getIntExtra("price", 0);
+        price = intent.getStringExtra("price");
         receiverId = intent.getStringExtra("receiver id");
         userType = intent.getStringExtra("user type");
 
-        pricee = Integer.toString(price);
+        pricee = Integer.valueOf(price);
 
-        finalPrice = price;
+        finalPrice = pricee;
 
         textView = findViewById(R.id.text_view2021);
         editText = findViewById(R.id.price_value);
@@ -67,7 +67,7 @@ public class LocalRequestEnd2 extends AppCompatActivity {
         hiddenLayout = findViewById(R.id.hidden_layout);
         confirmBtn = findViewById(R.id.confirmBtn);
 
-        editText.setText("Initial Price to be paid by the seeker to the provider: " + pricee + " EGP");
+        editText.setText("Initial Price to be paid by the seeker to the provider: " + price + " EGP");
 
         note.setText("Note: Each 5 minute-period after the completion time will deduct 1 EGP from the price to be paid by the seeker to the provider");
 

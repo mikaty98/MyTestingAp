@@ -45,9 +45,9 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
 
         receiverId = getIntent().getStringExtra("receiver id");
         usertype = getIntent().getStringExtra("user type");
-        arrivalTime = getIntent().getIntExtra("arrival time",0);
-        completionTime = getIntent().getIntExtra("completion time",0);
-        price = getIntent().getIntExtra("price",20);
+        arrivalTime = getIntent().getIntExtra("arrival time",60);
+        completionTime = getIntent().getIntExtra("completion time",60);
+        price = getIntent().getIntExtra("price",0);
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
