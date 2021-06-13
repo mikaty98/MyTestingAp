@@ -2,11 +2,13 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -203,14 +205,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         reference.child(FirebaseAuth.getInstance().getUid() + providerUserID).setValue(connectedSandP);
 
 
-                        userType = "seeker";
 
-                        Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
-                        intent.putExtra("receiver id", providerUserID);
-                        intent.putExtra("arrival time", estimatedArrivaltime);
-                        intent.putExtra("completion time", estimatedCompletionTime);
-                        intent.putExtra("price", price);
-                        intent.putExtra("user type", userType);
 
                         reference.addChildEventListener(new ChildEventListener() {
                             @Override
@@ -220,12 +215,25 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
                             @Override
                             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                userType = "seeker";
+
+                                Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
+                                intent.putExtra("receiver id", providerUserID);
+                                intent.putExtra("arrival time", estimatedArrivaltime);
+                                intent.putExtra("completion time", estimatedCompletionTime);
+                                intent.putExtra("price", price);
+                                intent.putExtra("user type", userType);
                                 startActivity(intent);
                             }
 
                             @Override
                             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                                progressDialog.dismiss();
+                                Intent failed = new Intent(ChosenProviderProfile.this, SeekerLocalRequestWaitingList.class);
+                                //failed.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(failed);
+                                Toast.makeText(ChosenProviderProfile.this,"Provider declined",Toast.LENGTH_LONG).show();
+                                finish();
                             }
 
                             @Override
@@ -238,6 +246,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
                             }
                         });
+
 
                     }
 
