@@ -1,5 +1,7 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +15,15 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.mytestingapp.Classes.SeekerLocalRequestArrivalConfirm;
+import com.example.mytestingapp.Classes.SeekerLocalRequestCompletionConfirm;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +49,12 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
     int pricee;
     String finalPricee;
+
+
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
+
+    DatabaseReference reference1;
 
 
 
@@ -114,36 +131,77 @@ public class LocalRequestEnd2 extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                textView.setText("00:00");
+                rootNode = FirebaseDatabase.getInstance();
+                SeekerLocalRequestCompletionConfirm s = new SeekerLocalRequestCompletionConfirm(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                s.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                countDownTimer.cancel();
-
-                timer.stop();
-
-                passedTime = Long.MIN_VALUE;
-
-                passedTime = SystemClock.elapsedRealtime() - timer.getBase();
-
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
-
-                long deductedMoney = minutes / 5;
-
-                finalPrice = finalPrice - deductedMoney;
-
-                finalPricee = String.valueOf(finalPrice);
-
-                final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+                reference = rootNode.getReference().child("SeekerLocalRequestCompletionConfirm");
+                reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(s);
 
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable()
-                {
+                reference1 = FirebaseDatabase.getInstance().getReference().child("ProviderLocalRequestCompletionConfirm").child(receiverId);
+
+
+                reference1.addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void run()
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
                     {
-                        //
+                        textView.setText("00:00");
+
+                        countDownTimer.cancel();
+
+                        timer.stop();
+
+                        passedTime = Long.MIN_VALUE;
+
+                        passedTime = SystemClock.elapsedRealtime() - timer.getBase();
+
+                        long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+
+                        long deductedMoney = minutes / 5;
+
+                        finalPrice = finalPrice - deductedMoney;
+
+                        finalPricee = String.valueOf(finalPrice);
+
+                        final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+
+
+                        Intent intentt = new Intent(LocalRequestEnd2.this, SeekerRating.class);
+                        intentt.putExtra("receiver id", receiverId);
+                        intentt.putExtra("price", finalPricee);
+                        intentt.putExtra("user type", "seeker");
+
+                        startActivity(intentt);
+
+
+
                     }
-                }, 10000);
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+                    {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
 
 
 

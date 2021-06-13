@@ -339,7 +339,7 @@ public class ChatRoom extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(ChatRoom.this,"NOOOOOOOOOOOOOOOOO",Toast.LENGTH_LONG).show();
+                   // Toast.makeText(ChatRoom.this,"NOOOOOOOOOOOOOOOOO",Toast.LENGTH_LONG).show();
                 }
 
 

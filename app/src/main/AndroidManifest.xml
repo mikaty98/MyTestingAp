@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".ProviderLocalRequestEndBuffer2"></activity>
+        <activity android:name=".SeekerRating"></activity>
+        <activity android:name=".ProviderRating" />
+        <activity android:name=".ProviderLocalRequestEndBuffer2" />
         <activity android:name=".ProviderLocalRequestEnd2" />
         <activity android:name=".ProviderConfirmationActivity" />
         <activity android:name=".ProviderWaitingRoomActivity" />

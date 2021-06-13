@@ -261,26 +261,18 @@ public class StopWatchFragment extends Fragment {
 
                         reference3.child("finalPrice").setValue(finalPricee);
 
+                        Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
+                        intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
+                        intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
+                        intent.putExtra("price", finalPricee);
+                        intent.putExtra("user type", localRequestEnd1.getUserType());
 
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
-                                intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
-                                intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
-                                intent.putExtra("price", finalPricee);
-                                intent.putExtra("user type", localRequestEnd1.getUserType());
-
-                                intent.putExtra("flag", flag);
-                                intent.putExtra("zzz", zzzz);
+                        intent.putExtra("flag", flag);
+                        intent.putExtra("zzz", zzzz);
 
 
-                                startActivity(intent);
-                            }
-                        }, 5000);
+                        startActivity(intent);
+
 
                     }
 
