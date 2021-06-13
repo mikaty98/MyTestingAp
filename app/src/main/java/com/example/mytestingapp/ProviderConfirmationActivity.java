@@ -42,47 +42,6 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         cancelBtn = findViewById(R.id.cancelBtn);
         acceptBtn = findViewById(R.id.acceptBtn);
 
-        firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
-
-
-        String providerCheckId = firebaseUser.getUid();
-
-        reference1 = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
-
-        reference1.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                if(snapshot.exists())
-                {
-                    for (DataSnapshot child: snapshot.getChildren())
-                    {
-                        String key = child.getKey();
-
-                        if(key.contains(providerCheckId))
-                        {
-                            receiverId = child.child("seekerID").getValue(String.class);
-                            usertype = child.child("userType").getValue(String.class);
-                            completionTime = child.child("completionTime").getValue(Integer.class);
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,17 +56,52 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                Intent intent = new Intent(ProviderConfirmationActivity.this, ChatRoom.class);
-                intent.putExtra("receiver id", receiverId);
-                intent.putExtra("user type", usertype);
-                intent.putExtra("completion time", completionTime);
+                firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
 
-                reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
-                reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(true);
+                String providerCheckId = firebaseUser.getUid();
 
-                startActivity(intent);
+                reference1 = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
 
+                reference1.addListenerForSingleValueEvent(new ValueEventListener() {
 
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot)
+                    {
+                        if(snapshot.exists())
+                        {
+                            for (DataSnapshot child: snapshot.getChildren())
+                            {
+                                String key = child.getKey();
+
+                                if(key.contains(providerCheckId))
+                                {
+                                    receiverId = child.child("seekerID").getValue(String.class);
+                                    usertype = child.child("userType").getValue(String.class);
+                                    completionTime = child.child("completionTime").getValue(Integer.class);
+
+                                    Intent intent = new Intent(ProviderConfirmationActivity.this, ChatRoom.class);
+                                    intent.putExtra("receiver id", receiverId);
+                                    intent.putExtra("user type", usertype);
+                                    intent.putExtra("completion time", completionTime);
+
+                                    reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+                                    reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(true);
+
+                                    startActivity(intent);
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
