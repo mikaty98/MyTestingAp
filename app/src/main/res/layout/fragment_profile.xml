@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/background_colour"
     android:layout_height="match_parent"
+    android:background="@drawable/background_colour"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.main.ProfileFragment">
 
     <ScrollView
@@ -15,17 +15,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textAppearance="?android:textAppearanceLarge"
+                android:layout_marginBottom="15dp"
                 android:gravity="center"
-                />
+                android:text="Profile"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profilePic"
@@ -34,101 +36,191 @@
                 android:layout_gravity="center"
                 android:src="@drawable/blankprofilepic"
                 app:civ_border_color="@color/black"
-                app:civ_border_width="2dp"
-                />
+                app:civ_border_width="2dp" />
 
-            <EditText
-                android:id="@+id/username"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:editable="false"
-                android:hint="Username"
-                android:textColorHint="@color/white" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Job Description"
-                android:textColorHint="@color/white"
-                android:editable="false"
-                android:id="@+id/job_description"
-                />
+                <TableRow>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:editable="false"
-                android:layout_margin="10dp"
-                android:hint="Gender"
-                android:id="@+id/gender"
-                />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="User name:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:layout_margin="10dp"
-                android:hint="Age"
-                android:inputType="number"
-                android:editable="false"
-                android:id="@+id/age"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:layout_margin="10dp"
-                android:hint="ID Number"
-                android:editable="false"
-                android:inputType="number"
-                android:id="@+id/id"
-                />
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Username"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
 
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:layout_margin="10dp"
-                android:hint="Phone Number"
-                android:editable="false"
-                android:inputType="phone"
-                android:id="@+id/phone_number"
-                />
+                </TableRow>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Email"
-                android:textColorHint="@color/white"
-                android:editable="false"
-                android:id="@+id/email"
-                />
+                <TableRow>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textColorHint="@color/white"
-                android:editable="false"
-                android:id="@+id/password"
-                />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Job Description:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
 
+                    <EditText
+                        android:id="@+id/job_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Job Description"
+                        android:inputType="none"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Gender:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Gender"
+                        android:inputType="none"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Age:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Age"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="ID Number:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="ID Number"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Phone Number:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Phone Number"
+                        android:inputType="phone"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Email: "
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Email"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+            </TableLayout>
 
 
         </LinearLayout>
 
 
-
     </ScrollView>
-
 
 
 </LinearLayout>

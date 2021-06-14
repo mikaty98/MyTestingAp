@@ -45,8 +45,45 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
 
-                goBack();
+                String providerCheckId = firebaseUser.getUid();
+
+                reference1 = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+
+                reference1.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot)
+                    {
+                        if(snapshot.exists())
+                        {
+                            for (DataSnapshot child: snapshot.getChildren())
+                            {
+                                String key = child.getKey();
+
+                                if(key.contains(providerCheckId))
+                                {
+                                    receiverId = child.child("seekerID").getValue(String.class);
+                                    usertype = child.child("userType").getValue(String.class);
+                                    completionTime = child.child("completionTime").getValue(Integer.class);
+
+                                    goBack();
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
             }
         });
