@@ -27,14 +27,13 @@
             </TextView>
 
 
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Request a service"
+                android:text="Request a local service"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:id="@+id/service"
+                android:id="@+id/localService"
                 android:background="@drawable/custom_button"
                 />
 
@@ -42,9 +41,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="View the waiting list of proposals"
+                android:text="View the waiting list of your local request proposals"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:id="@+id/waiting"
+                android:id="@+id/localWaiting"
+                android:background="@drawable/custom_button"
+                />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Request a global service"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:id="@+id/globalService"
+                android:background="@drawable/custom_button"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="View the waiting list of your global request proposals"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:id="@+id/globalWaiting"
                 android:background="@drawable/custom_button"
                 />
 

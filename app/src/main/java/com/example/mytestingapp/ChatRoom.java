@@ -108,8 +108,6 @@ public class ChatRoom extends AppCompatActivity {
         SendBtn = findViewById(R.id.btn_send);
         msg_text = findViewById(R.id.text_send);
 
-
-
         imageView = findViewById(R.id.imageview_profile);
         username = findViewById(R.id.username1);
 
@@ -332,10 +330,6 @@ public class ChatRoom extends AppCompatActivity {
                             }
                         }
                     });
-
-
-
-                    // will send provider to localrequestend2 here
                 }
                 else
                 {

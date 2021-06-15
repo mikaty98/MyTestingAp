@@ -31,8 +31,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SeekerHome0 extends AppCompatActivity {
 
-    private Button service;
-    private Button waiting, signOut;
+    private Button localService, globalService;
+    private Button localWaiting, globalWaiting, signOut;
     private TextView welcomeUser;
 
     private FirebaseDatabase rootNode;
@@ -45,8 +45,11 @@ public class SeekerHome0 extends AppCompatActivity {
 
         UpdateToken();
 
-        service = findViewById(R.id.service);
-        waiting = findViewById(R.id.waiting);
+
+        globalService = findViewById(R.id.globalService);
+        globalWaiting = findViewById(R.id.globalWaiting);
+        localService = findViewById(R.id.localService);
+        localWaiting = findViewById(R.id.localWaiting);
         welcomeUser = findViewById(R.id.welcomeUser);
         signOut = findViewById(R.id.signOut);
 
@@ -56,7 +59,7 @@ public class SeekerHome0 extends AppCompatActivity {
         welcomeUser.setText("Welcome " + text);
 
 
-        service.setOnClickListener(new View.OnClickListener() {
+        localService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -68,7 +71,7 @@ public class SeekerHome0 extends AppCompatActivity {
 
 
                         if (dataSnapshot.exists()) {
-                            Toast.makeText(SeekerHome0.this, "You can't request two services at the same time!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SeekerHome0.this, "You can't request two local services at the same time!", Toast.LENGTH_SHORT).show();
 
 
                         } else {
@@ -94,19 +97,9 @@ public class SeekerHome0 extends AppCompatActivity {
             }
         });
 
-        waiting.setOnClickListener(new View.OnClickListener() {
+        localWaiting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                //int flag = 999;
-
-                //SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
-                //SharedPreferences.Editor editor = mySharedPreferences.edit();
-                //editor.putInt("intent",flag);
-                // editor.commit();
-                // editor.apply();
-
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
                 ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener() {
@@ -122,7 +115,85 @@ public class SeekerHome0 extends AppCompatActivity {
                             startActivity(intent);
 
                         } else {
-                            Toast.makeText(SeekerHome0.this, "You didn't request a service yet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SeekerHome0.this, "You didn't request a local service yet", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
+
+            }
+        });
+
+
+
+        globalService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("GlobalRequests");
+                ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                        if (dataSnapshot.exists()) {
+                            Toast.makeText(SeekerHome0.this, "You can't request two global services at the same time!", Toast.LENGTH_SHORT).show();
+
+
+                        } else {
+                            Toast.makeText(SeekerHome0.this, "Loading...", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(SeekerHome0.this, SeekerHome.class);
+                            intent.putExtra("seeker email", text);
+                            startActivity(intent);
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
+
+            }
+        });
+
+
+
+        globalWaiting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("GlobalRequests");
+                ref.orderByChild("seekerEmail").equalTo(text).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                        if (dataSnapshot.exists()) {
+                            Toast.makeText(SeekerHome0.this, "Loading...", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(SeekerHome0.this, SeekerLocalRequestWaitingList.class);
+                            intent.putExtra("seeker email", text);
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(SeekerHome0.this, "You didn't request a global service yet", Toast.LENGTH_SHORT).show();
 
                         }
 
