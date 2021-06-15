@@ -1,4 +1,4 @@
-package com.example.mytestingapp.ui.main;
+package com.example.mytestingapp.ui.FragmentSystem;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
@@ -33,12 +32,11 @@ import java.io.File;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ProfileFragment extends Fragment {
+public class ProviderProfileFragment extends Fragment {
 
     private EditText username,jobDescription,gender,age,id,email,phoneNumber;
     private CircleImageView profilePic;
 
-    private String providerEmail;
     private Provider provider = new Provider();
 
     private FirebaseDatabase rootNode;
@@ -53,7 +51,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-    public ProfileFragment( ) {
+    public ProviderProfileFragment( ) {
         // Required empty public constructor
     }
 
@@ -92,7 +90,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_provider_profile, container, false);
 
         
 
@@ -107,9 +105,7 @@ public class ProfileFragment extends Fragment {
 
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if (getArguments() != null){
-            providerEmail = getArguments().getString("provider email");
-        }
+
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Providers");
 

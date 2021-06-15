@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.SeekerLocalRequestCompletionConfirm;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -193,7 +190,7 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
                 final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
 
 
-                Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRating.class);
+                Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRatingSubmit.class);
                 intentt.putExtra("receiver id", receiverId);
                 intentt.putExtra("price", finalPricee);
                 intentt.putExtra("user type", "provider");

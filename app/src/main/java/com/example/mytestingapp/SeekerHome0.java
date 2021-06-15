@@ -54,7 +54,7 @@ public class SeekerHome0 extends AppCompatActivity {
         signOut = findViewById(R.id.signOut);
 
         Intent intent = getIntent();
-        String text = intent.getStringExtra("seeker email");
+        String text = intent.getStringExtra("seeker userName");
 
         welcomeUser.setText("Welcome " + text);
 

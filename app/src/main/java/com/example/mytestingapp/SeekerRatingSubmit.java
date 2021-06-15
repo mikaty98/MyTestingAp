@@ -4,26 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Script;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.Toast;
 
-import com.example.mytestingapp.Classes.ProviderRatings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ProviderRating extends AppCompatActivity {
+public class SeekerRatingSubmit extends AppCompatActivity {
+
 
     Intent intent;
 
     String receiverId;
     String userType;
     String price;
+
 
     Button submitBtn;
 
@@ -38,7 +37,8 @@ public class ProviderRating extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_provider_rating);
+        setContentView(R.layout.activity_seeker_rating_submit);
+
 
         intent = getIntent();
 
@@ -72,25 +72,19 @@ public class ProviderRating extends AppCompatActivity {
 
                 float two = ratingBar.getRating();
 
-                ProviderRatings providerRatings = new ProviderRatings(receiverId, userId, one, two);
+                com.example.mytestingapp.Classes.SeekerRating seekerRatings = new com.example.mytestingapp.Classes.SeekerRating(userId, receiverId, one, two);
 
-                providerRatings.setSeekerId(receiverId);
-                providerRatings.setProviderId(userId);
-                providerRatings.setStarNumber(two);
-                providerRatings.setReview(one);
+                seekerRatings.setSeekerId(userId);
+                seekerRatings.setProviderId(receiverId);
+                seekerRatings.setStarNumber(two);
+                seekerRatings.setReview(one);
 
-                reference = FirebaseDatabase.getInstance().getReference().child("ProviderRatings");
-                reference.child(receiverId).setValue(providerRatings);
+                reference = FirebaseDatabase.getInstance().getReference().child("SeekerRatings");
+                reference.child(receiverId).setValue(seekerRatings);
 
 
             }
         });
-
-
-
-
-
-
 
 
 

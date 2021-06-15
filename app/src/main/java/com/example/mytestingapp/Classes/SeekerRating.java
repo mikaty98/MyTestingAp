@@ -1,13 +1,13 @@
 package com.example.mytestingapp.Classes;
 
-public class SeekerRatings {
+public class SeekerRating {
 
     String seekerId;
     String providerId;
     String review;
     float starNumber;
 
-    public SeekerRatings(String seekerId, String providerId, String review, float starNumber)
+    public SeekerRating(String seekerId, String providerId, String review, float starNumber)
     {
         this.seekerId = seekerId;
         this.providerId = providerId;

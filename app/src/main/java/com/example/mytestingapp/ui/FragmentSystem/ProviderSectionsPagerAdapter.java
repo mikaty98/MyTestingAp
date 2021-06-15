@@ -1,4 +1,4 @@
-package com.example.mytestingapp.ui.main;
+package com.example.mytestingapp.ui.FragmentSystem;
 
 
 
@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class ProviderSectionsPagerAdapter extends FragmentPagerAdapter {
 
 
 
@@ -25,7 +25,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 
 
-    public SectionsPagerAdapter(FragmentManager fm,int num,String userID) {
+    public ProviderSectionsPagerAdapter(FragmentManager fm, int num, String userID) {
         super(fm);
         fragmentManager = fm;
         numOfTabs = num;
@@ -42,11 +42,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 exploreFragment.setArguments(args);
                 return exploreFragment;
             case 1: //return new ProfileFragment();
-                ProfileFragment profileFragment = new ProfileFragment();
+                ProviderProfileFragment profileFragment = new ProviderProfileFragment();
                 profileFragment.setArguments(args);
                 return profileFragment;
 
-            case 2: return new SettingsFragment();
+            case 2: return new ProviderSettingsFragment();
             default: return null;
         }
 

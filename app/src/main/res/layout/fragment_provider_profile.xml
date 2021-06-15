@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_colour"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.FragmentSystem.ProviderProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="Profile"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/blankprofilepic"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="2dp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="User name:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Username"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Job Description:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/job_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Job Description"
+                        android:inputType="none"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Gender:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Gender"
+                        android:inputType="none"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Age:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Age"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="ID Number:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="ID Number"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Phone Number:"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Phone Number"
+                        android:inputType="phone"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Email: "
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:translationY="10dp" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:editable="false"
+                        android:hint="Email"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+
+                </TableRow>
+            </TableLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

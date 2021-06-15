@@ -1,4 +1,4 @@
-package com.example.mytestingapp.ui.main;
+package com.example.mytestingapp.ui.FragmentSystem;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.mytestingapp.PLoginActivity;
 import com.example.mytestingapp.R;
@@ -19,18 +18,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SettingsFragment extends Fragment {
+public class ProviderSettingsFragment extends Fragment {
 
     private Button signOut;
 
-    public SettingsFragment( ) {
+    public ProviderSettingsFragment( ) {
         // Required empty public constructor
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings,container,false);
+        View view = inflater.inflate(R.layout.fragment_provider_settings,container,false);
 
         signOut = view.findViewById(R.id.signOut);
 

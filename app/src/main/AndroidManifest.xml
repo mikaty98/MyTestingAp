@@ -22,8 +22,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SeekerGlobalRequestWaitingList"></activity>
         <activity android:name=".SeekerGlobalRequest" />
-        <activity android:name=".SeekerRating" />
-        <activity android:name=".ProviderRating" />
+        <activity android:name=".SeekerMainHomeActivity"></activity>
+        <activity android:name=".SeekerRatingSubmit" />
+        <activity android:name=".ProviderRatingSubmit" />
         <activity android:name=".ProviderLocalRequestEndBuffer2" />
         <activity android:name=".ProviderLocalRequestEnd2" />
         <activity android:name=".ProviderConfirmationActivity" />

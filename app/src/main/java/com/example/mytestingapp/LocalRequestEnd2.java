@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.mytestingapp.Classes.SeekerLocalRequestArrivalConfirm;
 import com.example.mytestingapp.Classes.SeekerLocalRequestCompletionConfirm;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -167,7 +165,7 @@ public class LocalRequestEnd2 extends AppCompatActivity {
                         final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
 
 
-                        Intent intentt = new Intent(LocalRequestEnd2.this, SeekerRating.class);
+                        Intent intentt = new Intent(LocalRequestEnd2.this, SeekerRatingSubmit.class);
                         intentt.putExtra("receiver id", receiverId);
                         intentt.putExtra("price", finalPricee);
                         intentt.putExtra("user type", "seeker");

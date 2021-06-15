@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.mytestingapp.SendNotificationPack.Token;
 import com.example.mytestingapp.ui.FragmentSystem.ProviderSectionsPagerAdapter;
+import com.example.mytestingapp.ui.FragmentSystem.SeekerSectionsPageAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,32 +17,29 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class ProviderHomeActivity extends AppCompatActivity {
-
+public class SeekerMainHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         UpdateToken();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_provider_home);
+        setContentView(R.layout.activity_seeker_main_home);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        String text = getIntent().getStringExtra("seeker userName");
+
         TabLayout tabLayout = findViewById(R.id.tabBar);
-        TabItem exploreTab = findViewById(R.id.exploreTab);
+        TabItem homeTab = findViewById(R.id.homeTab);
         TabItem profileTab = findViewById(R.id.profileTab);
         TabItem settingsTab = findViewById(R.id.settingsTab);
         ViewPager viewPager = findViewById(R.id.viewPager);
 
 
+        SeekerSectionsPageAdapter seekerSectionsPageAdapter = new
+                SeekerSectionsPageAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),text);
 
-
-
-
-        ProviderSectionsPagerAdapter sectionsPagerAdapter = new
-                ProviderSectionsPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),userID);
-
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(seekerSectionsPageAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -61,13 +59,9 @@ public class ProviderHomeActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
     }
-    private void UpdateToken(){
+
+    private void UpdateToken() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken = FirebaseInstanceId.getInstance().getToken();
         Token userToken = new Token(refreshToken);
@@ -80,8 +74,7 @@ public class ProviderHomeActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Closing Activity")
                 .setMessage("Are you sure you want to close the app?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -91,6 +84,5 @@ public class ProviderHomeActivity extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
-
 
 }

@@ -52,7 +52,7 @@ public class SLoginActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         String email = snapshot.child(userID).child("email").getValue(String.class);
-                        Intent intent = new Intent(SLoginActivity.this, SeekerHome0.class);
+                        Intent intent = new Intent(SLoginActivity.this, SeekerMainHomeActivity.class);
                         intent.putExtra("seeker email", email);
                         startActivity(intent);
                         finish();
@@ -170,9 +170,9 @@ public class SLoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()){ //email and passowrd found in Seeker database
-                                    String text = inputEmail;
-                                    Intent intent = new Intent(SLoginActivity.this, SeekerHome0.class);
-                                    intent.putExtra("seeker email", text);
+                                    String text = snapshot.child(userID).child("userName").getValue(String.class);
+                                    Intent intent = new Intent(SLoginActivity.this, SeekerMainHomeActivity.class);
+                                    intent.putExtra("seeker username", text);
                                     startActivity(intent);
                                     finish();
                                 }
