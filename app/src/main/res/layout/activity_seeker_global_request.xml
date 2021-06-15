@@ -1,9 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/background_colour"
     tools:context=".SeekerGlobalRequest">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Request a service"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                android:id="@+id/requestDetails"
+                />
+
+
+            <EditText
+                android:id="@+id/requestTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Request Title"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/requestDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Request Description"
+                android:textColorHint="@color/white"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item details"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                android:id="@+id/itemDetails"
+                />
+
+            <EditText
+                android:id="@+id/itemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Name"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/itemBrandName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Brand/Company Name"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/itemSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Size/Quantity"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/itemCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Category"
+                android:textColorHint="@color/white"
+                />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location for your request"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                android:id="@+id/requestLocation"
+                />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="City"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/suburb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Suburb"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/streetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Street Name"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/streetNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Street Number"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/buildingName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Building Name"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/buildingNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Building Number"
+                android:inputType="number"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/floor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Floor Number"
+                android:textColorHint="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/apartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Apartment Number"
+                android:textColorHint="@color/white"
+                />
+
+
+            <Button
+                android:id="@+id/currentLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Use current location"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:background="@drawable/custom_button"/>
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Confirm"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:background="@drawable/custom_button"/>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

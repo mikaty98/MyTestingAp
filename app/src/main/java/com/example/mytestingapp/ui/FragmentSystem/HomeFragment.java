@@ -13,9 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mytestingapp.Classes.SeekerRating;
 import com.example.mytestingapp.R;
 import com.example.mytestingapp.SeekerGlobalRequest;
 import com.example.mytestingapp.SeekerGlobalRequestWaitingList;
+import com.example.mytestingapp.SeekerHome0;
 import com.example.mytestingapp.SeekerLocalRequest;
 import com.example.mytestingapp.SeekerLocalRequestWaitingList;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,7 +71,7 @@ public class HomeFragment extends Fragment {
 
 
                         if (dataSnapshot.exists()) {
-                            Toast.makeText(getActivity(), "You can't request two services at the same time!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "You can't request two local services at the same time!", Toast.LENGTH_SHORT).show();
 
 
                         } else {
@@ -113,7 +115,7 @@ public class HomeFragment extends Fragment {
                             startActivity(intent);
 
                         } else {
-                            Toast.makeText(getActivity(), "You didn't request a service yet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "You didn't request a local service yet", Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -149,7 +151,7 @@ public class HomeFragment extends Fragment {
                         } else {
                             Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(getActivity(), SeekerGlobalRequest.class);
+                            Intent intent = new Intent(getActivity(), SeekerHome0.class);
                             intent.putExtra("seeker email", seekerEmail);
                             startActivity(intent);
 
