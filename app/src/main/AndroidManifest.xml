@@ -19,8 +19,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SeekerRating"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".SeekerRating" />
         <activity android:name=".ProviderRating" />
         <activity android:name=".ProviderLocalRequestEndBuffer2" />
         <activity android:name=".ProviderLocalRequestEnd2" />

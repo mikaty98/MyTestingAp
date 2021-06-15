@@ -35,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
-    private EditText username,jobDescription,gender,age,id,email,password,phoneNumber;
+    private EditText username,jobDescription,gender,age,id,email,phoneNumber;
     private CircleImageView profilePic;
 
     private String providerEmail;
@@ -102,7 +102,6 @@ public class ProfileFragment extends Fragment {
         age = view.findViewById(R.id.age);
         id = view.findViewById(R.id.id);
         email = view.findViewById(R.id.email);
-        password = view.findViewById(R.id.password);
         phoneNumber = view.findViewById(R.id.phone_number);
         profilePic = view.findViewById(R.id.profilePic);
 
@@ -136,7 +135,6 @@ public class ProfileFragment extends Fragment {
                     age.setText(provider.getAge());
                     id.setText(provider.getId());
                     email.setText(provider.getEmail());
-                    password.setText(provider.getPassword());
                     phoneNumber.setText(provider.getPhoneNumber());
                     profilePic.setImageBitmap(provider.getImageBitmap());
                 }
