@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment {
                         } else {
                             Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(getActivity(), SeekerHome0.class);
+                            Intent intent = new Intent(getActivity(), SeekerGlobalRequest.class);
                             intent.putExtra("seeker email", seekerEmail);
                             startActivity(intent);
 
