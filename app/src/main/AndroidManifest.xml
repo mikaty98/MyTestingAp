@@ -49,7 +49,6 @@
 
         <activity android:name=".SeekerLocalRequest" />
         <activity android:name=".ProviderProfileActivity" />
-        <activity android:name=".SeekerHome" />
         <activity android:name=".PLoginActivity" />
         <activity android:name=".PRegisterActivity" />
         <activity android:name=".HomeActivity" />

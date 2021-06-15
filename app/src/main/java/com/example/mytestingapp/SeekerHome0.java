@@ -77,7 +77,7 @@ public class SeekerHome0 extends AppCompatActivity {
                         } else {
                             Toast.makeText(SeekerHome0.this, "Loading...", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(SeekerHome0.this, SeekerHome.class);
+                            Intent intent = new Intent(SeekerHome0.this, SeekerLocalRequest.class);
                             intent.putExtra("seeker email", text);
                             startActivity(intent);
 
