@@ -20,19 +20,23 @@
             android:id="@+id/homeTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home" />
+            android:text="Home"
+            android:icon="@drawable/ic_seekerhome"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/profileTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile" />
+            android:text="Profile"
+            android:icon="@drawable/ic_profile"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/settingsTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings" />
+            android:text="Settings"
+            android:icon="@drawable/ic_baseline_settings_24"
+           />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

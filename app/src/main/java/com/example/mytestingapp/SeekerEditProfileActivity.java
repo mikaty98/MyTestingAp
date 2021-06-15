@@ -1,24 +1,16 @@
-package com.example.mytestingapp.ui.FragmentSystem;
+package com.example.mytestingapp;
 
-import android.content.Intent;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Seeker;
-import com.example.mytestingapp.ProviderEditProfileActivity;
-import com.example.mytestingapp.R;
-import com.example.mytestingapp.SeekerEditProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,56 +28,40 @@ import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-public class SeekerProfileFragment extends Fragment {
-
-
-    private EditText username,gender,age,id,email,phoneNumber;
-    private CircleImageView profilePic;
-    private Button editBtn;
-
-    private Seeker seeker = new Seeker();
-
-    private DatabaseReference reference;
-
-    private StorageReference storageReference;
-
+public class SeekerEditProfileActivity extends AppCompatActivity {
     private String userID;
-
-    public SeekerProfileFragment() {
-        // Required empty public constructor
-    }
-
-
-
-
+    private EditText username, gender, age, id, email, phoneNumber;
+    private CircleImageView profilePic;
+    private Button saveBtn;
+    private DatabaseReference reference;
+    private StorageReference storageReference;
+    private Seeker seeker;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seeker_profile, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_seeker_edit_profile);
 
-        username = view.findViewById(R.id.username);
-        gender = view.findViewById(R.id.gender);
-        age = view.findViewById(R.id.age);
-        id = view.findViewById(R.id.id);
-        email = view.findViewById(R.id.email);
-        phoneNumber = view.findViewById(R.id.phone_number);
-        profilePic = view.findViewById(R.id.profilePic);
-        editBtn = view.findViewById(R.id.editBtn);
+        profilePic = findViewById(R.id.profilePic);
+        username = findViewById(R.id.username_reg);
+        gender = findViewById(R.id.gender_reg);
+        age = findViewById(R.id.age_reg);
+        id = findViewById(R.id.id_reg);
+        email = findViewById(R.id.email_reg);
+        phoneNumber = findViewById(R.id.phone_number_reg);
+
+        saveBtn = findViewById(R.id.saveBtn);
 
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        
         reference = FirebaseDatabase.getInstance().getReference("Seekers");
-
-        Query checkuser = reference.orderByChild("userID").equalTo(userID);
-        checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query checkUser = reference.orderByChild("userID").equalTo(userID);
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     seeker = snapshot.child(userID).getValue(Seeker.class);
                     getProfilePic();
-
                     username.setText(seeker.getUserName());
                     gender.setText(seeker.getGender());
                     age.setText(seeker.getAge());
@@ -98,27 +74,25 @@ public class SeekerProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),"user not found", Toast.LENGTH_LONG).show();
+
             }
         });
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SeekerEditProfileActivity.class);
-                startActivity(intent);
+                reference.child(userID).setValue(seeker);
+                finish();
             }
         });
-
-        return view;
-
     }
 
-    private void getProfilePic(){
-        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+userID);
+    private void getProfilePic() {
+        storageReference = FirebaseStorage.getInstance().getReference().child("images/" + userID);
         final Bitmap[] bitmap = new Bitmap[1];
-        try{
-            File localfile = File.createTempFile(userID,".jpg");
+        try {
+            File localfile = File.createTempFile(userID, ".jpg");
             storageReference.getFile(localfile)
                     .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
@@ -136,12 +110,12 @@ public class SeekerProfileFragment extends Fragment {
                 }
             });
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
             profilePic.setImageBitmap(bitmap[0]);
             seeker.setImageBitmap(bitmap[0]);
         }
 
     }
+
 }

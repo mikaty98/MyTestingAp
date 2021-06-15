@@ -1,5 +1,6 @@
 package com.example.mytestingapp.ui.FragmentSystem;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
+import com.example.mytestingapp.ProviderEditProfileActivity;
 import com.example.mytestingapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +39,7 @@ public class ProviderProfileFragment extends Fragment {
 
     private EditText username,jobDescription,gender,age,id,email,phoneNumber;
     private CircleImageView profilePic;
+    private Button editBtn;
 
     private Provider provider = new Provider();
 
@@ -102,6 +106,7 @@ public class ProviderProfileFragment extends Fragment {
         email = view.findViewById(R.id.email);
         phoneNumber = view.findViewById(R.id.phone_number);
         profilePic = view.findViewById(R.id.profilePic);
+        editBtn = view.findViewById(R.id.editBtn);
 
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -139,6 +144,15 @@ public class ProviderProfileFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getActivity(),"user not found", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProviderEditProfileActivity.class);
+                startActivity(intent);
             }
         });
 

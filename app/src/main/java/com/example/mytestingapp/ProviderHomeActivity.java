@@ -33,11 +33,6 @@ public class ProviderHomeActivity extends AppCompatActivity {
         TabItem settingsTab = findViewById(R.id.settingsTab);
         ViewPager viewPager = findViewById(R.id.viewPager);
 
-
-
-
-
-
         ProviderSectionsPagerAdapter sectionsPagerAdapter = new
                 ProviderSectionsPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),userID);
 
@@ -59,12 +54,6 @@ public class ProviderHomeActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
 
     }
     private void UpdateToken(){

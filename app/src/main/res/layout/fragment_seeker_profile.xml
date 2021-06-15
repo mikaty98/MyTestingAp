@@ -38,6 +38,15 @@
                 app:civ_border_color="@color/black"
                 app:civ_border_width="2dp" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:id="@+id/editBtn"
+                android:background="@drawable/custom_button"
+                android:text="Edit Profile"
+                android:textColor="@color/white"/>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -59,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:editable="false"
+                        android:inputType="none"
                         android:hint="Username"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
@@ -109,8 +119,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:editable="false"
+                        android:inputType="none"
                         android:hint="Age"
-                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
 
@@ -135,7 +145,7 @@
                         android:layout_margin="10dp"
                         android:editable="false"
                         android:hint="ID Number"
-                        android:inputType="number"
+                        android:inputType="none"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
 
@@ -160,7 +170,7 @@
                         android:layout_margin="10dp"
                         android:editable="false"
                         android:hint="Phone Number"
-                        android:inputType="phone"
+                        android:inputType="none"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
 
@@ -184,6 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:editable="false"
+                        android:inputType="none"
                         android:hint="Email"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
