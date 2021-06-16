@@ -239,7 +239,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
                             @Override
                             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                                progressDialog.dismiss();
                                 Intent failed = new Intent(ChosenProviderProfile.this, SeekerLocalRequestWaitingList.class);
                                 //failed.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(failed);
