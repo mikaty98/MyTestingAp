@@ -25,7 +25,7 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
 
     private Button cancelBtn, acceptBtn;
     private String receiverId, usertype;
-    private int arrivalTime,completionTime,price;
+    private int arrivalTime, completionTime, price;
     private DatabaseReference reference, reference1;
 
     private SharedPreferences sp;
@@ -45,7 +45,7 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
+                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String providerCheckId = firebaseUser.getUid();
 
@@ -54,16 +54,12 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
                 reference1.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot)
-                    {
-                        if(snapshot.exists())
-                        {
-                            for (DataSnapshot child: snapshot.getChildren())
-                            {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
                                 String key = child.getKey();
 
-                                if(key.contains(providerCheckId))
-                                {
+                                if (key.contains(providerCheckId)) {
                                     receiverId = child.child("seekerID").getValue(String.class);
                                     usertype = child.child("userType").getValue(String.class);
                                     completionTime = child.child("completionTime").getValue(Integer.class);
@@ -90,10 +86,9 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
 
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
+                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String providerCheckId = firebaseUser.getUid();
 
@@ -102,16 +97,12 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
                 reference1.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot)
-                    {
-                        if(snapshot.exists())
-                        {
-                            for (DataSnapshot child: snapshot.getChildren())
-                            {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
                                 String key = child.getKey();
 
-                                if(key.contains(providerCheckId))
-                                {
+                                if (key.contains(providerCheckId)) {
                                     receiverId = child.child("seekerID").getValue(String.class);
                                     usertype = child.child("userType").getValue(String.class);
                                     completionTime = child.child("completionTime").getValue(Integer.class);
@@ -143,42 +134,32 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         });
     }
 
-    private void goBack(){
+    private void goBack() {
         sp = getApplicationContext().getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
-        String seekerEmail = sp.getString("seeker email","");
+        String seekerEmail = sp.getString("seeker email", "");
         String temp[] = seekerEmail.split(".com");
-        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(temp[0]).child(FirebaseAuth.getInstance().getUid());
+
+        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId).child(FirebaseAuth.getInstance().getUid());
         reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 reference = FirebaseDatabase.getInstance().getReference("Providers");
-                reference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            provider = snapshot.child(FirebaseAuth.getInstance().getUid()).getValue(Provider.class);
-                            provider.setSentProposal(false);
-                            reference.child(FirebaseAuth.getInstance().getUid()).setValue(provider);
-
-                            //delete connection between seeker and provider
-                            reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
-                            reference.child(receiverId + FirebaseAuth.getInstance().getUid()).removeValue();
-                            //--------------------------------------------------------
+                reference.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").setValue(false);
 
 
-                            Intent intent = new Intent(ProviderConfirmationActivity.this, ProviderHomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
+                //delete connection between seeker and provider
+                reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+                reference.child(receiverId + FirebaseAuth.getInstance().getUid()).removeValue();
+                //--------------------------------------------------------
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                Intent intent = new Intent(ProviderConfirmationActivity.this, ProviderHomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         });
+
+
     }
 }
