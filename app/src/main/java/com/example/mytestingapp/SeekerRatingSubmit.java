@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.example.mytestingapp.Classes.SeekerRating;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +20,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
     Intent intent;
 
-    String receiverId;
+    String providerId;
     String userType;
     String price;
 
@@ -42,7 +43,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
         intent = getIntent();
 
-        receiverId = intent.getStringExtra("receiver id");
+        providerId = intent.getStringExtra("receiver id");
         userType = intent.getStringExtra("user type");
         price = intent.getStringExtra("price");
 
@@ -72,15 +73,19 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
                 float two = ratingBar.getRating();
 
-                com.example.mytestingapp.Classes.SeekerRating seekerRatings = new com.example.mytestingapp.Classes.SeekerRating(userId, receiverId, one, two);
+                SeekerRating seekerRating = new SeekerRating(userId, providerId, one, two);
 
-                seekerRatings.setSeekerId(userId);
-                seekerRatings.setProviderId(receiverId);
-                seekerRatings.setStarNumber(two);
-                seekerRatings.setReview(one);
 
-                reference = FirebaseDatabase.getInstance().getReference().child("SeekerRatings");
-                reference.child(receiverId).setValue(seekerRatings);
+                reference = FirebaseDatabase.getInstance().getReference().child("Providers")
+                        .child(providerId)
+                        .child("ratings");
+                reference.child(userId).setValue(seekerRating);
+
+                //TODO remove local request, local request proposals, arrival and completion flags.
+
+                Intent intent = new Intent(SeekerRatingSubmit.this,SeekerMainHomeActivity.class);
+                startActivity(intent);
+                finish();
 
 
             }

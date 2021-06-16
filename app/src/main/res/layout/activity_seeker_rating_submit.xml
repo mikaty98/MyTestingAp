@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeekerRatingSubmit">
+    tools:context=".SeekerRatingSubmit"
+    android:background="@drawable/background_colour">
 
 
     <LinearLayout
@@ -22,6 +23,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:editable="false"
+            android:textColor="@color/black"
             />
 
     </LinearLayout>
@@ -42,6 +44,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:editable="false"
+
             />
 
     </LinearLayout>
@@ -60,7 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:numStars="5"
-            android:stepSize="0.5" />
+            android:stepSize="0.5"
+            android:outlineSpotShadowColor="@color/black"
+            />
 
     </LinearLayout>
 
@@ -98,6 +103,8 @@
             android:gravity="center"
             android:id="@+id/submitButton"
             android:text="Submit"
+            android:background="@drawable/custom_button"
+            android:textColor="@color/white"
             />
 
     </LinearLayout>

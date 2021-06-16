@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.example.mytestingapp.Classes.ProviderRating;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -16,9 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ProviderRatingSubmit extends AppCompatActivity {
 
-    Intent intent;
 
-    String receiverId;
+    String seekerId;
     String userType;
     String price;
 
@@ -37,11 +37,10 @@ public class ProviderRatingSubmit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_rating_submit);
 
-        intent = getIntent();
 
-        receiverId = intent.getStringExtra("receiver id");
-        userType = intent.getStringExtra("user type");
-        price = intent.getStringExtra("price");
+        seekerId = getIntent().getStringExtra("receiver id");
+        userType = getIntent().getStringExtra("user type");
+        price = getIntent().getStringExtra("price");
 
 
         ratingNote = findViewById(R.id.ratingNote);
@@ -69,15 +68,16 @@ public class ProviderRatingSubmit extends AppCompatActivity {
 
                 float two = ratingBar.getRating();
 
-                com.example.mytestingapp.Classes.ProviderRating providerRatings = new com.example.mytestingapp.Classes.ProviderRating(receiverId, userId, one, two);
+                ProviderRating providerRating = new ProviderRating(seekerId, userId, one, two);
 
-                providerRatings.setSeekerId(receiverId);
-                providerRatings.setProviderId(userId);
-                providerRatings.setStarNumber(two);
-                providerRatings.setReview(one);
+                reference = FirebaseDatabase.getInstance().getReference().child("Seekers").child(seekerId).child("ratings");
+                reference.child(userId).setValue(providerRating);
 
-                reference = FirebaseDatabase.getInstance().getReference().child("ProviderRatings");
-                reference.child(receiverId).setValue(providerRatings);
+                //TODO remove local request, local request proposals, arrival and completion flags.
+
+                Intent intent = new Intent(ProviderRatingSubmit.this,ProviderHomeActivity.class);
+                startActivity(intent);
+                finish();
 
 
             }
