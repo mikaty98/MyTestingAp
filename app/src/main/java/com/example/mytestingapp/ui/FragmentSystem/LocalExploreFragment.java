@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExploreFragment extends Fragment {
+public class LocalExploreFragment extends Fragment {
 
     private EditText suburbEditText;
     private Button filterBtn;
@@ -84,7 +84,7 @@ public class ExploreFragment extends Fragment {
 
 
 
-    public ExploreFragment() {
+    public LocalExploreFragment() {
         // Required empty public constructor
     }
 
@@ -93,7 +93,7 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_explore, container, false);
+        View view = inflater.inflate(R.layout.fragment_local_explore, container, false);
 
         suburbEditText = view.findViewById(R.id.suburbEditText);
         filterBtn = view.findViewById(R.id.filterBtn);
