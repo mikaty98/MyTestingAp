@@ -33,7 +33,8 @@
         <activity android:name=".LocalRequestEnd1" />
         <activity android:name=".ChatRoom" />
         <activity android:name=".ChosenProviderProfile" />
-        <activity android:name=".SeekerHome0" />
+        <activity android:name=".SeekerReviewListActivity" />
+        <activity android:name=".ProviderReviewListActivity" />
         <activity android:name=".SeekerLocalRequestAutoMap" />
         <activity android:name=".LocalRequestInfoActivity" />
         <activity android:name=".SeekerLocalRequestWaitingList" />

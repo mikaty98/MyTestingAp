@@ -114,10 +114,10 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         seekerReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LocalRequestInfoActivity.this, SeekerReviewListActivity.class);
-                intent.putExtra("seeker id", seekerID);
-                intent.putExtra("seeker email", localRequest.getSeekerEmail());
-                startActivity(intent);
+                Intent reviewintent = new Intent(LocalRequestInfoActivity.this, SeekerReviewListActivity.class);
+                reviewintent.putExtra("seeker id", seekerID);
+                reviewintent.putExtra("seeker email", localRequest.getSeekerEmail());
+                startActivity(reviewintent);
             }
         });
 

@@ -101,22 +101,7 @@ public class ProviderRatingSubmit extends AppCompatActivity {
 
                 //setting busy to false
                 reference = FirebaseDatabase.getInstance().getReference("Providers");
-                reference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            provider = snapshot.child(FirebaseAuth.getInstance().getUid()).getValue(Provider.class);
-                            provider.setSentProposal(false);
-                            reference.child(userId).setValue(provider);
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                reference.child(userId).child("sentProposal").setValue(false);
 
                 Intent intent = new Intent(ProviderRatingSubmit.this, ProviderHomeActivity.class);
                 startActivity(intent);
