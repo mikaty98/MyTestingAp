@@ -2,14 +2,14 @@ package com.example.mytestingapp.Classes;
 
 public class SeekerRating {
 
-    String seekerId;
+    String seekerEmail;
     String providerId;
     String review;
     float starNumber;
 
-    public SeekerRating(String seekerId, String providerId, String review, float starNumber)
+    public SeekerRating(String seekerEmail, String providerId, String review, float starNumber)
     {
-        this.seekerId = seekerId;
+        this.seekerEmail = seekerEmail;
         this.providerId = providerId;
         this.review = review;
         this.starNumber = starNumber;
@@ -23,8 +23,8 @@ public class SeekerRating {
         return providerId;
     }
 
-    public String getSeekerId() {
-        return seekerId;
+    public String getseekerEmail() {
+        return seekerEmail;
     }
 
     public String getReview() {
@@ -35,8 +35,8 @@ public class SeekerRating {
         this.providerId = providerId;
     }
 
-    public void setSeekerId(String seekerId) {
-        this.seekerId = seekerId;
+    public void setseekerEmail(String seekerEmail) {
+        this.seekerEmail = seekerEmail;
     }
 
     public void setReview(String review) {

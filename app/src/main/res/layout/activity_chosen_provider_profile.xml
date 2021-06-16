@@ -37,6 +37,15 @@
                 app:civ_border_width="2dp"
                 />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@drawable/custom_button"
+                android:text="See Provider review"
+                android:layout_margin="30dp"
+                android:id="@+id/providerReviewBtn"/>
+
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"

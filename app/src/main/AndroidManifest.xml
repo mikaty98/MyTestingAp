@@ -20,9 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeekerGlobalRequestWaitingList"></activity>
+        <activity android:name=".ProviderReviewListActivity"></activity>
+        <activity android:name=".SeekerReviewListActivity" />
+        <activity android:name=".SeekerGlobalRequestWaitingList" />
         <activity android:name=".SeekerGlobalRequest" />
-        <activity android:name=".SeekerMainHomeActivity"></activity>
+        <activity android:name=".SeekerMainHomeActivity" />
         <activity android:name=".SeekerRatingSubmit" />
         <activity android:name=".ProviderRatingSubmit" />
         <activity android:name=".ProviderLocalRequestEndBuffer2" />
@@ -33,7 +35,6 @@
         <activity android:name=".LocalRequestEnd1" />
         <activity android:name=".ChatRoom" />
         <activity android:name=".ChosenProviderProfile" />
-        <activity android:name=".SeekerHome0" />
         <activity android:name=".SeekerLocalRequestAutoMap" />
         <activity android:name=".LocalRequestInfoActivity" />
         <activity android:name=".SeekerLocalRequestWaitingList" />

@@ -1,5 +1,6 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,20 +10,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.Classes.SeekerRating;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SeekerRatingSubmit extends AppCompatActivity {
 
 
-    Intent intent;
-
     String providerId;
     String userType;
     String price;
+    String seekerEmail;
 
 
     Button submitBtn;
@@ -41,11 +45,11 @@ public class SeekerRatingSubmit extends AppCompatActivity {
         setContentView(R.layout.activity_seeker_rating_submit);
 
 
-        intent = getIntent();
 
-        providerId = intent.getStringExtra("receiver id");
-        userType = intent.getStringExtra("user type");
-        price = intent.getStringExtra("price");
+
+        providerId = getIntent().getStringExtra("receiver id");
+        userType = getIntent().getStringExtra("user type");
+        price = getIntent().getStringExtra("price");
 
 
         ratingNote = findViewById(R.id.ratingNote);
@@ -56,18 +60,31 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
         ratingBar = findViewById(R.id.rating_bar);
 
-        price_value.setText("Final price to be paid by the seeker to the provider: "+ price);
+        price_value.setText("Final price to be paid by the seeker to the provider: " + price);
 
         ratingNote.setText("Rate the seeker");
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String userId = firebaseUser.getUid();
+                reference = FirebaseDatabase.getInstance().getReference("Seekers");
+                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            seekerEmail = snapshot.child(userId).child("email").getValue(String.class);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 String one = review.getText().toString().trim();
 
@@ -82,15 +99,34 @@ public class SeekerRatingSubmit extends AppCompatActivity {
                 reference.child(userId).setValue(seekerRating);
 
                 //TODO remove local request, local request proposals, arrival and completion flags.
+                //Local request removal
+                reference = FirebaseDatabase.getInstance().getReference("LocalRequests").child(userId);
+                reference.removeValue();
 
-                Intent intent = new Intent(SeekerRatingSubmit.this,SeekerMainHomeActivity.class);
-                startActivity(intent);
+                //Local request proposals removal
+                reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(userId);
+                reference.removeValue();
+
+                //remove connection
+                reference = FirebaseDatabase.getInstance().getReference("StartingConnections").child(userId + providerId);
+                reference.removeValue();
+
+                //arrival removal
+                reference = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestArrivalConfirm").child(userId);
+                reference.removeValue();
+
+                //completion removal
+                reference = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestCompletionConfirm").child(userId);
+                reference.removeValue();
+
+
+                Intent backintent = new Intent(SeekerRatingSubmit.this, SeekerMainHomeActivity.class);
+                startActivity(backintent);
                 finish();
 
 
             }
         });
-
 
 
     }

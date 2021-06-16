@@ -126,7 +126,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
         , FirebaseAuth.getInstance().getUid());
 
 
-        reference.child(RequestTitle).setValue(l);
+        reference.child(FirebaseAuth.getInstance().getUid()).setValue(l);
 
 
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));

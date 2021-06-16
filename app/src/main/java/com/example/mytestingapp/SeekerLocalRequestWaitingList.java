@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.mytestingapp.Adapters.ProposalAdaptor;
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -78,7 +79,7 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
         String temp[] = seekerEmail.split(".com");
         String semail = temp[0];
 
-        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(semail);
+        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(FirebaseAuth.getInstance().getUid());
         reference.keepSynced(true);
 
         reference.addChildEventListener(childEventListener);

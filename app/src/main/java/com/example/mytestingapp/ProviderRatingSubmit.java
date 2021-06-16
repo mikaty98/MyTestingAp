@@ -1,5 +1,6 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,11 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.ProviderRating;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProviderRatingSubmit extends AppCompatActivity {
 
@@ -21,6 +26,7 @@ public class ProviderRatingSubmit extends AppCompatActivity {
     String seekerId;
     String userType;
     String price;
+    String providerEmail;
 
     Button submitBtn;
 
@@ -31,6 +37,7 @@ public class ProviderRatingSubmit extends AppCompatActivity {
     FirebaseUser firebaseUser;
 
     DatabaseReference reference;
+    private Provider provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,44 +58,73 @@ public class ProviderRatingSubmit extends AppCompatActivity {
 
         ratingBar = findViewById(R.id.rating_bar);
 
-        price_value.setText("Final price to be paid by the seeker to the provider: "+ price);
+        price_value.setText("Final price to be paid by the seeker to the provider: " + price);
 
         ratingNote.setText("Rate the seeker");
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String userId = firebaseUser.getUid();
+                reference = FirebaseDatabase.getInstance().getReference("Providers");
+                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            providerEmail = snapshot.child(userId).child("email").getValue(String.class);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
                 String one = review.getText().toString().trim();
 
                 float two = ratingBar.getRating();
 
-                ProviderRating providerRating = new ProviderRating(seekerId, userId, one, two);
+                ProviderRating providerRating = new ProviderRating(seekerId,userId,one,two);
 
                 reference = FirebaseDatabase.getInstance().getReference().child("Seekers").child(seekerId).child("ratings");
                 reference.child(userId).setValue(providerRating);
 
                 //TODO remove local request, local request proposals, arrival and completion flags.
+                //completion removal
+                reference = FirebaseDatabase.getInstance().getReference("ProviderLocalRequestCompletionConfirm").child(userId);
+                reference.removeValue();
 
-                Intent intent = new Intent(ProviderRatingSubmit.this,ProviderHomeActivity.class);
+                //setting busy to false
+                reference = FirebaseDatabase.getInstance().getReference("Providers");
+                reference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            provider = snapshot.child(FirebaseAuth.getInstance().getUid()).getValue(Provider.class);
+                            provider.setSentProposal(false);
+                            reference.child(userId).setValue(provider);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                Intent intent = new Intent(ProviderRatingSubmit.this, ProviderHomeActivity.class);
                 startActivity(intent);
                 finish();
 
 
             }
         });
-
-
-
-
-
-
-
 
 
     }

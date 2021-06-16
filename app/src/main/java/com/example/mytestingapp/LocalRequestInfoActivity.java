@@ -31,7 +31,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
     private TextView requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName,
                 buildingNumber, floorNumber, apartmentNumber, seekerEmail;
 
-    private Button submitBtn,submitBtn2;
+    private Button submitBtn,submitBtn2,seekerReviewBtn;
     private LinearLayout hiddenLayout;
     private ScrollView scrollable;
 
@@ -70,6 +70,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn2 = findViewById(R.id.submitBtn2);
+        seekerReviewBtn = findViewById(R.id.seekerReviewBtn);
 
         priceValue = findViewById(R.id.priceValue);
         estimatedArrivalTime = findViewById(R.id.estimatedArrivalTime);
@@ -107,6 +108,16 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        seekerReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LocalRequestInfoActivity.this, SeekerReviewListActivity.class);
+                intent.putExtra("seeker id", seekerID);
+                intent.putExtra("seeker email", localRequest.getSeekerEmail());
+                startActivity(intent);
             }
         });
 
@@ -157,7 +168,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 String temp[] = localRequest.getSeekerEmail().split(".com");
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
-                reference.child(temp[0]).child(providerID).setValue(localRequestApplicant);
+                reference.child(seekerID).child(providerID).setValue(localRequestApplicant);
 
                 /*After submitting proposal, Provider will be sent to a waiting room waiting for the seeker to accept his proposal*/
 

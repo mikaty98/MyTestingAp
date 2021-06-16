@@ -3,14 +3,14 @@ package com.example.mytestingapp.Classes;
 public class ProviderRating {
 
     String seekerId;
-    String providerId;
+    String providerEmail;
     String review;
     float starNumber;
 
-    public ProviderRating(String seekerId, String providerId, String review, float starNumber)
+    public ProviderRating(String seekerId, String providerEmail, String review, float starNumber)
     {
         this.seekerId = seekerId;
-        this.providerId = providerId;
+        this.providerEmail = providerEmail;
         this.review = review;
         this.starNumber = starNumber;
     }
@@ -19,8 +19,8 @@ public class ProviderRating {
         return starNumber;
     }
 
-    public String getProviderId() {
-        return providerId;
+    public String getproviderEmail() {
+        return providerEmail;
     }
 
     public String getSeekerId() {
@@ -31,8 +31,8 @@ public class ProviderRating {
         return review;
     }
 
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
+    public void setproviderEmail(String providerEmail) {
+        this.providerEmail = providerEmail;
     }
 
     public void setSeekerId(String seekerId) {

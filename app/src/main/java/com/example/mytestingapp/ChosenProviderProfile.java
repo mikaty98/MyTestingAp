@@ -59,7 +59,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
     private EditText username, jobDescription, gender, age, id, email, phoneNumber;
     private CircleImageView profilePic;
 
-    private Button acceptButton, backButton;
+    private Button acceptButton, backButton,providerReviewBtn;
 
     private String userType, providerUserID;
 
@@ -110,6 +110,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
         acceptButton = findViewById(R.id.acceptButton);
         backButton = findViewById(R.id.backButton);
+        providerReviewBtn = findViewById(R.id.providerReviewBtn);
 
 
         rootNode = FirebaseDatabase.getInstance();
@@ -177,6 +178,16 @@ public class ChosenProviderProfile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        providerReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChosenProviderProfile.this, ProviderReviewListActivity.class);
+                intent.putExtra("provider id", providerUserID);
+                intent.putExtra("provider email", providerEmail);
+                startActivity(intent);
             }
         });
 
