@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SeekerGlobalRequestWaitingList" />
+        <activity android:name=".SeekerGlobalRequestAutoMap"/>
         <activity android:name=".SeekerGlobalRequest" />
         <activity android:name=".SeekerMainHomeActivity" />
         <activity android:name=".SeekerRatingSubmit" />
