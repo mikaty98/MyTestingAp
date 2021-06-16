@@ -55,7 +55,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         setContentView(R.layout.activity_seeker_local_request_auto_map);
 
 
-        ActivityCompat.requestPermissions(this, new String[]
+        ActivityCompat.requestPermissions(SeekerLocalRequestAutoMap.this, new String[]
                 {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         getlocationBtn = findViewById(R.id.getLocation);
