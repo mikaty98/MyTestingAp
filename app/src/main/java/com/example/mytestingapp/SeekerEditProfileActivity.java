@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SeekerEditProfileActivity extends AppCompatActivity {
     private String userID;
-    private EditText username, gender, age, id, email, phoneNumber;
+    private EditText username, gender, age, id, phoneNumber;
     private CircleImageView profilePic;
     private Button saveBtn;
     private DatabaseReference reference;
@@ -47,7 +47,6 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
         gender = findViewById(R.id.gender_reg);
         age = findViewById(R.id.age_reg);
         id = findViewById(R.id.id_reg);
-        email = findViewById(R.id.email_reg);
         phoneNumber = findViewById(R.id.phone_number_reg);
 
         saveBtn = findViewById(R.id.saveBtn);
@@ -66,7 +65,6 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
                     gender.setText(seeker.getGender());
                     age.setText(seeker.getAge());
                     id.setText(seeker.getId());
-                    email.setText(seeker.getEmail());
                     phoneNumber.setText(seeker.getPhoneNumber());
                     profilePic.setImageBitmap(seeker.getImageBitmap());
                 }
@@ -83,7 +81,7 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 reference.child(userID).setValue(seeker);
-                finish();
+                
             }
         });
     }

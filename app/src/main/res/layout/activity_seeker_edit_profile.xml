@@ -94,13 +94,6 @@
                 android:inputType="phone"
                 android:textColorHint="@color/white" />
 
-            <EditText
-                android:id="@+id/email_reg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Email"
-                android:textColorHint="@color/white" />
 
 
 
