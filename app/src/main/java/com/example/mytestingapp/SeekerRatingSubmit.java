@@ -62,7 +62,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
         price_value.setText("Final price to be paid by the seeker to the provider: " + price);
 
-        ratingNote.setText("Rate the seeker");
+        ratingNote.setText("Rate the Provider");
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,20 +71,20 @@ public class SeekerRatingSubmit extends AppCompatActivity {
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String userId = firebaseUser.getUid();
-                reference = FirebaseDatabase.getInstance().getReference("Seekers");
-                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            seekerEmail = snapshot.child(userId).child("email").getValue(String.class);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                reference = FirebaseDatabase.getInstance().getReference("Seekers");
+//                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if (snapshot.exists()){
+//                            seekerEmail = snapshot.child(userId).child("email").getValue(String.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
                 String one = review.getText().toString().trim();
 
@@ -93,9 +93,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
                 SeekerRating seekerRating = new SeekerRating(userId, providerId, one, two);
 
 
-                reference = FirebaseDatabase.getInstance().getReference().child("Providers")
-                        .child(providerId)
-                        .child("ratings");
+                reference = FirebaseDatabase.getInstance().getReference().child("Providers").child(providerId).child("ratings");
                 reference.child(userId).setValue(seekerRating);
 
                 //TODO remove local request, local request proposals, arrival and completion flags.

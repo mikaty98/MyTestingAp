@@ -171,6 +171,7 @@ public class LocalRequestEnd2 extends AppCompatActivity {
                         intentt.putExtra("user type", "seeker");
 
                         startActivity(intentt);
+                        finish();
 
 
 

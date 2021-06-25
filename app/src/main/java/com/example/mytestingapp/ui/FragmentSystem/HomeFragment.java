@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
     private Button localService, globalService;
     private Button localWaiting, globalWaiting;
     private TextView welcomeUser;
-    private String seekerID,seekerEmail,seekerUserName;
+    private String seekerID, seekerEmail, seekerUserName;
 
     private DatabaseReference reference;
 
@@ -112,6 +112,7 @@ public class HomeFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), SeekerLocalRequestWaitingList.class);
                             intent.putExtra("seeker email", seekerEmail);
                             startActivity(intent);
+                            getActivity().finish();
 
                         } else {
                             Toast.makeText(getActivity(), "You didn't request a local service yet", Toast.LENGTH_SHORT).show();
@@ -186,6 +187,7 @@ public class HomeFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), SeekerGlobalRequestWaitingList.class);
                             intent.putExtra("seeker email", seekerEmail);
                             startActivity(intent);
+                            getActivity().finish();
 
                         } else {
                             Toast.makeText(getActivity(), "You didn't request a global service yet", Toast.LENGTH_SHORT).show();

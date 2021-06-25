@@ -69,20 +69,20 @@ public class ProviderRatingSubmit extends AppCompatActivity {
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String userId = firebaseUser.getUid();
-                reference = FirebaseDatabase.getInstance().getReference("Providers");
-                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            providerEmail = snapshot.child(userId).child("email").getValue(String.class);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                reference = FirebaseDatabase.getInstance().getReference("Providers");
+//                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if (snapshot.exists()){
+//                            providerEmail = snapshot.child(userId).child("email").getValue(String.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
 
                 String one = review.getText().toString().trim();
