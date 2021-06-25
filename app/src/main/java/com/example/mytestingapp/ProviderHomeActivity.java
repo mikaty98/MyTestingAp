@@ -28,7 +28,6 @@ public class ProviderHomeActivity extends AppCompatActivity {
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         TabLayout tabLayout = findViewById(R.id.tabBar);
-        TabItem globalExploreTab = findViewById(R.id.globalExploreTab);
         TabItem localExploreTab = findViewById(R.id.localExploreTab);
         TabItem profileTab = findViewById(R.id.profileTab);
         TabItem settingsTab = findViewById(R.id.settingsTab);

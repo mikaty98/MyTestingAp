@@ -30,8 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeFragment extends Fragment {
 
 
-    private Button localService, globalService;
-    private Button localWaiting, globalWaiting;
+    private Button localService;
+    private Button localWaiting;
     private TextView welcomeUser;
     private String seekerID, seekerEmail, seekerUserName;
 
@@ -47,8 +47,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        globalService = view.findViewById(R.id.globalService);
-        globalWaiting = view.findViewById(R.id.globalWaiting);
         localService = view.findViewById(R.id.localService);
         localWaiting = view.findViewById(R.id.localWaiting);
         welcomeUser = view.findViewById(R.id.welcomeUser);
@@ -133,80 +131,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        globalService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("GlobalRequests");
-                ref.orderByChild("seekerEmail").equalTo(seekerEmail).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                        if (dataSnapshot.exists()) {
-                            Toast.makeText(getActivity(), "You can't request two global services at the same time!", Toast.LENGTH_SHORT).show();
-
-
-                        } else {
-                            Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(getActivity(), SeekerGlobalRequest.class);
-                            intent.putExtra("seeker email", seekerEmail);
-                            startActivity(intent);
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-
-                });
-
-
-            }
-        });
-
-        globalWaiting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("GlobalRequests");
-                ref.orderByChild("seekerEmail").equalTo(seekerEmail).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                        if (dataSnapshot.exists()) {
-                            Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(getActivity(), SeekerGlobalRequestWaitingList.class);
-                            intent.putExtra("seeker email", seekerEmail);
-                            startActivity(intent);
-                            getActivity().finish();
-
-                        } else {
-                            Toast.makeText(getActivity(), "You didn't request a global service yet", Toast.LENGTH_SHORT).show();
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-
-                });
-
-
-            }
-        });
 
 
         return view;

@@ -41,16 +41,13 @@ public class ProviderSectionsPagerAdapter extends FragmentPagerAdapter {
                 LocalExploreFragment localExploreFragment = new LocalExploreFragment();
                 localExploreFragment.setArguments(args);
                 return localExploreFragment;
-            case 1:
-                GlobalExploreFragment globalExploreFragment = new GlobalExploreFragment();
-                globalExploreFragment.setArguments(args);
-                return globalExploreFragment;
-            case 2: //return new ProfileFragment();
+
+            case 1: //return new ProfileFragment();
                 ProviderProfileFragment profileFragment = new ProviderProfileFragment();
                 profileFragment.setArguments(args);
                 return profileFragment;
 
-            case 3: return new ProviderSettingsFragment();
+            case 2: return new ProviderSettingsFragment();
             default: return null;
         }
 

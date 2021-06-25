@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Request a local service"
+            android:text="Request a service"
             android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/localService"
             android:background="@drawable/custom_button"
@@ -47,26 +47,6 @@
             android:background="@drawable/custom_button"
             />
 
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Request a global service"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:id="@+id/globalService"
-            android:background="@drawable/custom_button"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="View the waiting list of your global request proposals"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:id="@+id/globalWaiting"
-            android:background="@drawable/custom_button"
-            />
 
 
 
