@@ -13,10 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mytestingapp.Classes.SeekerRating;
 import com.example.mytestingapp.R;
-import com.example.mytestingapp.SeekerGlobalRequest;
-import com.example.mytestingapp.SeekerGlobalRequestWaitingList;
 import com.example.mytestingapp.SeekerLocalRequest;
 import com.example.mytestingapp.SeekerLocalRequestWaitingList;
 import com.google.firebase.auth.FirebaseAuth;
