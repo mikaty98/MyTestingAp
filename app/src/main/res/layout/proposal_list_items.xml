@@ -32,12 +32,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="Email:">
+                    android:text="Provider Name:">
 
                 </TextView>
 
                 <TextView
-                    android:id="@+id/providerEmail"
+                    android:id="@+id/providerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Value"

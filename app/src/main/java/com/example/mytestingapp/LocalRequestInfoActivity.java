@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private TextView requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName,
-                buildingNumber, floorNumber, apartmentNumber, seekerEmail;
+                buildingNumber, floorNumber, apartmentNumber, seekerNameTxt;
 
     private Button submitBtn,submitBtn2,seekerReviewBtn;
     private LinearLayout hiddenLayout;
@@ -68,7 +68,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         buildingNumber = findViewById(R.id.buildingNumberValue);
         floorNumber = findViewById(R.id.floorNumberValue);
         apartmentNumber = findViewById(R.id.apartmentNumberValue);
-        seekerEmail = findViewById(R.id.seekerEmailValue);
+        seekerNameTxt = findViewById(R.id.seekerEmailValue);
 
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn2 = findViewById(R.id.submitBtn2);
@@ -93,7 +93,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         buildingNumber.setText(localRequest.getBuildingNumber());
         floorNumber.setText(localRequest.getFloorNumber());
         apartmentNumber.setText(localRequest.getApartmentNumber());
-        seekerEmail.setText(localRequest.getSeekerEmail());
+        seekerNameTxt.setText(localRequest.getseekerName());
         seekerID = localRequest.getSeekerID();
 
         providerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -177,7 +177,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 }
 
 
-                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, provider.getEmail());
+                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, provider.getUserName());
 
                 reference = FirebaseDatabase.getInstance().getReference("Providers");
                 reference.child(providerID).child("sentProposal").setValue(true);
@@ -199,7 +199,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 editor.commit();
                 sp = getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
                 editor = sp.edit();
-                editor.putString("seeker email", localRequest.getSeekerEmail());
+                editor.putString("seeker id", localRequest.getSeekerID());
                 editor.commit();
                 startActivity(intent);
                 finish();

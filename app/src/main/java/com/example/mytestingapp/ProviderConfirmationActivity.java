@@ -28,8 +28,6 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
     private int arrivalTime, completionTime, price;
     private DatabaseReference reference, reference1;
 
-    private SharedPreferences sp;
-    private Provider provider;
 
     FirebaseUser firebaseUser;
 
@@ -135,9 +133,7 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
     }
 
     private void goBack() {
-        sp = getApplicationContext().getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
-        String seekerEmail = sp.getString("seeker email", "");
-        String temp[] = seekerEmail.split(".com");
+
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId).child(FirebaseAuth.getInstance().getUid());
         reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {

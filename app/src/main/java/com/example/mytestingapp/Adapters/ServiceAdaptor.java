@@ -43,7 +43,7 @@ public class ServiceAdaptor extends ArrayAdapter {
 
         TextView textView1 = view.findViewById(R.id.titleValue);
         TextView textView2 = view.findViewById(R.id.suburbValue);
-        TextView textView3 = view.findViewById(R.id.emailValue);
+        TextView textView3 = view.findViewById(R.id.NameValue);
 
         /*textView1.setText(titleList.get(position));
         textView2.setText(suburbList.get(position));
@@ -51,7 +51,7 @@ public class ServiceAdaptor extends ArrayAdapter {
 
         textView1.setText(localRequestList.get(position).getRequestTitle());
         textView2.setText(localRequestList.get(position).getSuburb());
-        textView3.setText(localRequestList.get(position).getSeekerEmail());
+        textView3.setText(localRequestList.get(position).getseekerName());
 
         return view;
     }

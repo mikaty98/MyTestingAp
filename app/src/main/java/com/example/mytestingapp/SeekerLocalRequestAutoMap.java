@@ -350,7 +350,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    //String SeekerEmail = text;
+
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     reference = FirebaseDatabase.getInstance().getReference("Seekers");
                     Query checkUser = reference.orderByChild("userID").equalTo(userID);
@@ -358,8 +358,8 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()){
-                                String seekerEmail = snapshot.child(userID).child("email").getValue(String.class);
-                                confirmSeeker(seekerEmail);
+                                String seekerName = snapshot.child(userID).child("userName").getValue(String.class);
+                                confirmSeeker(seekerName);
                             }
                         }
 
@@ -408,7 +408,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         return false;
     }
 
-    private void confirmSeeker(String SeekerEmail) {
+    private void confirmSeeker(String seekerName) {
 
         String RequestTitle = requestTitle.getText().toString().trim();
         String RequestDes = requestDescription.getText().toString().trim();
@@ -424,13 +424,13 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference().child("LocalRequests");
 
-        LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), SeekerEmail,
+        LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), seekerName,
                 FirebaseAuth.getInstance().getUid());
 
         reference.child(RequestTitle).setValue(l);
 
         Intent intent2 = new Intent(SeekerLocalRequestAutoMap.this, SeekerLocalRequestWaitingList.class);
-        intent2.putExtra("seeker email", SeekerEmail);
+        intent2.putExtra("seeker name", seekerName);
         startActivity(intent2);
 
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));

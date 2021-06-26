@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
 
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                reference.orderByChild("seekerEmail").equalTo(seekerEmail).addValueEventListener(new ValueEventListener() {
+                reference.orderByChild("seekerID").equalTo(seekerID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                reference.orderByChild("seekerEmail").equalTo(seekerEmail).addValueEventListener(new ValueEventListener() {
+                reference.orderByChild("seekerID").equalTo(seekerID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -108,7 +108,6 @@ public class HomeFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), SeekerLocalRequestWaitingList.class);
                             intent.putExtra("seeker email", seekerEmail);
                             startActivity(intent);
-                            getActivity().finish();
 
                         } else {
                             Toast.makeText(getActivity(), "You didn't request a local service yet", Toast.LENGTH_SHORT).show();

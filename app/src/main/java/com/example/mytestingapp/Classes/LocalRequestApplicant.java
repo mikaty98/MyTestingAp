@@ -7,17 +7,17 @@ import androidx.annotation.Nullable;
 public class LocalRequestApplicant {
     private int priceValue, EstimatedArrivalTime;
     private int EstimatedCompletionTime;
-    private String userID,providerEmail;
+    private String userID,providerName;
 
     public LocalRequestApplicant() {
     }
 
-    public LocalRequestApplicant(int priceValue, int estimatedArrivalTime, int estimatedCompletionTime, String userID, String providerEmail) {
+    public LocalRequestApplicant(int priceValue, int estimatedArrivalTime, int estimatedCompletionTime, String userID, String providerName) {
         this.priceValue = priceValue;
         EstimatedArrivalTime = estimatedArrivalTime;
         EstimatedCompletionTime = estimatedCompletionTime;
         this.userID = userID;
-        this.providerEmail = providerEmail;
+        this.providerName = providerName;
     }
 
     public int getPriceValue() {
@@ -52,12 +52,12 @@ public class LocalRequestApplicant {
         this.userID = userID;
     }
 
-    public String getProviderEmail() {
-        return providerEmail;
+    public String getproviderName() {
+        return providerName;
     }
 
-    public void setProviderEmail(String providerEmail) {
-        this.providerEmail = providerEmail;
+    public void setproviderName(String providerName) {
+        this.providerName = providerName;
     }
 
 
@@ -69,6 +69,6 @@ public class LocalRequestApplicant {
         }
         LocalRequestApplicant other = (LocalRequestApplicant)obj;
         return priceValue==other.getPriceValue() && EstimatedArrivalTime==other.getEstimatedArrivalTime() && EstimatedCompletionTime==other.getEstimatedCompletionTime()
-                && userID.equals(other.getUserID()) && providerEmail.equals(other.getProviderEmail());
+                && userID.equals(other.getUserID()) && providerName.equals(other.getproviderName());
     }
 }

@@ -37,13 +37,13 @@ public class ProposalAdaptor extends ArrayAdapter{
         TextView textView1 = view.findViewById(R.id.PriceValue);
         TextView textView2 = view.findViewById(R.id.EstimatedArrivalTime);
         TextView textView3 = view.findViewById(R.id.EstimatedCompletionTime);
-        TextView textView4 = view.findViewById(R.id.providerEmail);
+        TextView textView4 = view.findViewById(R.id.providerName);
 
 
         textView1.setText(String.valueOf(localRequestApplicantList.get(position).getPriceValue())+" EGP");
         textView2.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedArrivalTime())+" Mins");
         textView3.setText(String.valueOf(localRequestApplicantList.get(position).getEstimatedCompletionTime())+" Mins");
-        textView4.setText(localRequestApplicantList.get(position).getProviderEmail());
+        textView4.setText(localRequestApplicantList.get(position).getproviderName());
 
         return view;
     }

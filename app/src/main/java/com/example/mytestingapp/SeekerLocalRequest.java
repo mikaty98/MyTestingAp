@@ -24,22 +24,20 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
 
     private Button currentLocation, confrim;
-    private EditText requestTitle,requestDescription,city,suburb,streetName,streetNumber,buildingName,buildingNumber,floorNumber,apartmentNumber;
+    private EditText requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName, buildingNumber, floorNumber, apartmentNumber;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
     private FirebaseStorage storage;
     private StorageReference ref;
 
-    public static final String TEXT2 = "com.example.mytestingapp";
 
+    public static final String TEXT2 = "com.example.mytestingapp";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeker_local_request);
-
-
 
 
         currentLocation = findViewById(R.id.currentLocation);
@@ -58,29 +56,13 @@ public class SeekerLocalRequest extends AppCompatActivity {
         confrim = findViewById(R.id.confirm);
 
 
-
-
-
-
-
-        currentLocation.setOnClickListener(new View.OnClickListener(){
+        currentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
-               // Intent intent1 = getIntent();
-                //String text = intent1.getStringExtra(SLoginActivity.TEXT);
-
-                //Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
-                //intent2.putExtra(TEXT2, text);
-                //startActivity(intent2);
-
-                Intent intent = getIntent();
-                String text = intent.getStringExtra("seeker email");
 
                 Intent intent1 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
                 startActivity(intent1);
-
-
 
 
                 //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestAutoMap.class));
@@ -88,9 +70,9 @@ public class SeekerLocalRequest extends AppCompatActivity {
         });
 
 
-        confrim.setOnClickListener(new View.OnClickListener(){
+        confrim.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 //String SeekerEmail = text;
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -99,9 +81,9 @@ public class SeekerLocalRequest extends AppCompatActivity {
                 checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            String seekerEmail = snapshot.child(userID).child("email").getValue(String.class);
-                            confirmSeeker(seekerEmail);
+                        if (snapshot.exists()) {
+                            String seekerName = snapshot.child(userID).child("userName").getValue(String.class);
+                            confirmSeeker(seekerName);
                         }
                     }
 
@@ -117,8 +99,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
     }
 
-    private void confirmSeeker(String seekerEmail)
-    {
+    private void confirmSeeker(String seekerName) {
 
         String RequestTitle = requestTitle.getText().toString().trim();
         String RequestDes = requestDescription.getText().toString().trim();
@@ -134,20 +115,19 @@ public class SeekerLocalRequest extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference().child("LocalRequests");
 
-        LocalRequest l = new LocalRequest(RequestTitle,RequestDes,City,Suburb,StreetName,StreetNumber.toString(),BuildingName,BuildingNumber.toString(),FloorNumber.toString(),ApartmentNumber.toString(),seekerEmail
-        , FirebaseAuth.getInstance().getUid());
+        LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), seekerName
+                , FirebaseAuth.getInstance().getUid());
 
 
         reference.child(FirebaseAuth.getInstance().getUid()).setValue(l);
 
         Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
-        intent2.putExtra("seeker email", seekerEmail);
+        intent2.putExtra("seeker name", seekerName);
         startActivity(intent2);
         finish();
 
 
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
-
 
 
     }

@@ -76,9 +76,8 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
 
     private void goBack(){
         sp = getApplicationContext().getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
-        String seekerEmail = sp.getString("seeker email","");
-        String temp[] = seekerEmail.split(".com");
-        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(temp[0]).child(FirebaseAuth.getInstance().getUid());
+        String seekerID = sp.getString("seeker id","");
+        reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(seekerID).child(FirebaseAuth.getInstance().getUid());
         reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

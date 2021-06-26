@@ -76,8 +76,7 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
         listView.setAdapter(proposalAdaptor);
 
         seekerEmail = getIntent().getStringExtra("seeker email");
-        String temp[] = seekerEmail.split(".com");
-        String semail = temp[0];
+
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(FirebaseAuth.getInstance().getUid());
         reference.keepSynced(true);
@@ -88,7 +87,7 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String providerEmail = localRequestApplicantList.get(position).getProviderEmail();
+                String providerName = localRequestApplicantList.get(position).getproviderName();
                 int estimatedArrivalTime = localRequestApplicantList.get(position).getEstimatedArrivalTime();
                 int estimatedCompletionTime = localRequestApplicantList.get(position).getEstimatedCompletionTime();
                 int price = localRequestApplicantList.get(position).getPriceValue();
@@ -97,7 +96,6 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
 
 
                 Intent intent2 = new Intent(SeekerLocalRequestWaitingList.this, ChosenProviderProfile.class);
-                intent2.putExtra("provider email", providerEmail);
                 intent2.putExtra("estimatedArrivalTime", estimatedArrivalTime);
                 intent2.putExtra("estimatedCompletionTime", estimatedCompletionTime);
                 intent2.putExtra("price", price);
