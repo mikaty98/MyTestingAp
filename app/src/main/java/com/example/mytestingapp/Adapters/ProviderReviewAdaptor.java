@@ -33,12 +33,12 @@ public class ProviderReviewAdaptor extends ArrayAdapter {
     public View getView(int position, @NonNull View convertView, @NotNull ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.provider_review_list_item, parent, false);
 
-        TextView providerId = view.findViewById(R.id.providerEmail);
+        TextView providerName = view.findViewById(R.id.providerName);
         RatingBar ratingBar = view.findViewById(R.id.raitingBar);
         TextView textView3 = view.findViewById(R.id.reviewPara);
 
 
-        providerId.setText(String.valueOf(ProvidersRatingList.get(position).getproviderEmail()));
+        providerName.setText(String.valueOf(ProvidersRatingList.get(position).getproviderName()));
         ratingBar.setRating(ProvidersRatingList.get(position).getStarNumber());
         textView3.setText(ProvidersRatingList.get(position).getReview());
 

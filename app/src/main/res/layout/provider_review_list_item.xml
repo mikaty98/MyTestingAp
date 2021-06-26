@@ -31,12 +31,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="Provider Email: ">
+                    android:text="Provider Name: ">
 
                 </TextView>
 
                 <TextView
-                    android:id="@+id/providerEmail"
+                    android:id="@+id/providerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Value"
@@ -53,7 +53,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:outlineAmbientShadowColor="@color/white"
-                android:outlineSpotShadowColor="@color/white" />
+                android:outlineSpotShadowColor="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
 
             <LinearLayout

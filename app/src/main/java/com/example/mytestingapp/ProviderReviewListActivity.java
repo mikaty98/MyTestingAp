@@ -23,8 +23,8 @@ import java.util.List;
 
 public class ProviderReviewListActivity extends AppCompatActivity {
 
-    private String providerID, providerEmail;
-    private TextView providerName;
+    private String providerID,providerName;
+    private TextView providerNameText;
     private ListView listView;
     List<SeekerRating> seekerRatingList = new ArrayList<>();
     DatabaseReference reference;
@@ -33,10 +33,10 @@ public class ProviderReviewListActivity extends AppCompatActivity {
     ChildEventListener childEventListener = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            String seekerEmail = snapshot.child("seekerEmail").getValue(String.class);
+            String seekerName = snapshot.child("seekerName").getValue(String.class);
             String review = snapshot.child("review").getValue(String.class);
             float rating = snapshot.child("starNumber").getValue(float.class);
-            SeekerRating seekerRating = new SeekerRating(seekerEmail, providerID, review, rating);
+            SeekerRating seekerRating = new SeekerRating(seekerName, providerID, review, rating);
             seekerRatingList.add(seekerRating);
             seekerReviewAdaptor.notifyDataSetChanged();
         }
@@ -68,10 +68,10 @@ public class ProviderReviewListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_review_list);
 
         providerID = getIntent().getStringExtra("provider id");
-        providerEmail = getIntent().getStringExtra("provider email");
+        providerName = getIntent().getStringExtra("provider Name");
 
-        providerName = findViewById(R.id.providerEmailText);
-        providerName.setText("Reviews on " + providerEmail);
+        providerNameText = findViewById(R.id.providerNameText);
+        providerNameText.setText("Reviews on " + providerName);
 
         listView = findViewById(R.id.providerReviewsList);
         seekerReviewAdaptor = new SeekerReviewAdaptor(this, seekerRatingList);

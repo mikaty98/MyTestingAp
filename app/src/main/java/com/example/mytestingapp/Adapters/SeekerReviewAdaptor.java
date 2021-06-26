@@ -33,12 +33,12 @@ public class SeekerReviewAdaptor extends ArrayAdapter {
     public View getView(int position, @NonNull View convertView, @NotNull ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.seeker_review_list_item, parent, false);
 
-        TextView seekerId = view.findViewById(R.id.seekerEmail);
+        TextView seekerName = view.findViewById(R.id.seekerName);
         RatingBar ratingBar = view.findViewById(R.id.raitingBar);
         TextView textView3 = view.findViewById(R.id.reviewPara);
 
 
-        seekerId.setText(String.valueOf(SeekersRatingList.get(position).getseekerEmail()));
+        seekerName.setText(String.valueOf(SeekersRatingList.get(position).getseekerName()));
         ratingBar.setRating(SeekersRatingList.get(position).getStarNumber());
         textView3.setText(SeekersRatingList.get(position).getReview());
 

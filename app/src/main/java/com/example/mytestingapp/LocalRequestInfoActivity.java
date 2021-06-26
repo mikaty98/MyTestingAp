@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
 import com.example.mytestingapp.Classes.Provider;
+import com.example.mytestingapp.Classes.Seeker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +40,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private String providerID,seekerID;
     private Provider provider;
+    private String seekerName;
     private SharedPreferences sp;
 
 
@@ -111,12 +113,28 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
             }
         });
 
+        reference = FirebaseDatabase.getInstance().getReference("Seekers");
+        checkuser = reference.orderByChild("userID").equalTo(seekerID);
+        checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    seekerName = snapshot.child(seekerID).child("userName").getValue(String.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         seekerReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent reviewintent = new Intent(LocalRequestInfoActivity.this, SeekerReviewListActivity.class);
                 reviewintent.putExtra("seeker id", seekerID);
-                reviewintent.putExtra("seeker email", localRequest.getSeekerEmail());
+                reviewintent.putExtra("seeker Name", seekerName);
                 startActivity(reviewintent);
             }
         });
@@ -164,7 +182,6 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 reference = FirebaseDatabase.getInstance().getReference("Providers");
                 reference.child(providerID).child("sentProposal").setValue(true);
 
-                String temp[] = localRequest.getSeekerEmail().split(".com");
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
                 reference.child(seekerID).child(providerID).setValue(localRequestApplicant);

@@ -21,8 +21,8 @@ import java.util.List;
 
 public class SeekerReviewListActivity extends AppCompatActivity {
 
-    private String seekerID, seekerEmail;
-    private TextView seekerName;
+    private String seekerID,seekerName;
+    private TextView seekerNameText;
     private ListView listView;
     List<ProviderRating> ProvidersRatingList = new ArrayList<>();
     DatabaseReference reference;
@@ -32,10 +32,10 @@ public class SeekerReviewListActivity extends AppCompatActivity {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             //ProviderRating providerRating = snapshot.getValue(ProviderRating.class);
-            String providerEmail = snapshot.child("providerEmail").getValue(String.class);
+            String providerName = snapshot.child("providerName").getValue(String.class);
             String review = snapshot.child("review").getValue(String.class);
             float rating = snapshot.child("starNumber").getValue(float.class);
-            ProviderRating providerRating = new ProviderRating(seekerID,providerEmail,review,rating);
+            ProviderRating providerRating = new ProviderRating(seekerID,providerName,review,rating);
             ProvidersRatingList.add(providerRating);
             providerReviewAdaptor.notifyDataSetChanged();
         }
@@ -68,10 +68,10 @@ public class SeekerReviewListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seeker_review_list);
 
         seekerID = getIntent().getStringExtra("seeker id");
-        seekerEmail = getIntent().getStringExtra("seeker email");
+        seekerName = getIntent().getStringExtra("seeker Name");
 
-        seekerName = findViewById(R.id.seekerEmailText);
-        seekerName.setText("Reviews on " + seekerEmail);
+        seekerNameText = findViewById(R.id.seekerNameText);
+        seekerNameText.setText("Reviews on " + seekerName);
 
         listView = findViewById(R.id.seekerReviewsList);
         providerReviewAdaptor = new ProviderReviewAdaptor(this, ProvidersRatingList);

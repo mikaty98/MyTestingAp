@@ -80,8 +80,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
         UpdateToken();
         Intent intent = getIntent();
-        String providerEmail = intent.getStringExtra("provider email");
-        String seekerEmail = intent.getStringExtra("seeker email");
         providerUserID = intent.getStringExtra("userID");
 
         // SharedPreferences mySharedPreferences = getSharedPreferences("intent", Context.MODE_PRIVATE);
@@ -96,8 +94,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
         int price = intent.getIntExtra("price", 0);
 
 
-        String parts[] = providerEmail.split(".com");
-        String trimmedEmail = parts[0];
+
 
         username = findViewById(R.id.username);
         jobDescription = findViewById(R.id.job_description);
@@ -186,7 +183,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ChosenProviderProfile.this, ProviderReviewListActivity.class);
                 intent.putExtra("provider id", providerUserID);
-                intent.putExtra("provider email", providerEmail);
+                intent.putExtra("provider Name", provider.getUserName());
                 startActivity(intent);
             }
         });

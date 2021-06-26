@@ -26,7 +26,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
     String providerId;
     String userType;
     String price;
-    String seekerEmail;
+    String seekerName;
 
 
     Button submitBtn;
@@ -71,56 +71,54 @@ public class SeekerRatingSubmit extends AppCompatActivity {
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String userId = firebaseUser.getUid();
-//                reference = FirebaseDatabase.getInstance().getReference("Seekers");
-//                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if (snapshot.exists()){
-//                            seekerEmail = snapshot.child(userId).child("email").getValue(String.class);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
+                reference = FirebaseDatabase.getInstance().getReference("Seekers");
+                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            seekerName = snapshot.child(userId).child("userName").getValue(String.class);
+                            String one = review.getText().toString().trim();
 
-                String one = review.getText().toString().trim();
+                            float two = ratingBar.getRating();
 
-                float two = ratingBar.getRating();
-
-                SeekerRating seekerRating = new SeekerRating(userId, providerId, one, two);
+                            SeekerRating seekerRating = new SeekerRating(seekerName, providerId, one, two);
 
 
-                reference = FirebaseDatabase.getInstance().getReference().child("Providers").child(providerId).child("ratings");
-                reference.child(userId).setValue(seekerRating);
+                            reference = FirebaseDatabase.getInstance().getReference().child("Providers").child(providerId).child("ratings");
+                            reference.child(userId).setValue(seekerRating);
 
-                //TODO remove local request, local request proposals, arrival and completion flags.
-                //Local request removal
-                reference = FirebaseDatabase.getInstance().getReference("LocalRequests").child(userId);
-                reference.removeValue();
+                            //Local request removal
+                            reference = FirebaseDatabase.getInstance().getReference("LocalRequests").child(userId);
+                            reference.removeValue();
 
-                //Local request proposals removal
-                reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(userId);
-                reference.removeValue();
+                            //Local request proposals removal
+                            reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(userId);
+                            reference.removeValue();
 
-                //remove connection
-                reference = FirebaseDatabase.getInstance().getReference("StartingConnections").child(userId + providerId);
-                reference.removeValue();
+                            //remove connection
+                            reference = FirebaseDatabase.getInstance().getReference("StartingConnections").child(userId + providerId);
+                            reference.removeValue();
 
-                //arrival removal
-                reference = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestArrivalConfirm").child(userId);
-                reference.removeValue();
+                            //arrival removal
+                            reference = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestArrivalConfirm").child(userId);
+                            reference.removeValue();
 
-                //completion removal
-                reference = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestCompletionConfirm").child(userId);
-                reference.removeValue();
+                            //completion removal
+                            reference = FirebaseDatabase.getInstance().getReference("SeekerLocalRequestCompletionConfirm").child(userId);
+                            reference.removeValue();
 
 
-                Intent backintent = new Intent(SeekerRatingSubmit.this, SeekerMainHomeActivity.class);
-                startActivity(backintent);
-                finish();
+                            Intent backintent = new Intent(SeekerRatingSubmit.this, SeekerMainHomeActivity.class);
+                            startActivity(backintent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
             }

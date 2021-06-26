@@ -26,7 +26,7 @@ public class ProviderRatingSubmit extends AppCompatActivity {
     String seekerId;
     String userType;
     String price;
-    String providerEmail;
+    String providerName;
 
     Button submitBtn;
 
@@ -69,43 +69,40 @@ public class ProviderRatingSubmit extends AppCompatActivity {
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 String userId = firebaseUser.getUid();
-//                reference = FirebaseDatabase.getInstance().getReference("Providers");
-//                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if (snapshot.exists()){
-//                            providerEmail = snapshot.child(userId).child("email").getValue(String.class);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-
-
-                String one = review.getText().toString().trim();
-
-                float two = ratingBar.getRating();
-
-                ProviderRating providerRating = new ProviderRating(seekerId,userId,one,two);
-
-                reference = FirebaseDatabase.getInstance().getReference().child("Seekers").child(seekerId).child("ratings");
-                reference.child(userId).setValue(providerRating);
-
-                //TODO remove local request, local request proposals, arrival and completion flags.
-                //completion removal
-                reference = FirebaseDatabase.getInstance().getReference("ProviderLocalRequestCompletionConfirm").child(userId);
-                reference.removeValue();
-
-                //setting busy to false
                 reference = FirebaseDatabase.getInstance().getReference("Providers");
-                reference.child(userId).child("sentProposal").setValue(false);
+                reference.orderByChild("userID").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            providerName = snapshot.child(userId).child("userName").getValue(String.class);
+                            String one = review.getText().toString().trim();
+                            float two = ratingBar.getRating();
 
-                Intent intent = new Intent(ProviderRatingSubmit.this, ProviderHomeActivity.class);
-                startActivity(intent);
-                finish();
+                            ProviderRating providerRating = new ProviderRating(seekerId,providerName,one,two);
+
+                            reference = FirebaseDatabase.getInstance().getReference().child("Seekers").child(seekerId).child("ratings");
+                            reference.child(userId).setValue(providerRating);
+
+                            //completion removal
+                            reference = FirebaseDatabase.getInstance().getReference("ProviderLocalRequestCompletionConfirm").child(userId);
+                            reference.removeValue();
+
+                            //setting busy to false
+                            reference = FirebaseDatabase.getInstance().getReference("Providers");
+                            reference.child(userId).child("sentProposal").setValue(false);
+
+                            Intent intent = new Intent(ProviderRatingSubmit.this, ProviderHomeActivity.class);
+                            startActivity(intent);
+                            finish();
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
 
 
             }
