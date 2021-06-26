@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ConnectedSandP {
     private String seekerID, providerID;
-    private boolean startFlag;
+    private int startFlag;
     private String userType;
     private int completionTime;
     private DatabaseReference reference;
@@ -20,7 +20,7 @@ public class ConnectedSandP {
     public ConnectedSandP(String seekerID, String providerID, int completionTime, String userType) {
         this.seekerID = seekerID;
         this.providerID = providerID;
-        this.startFlag = false;
+        this.startFlag = 0; //false
         this.completionTime = completionTime;
         this.userType = userType;
         this.reference = FirebaseDatabase.getInstance().getReference("StartingConnections");
@@ -42,11 +42,11 @@ public class ConnectedSandP {
         this.providerID = providerID;
     }
 
-    public boolean isStartFlag() {
+    public int getStartFlag() {
         return startFlag;
     }
 
-    public void setStartFlag(boolean startFlag) {
+    public void setStartFlag(int startFlag) {
         this.startFlag = startFlag;
     }
 
@@ -56,7 +56,7 @@ public class ConnectedSandP {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    startFlag = snapshot.child(seekerID+providerID).child("startFlag").getValue(boolean.class);
+                    startFlag = snapshot.child(seekerID+providerID).child("startFlag").getValue(int.class);
                 }
             }
 

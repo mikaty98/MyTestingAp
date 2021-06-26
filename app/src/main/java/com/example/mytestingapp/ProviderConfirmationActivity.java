@@ -111,9 +111,10 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
                                     intent.putExtra("completion time", completionTime);
 
                                     reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
-                                    reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(true);
+                                    reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(1);//true
 
                                     startActivity(intent);
+                                    finish();
 
                                 }
 
@@ -133,8 +134,6 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
     }
 
     private void goBack() {
-
-
         reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId).child(FirebaseAuth.getInstance().getUid());
         reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -145,7 +144,7 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
 
                 //delete connection between seeker and provider
                 reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
-                reference.child(receiverId + FirebaseAuth.getInstance().getUid()).removeValue();
+                reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(2);
                 //--------------------------------------------------------
 
 
@@ -156,5 +155,44 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        String providerCheckId = firebaseUser.getUid();
+
+        reference1 = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+
+        reference1.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        String key = child.getKey();
+
+                        if (key.contains(providerCheckId)) {
+                            receiverId = child.child("seekerID").getValue(String.class);
+                            usertype = child.child("userType").getValue(String.class);
+                            completionTime = child.child("completionTime").getValue(Integer.class);
+
+                            goBack();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

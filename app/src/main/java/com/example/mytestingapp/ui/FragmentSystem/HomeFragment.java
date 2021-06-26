@@ -60,16 +60,13 @@ public class HomeFragment extends Fragment {
 
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                reference.orderByChild("seekerID").equalTo(seekerID).addValueEventListener(new ValueEventListener() {
+                reference.orderByChild("seekerID").equalTo(seekerID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                        if (dataSnapshot.exists()) {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
                             Toast.makeText(getActivity(), "You can't request two local services at the same time!", Toast.LENGTH_SHORT).show();
-
-
-                        } else {
+                        }
+                        else {
                             Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getActivity(), SeekerLocalRequest.class);
@@ -77,15 +74,12 @@ public class HomeFragment extends Fragment {
                             startActivity(intent);
 
                         }
-
-
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-
                 });
 
 
@@ -97,7 +91,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                reference.orderByChild("seekerID").equalTo(seekerID).addValueEventListener(new ValueEventListener() {
+                reference.orderByChild("seekerID").equalTo(seekerID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 

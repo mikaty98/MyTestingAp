@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeekerMainHomeActivity" />
+        <activity android:name=".SeekerMainHomeActivity" android:launchMode="singleTask"/>
         <activity android:name=".SeekerRatingSubmit" />
         <activity android:name=".ProviderRatingSubmit" />
         <activity android:name=".ProviderLocalRequestEndBuffer2" />
@@ -36,9 +36,21 @@
         <activity android:name=".SeekerLocalRequestAutoMap" />
         <activity android:name=".LocalRequestInfoActivity" />
         <activity android:name=".SeekerLocalRequestWaitingList" />
-        <activity android:name=".ProviderHomeActivity" />
+        <activity android:name=".ProviderHomeActivity" android:launchMode="singleTask"/>
         <activity android:name=".ProviderEditProfileActivity" />
         <activity android:name=".SeekerEditProfileActivity" />
+        <activity android:name=".SeekerLocalRequest" />
+        <activity android:name=".ProviderProfileActivity" />
+        <activity android:name=".PLoginActivity" android:launchMode="singleTask"/>
+        <activity android:name=".PRegisterActivity" />
+        <activity android:name=".SRegisterActivity" />
+        <activity android:name=".SLoginActivity" android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -51,18 +63,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBy42hFhtoHZxD_YvKfPrqxV-bJQQ8d7hY" />
 
-        <activity android:name=".SeekerLocalRequest" />
-        <activity android:name=".ProviderProfileActivity" />
-        <activity android:name=".PLoginActivity" />
-        <activity android:name=".PRegisterActivity" />
-        <activity android:name=".SRegisterActivity" />
-        <activity android:name=".SLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".SendNotificationPack.FirebaseMessagingService"

@@ -124,7 +124,7 @@ public class PLoginActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), PRegisterActivity.class));
-                finish();
+
             }
 
         });
@@ -133,7 +133,7 @@ public class PLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
-                finish();
+
             }
 
         });

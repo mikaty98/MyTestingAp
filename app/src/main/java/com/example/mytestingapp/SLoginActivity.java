@@ -97,7 +97,7 @@ public class SLoginActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), SRegisterActivity.class));
-                finish();
+                
             }
 
         });
@@ -106,7 +106,6 @@ public class SLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
-                finish();
             }
 
         });
@@ -115,7 +114,6 @@ public class SLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
-                finish();
             }
 
         });
@@ -127,8 +125,6 @@ public class SLoginActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }

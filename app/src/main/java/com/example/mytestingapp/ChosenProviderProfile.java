@@ -214,7 +214,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
 
 
-
                         reference.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -223,24 +222,32 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
                             @Override
                             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                userType = "seeker";
+                                int flag = snapshot.child("startFlag").getValue(int.class);
+                                if (flag == 1){
+                                    userType = "seeker";
 
-                                Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
-                                intent.putExtra("receiver id", providerUserID);
-                                intent.putExtra("arrival time", estimatedArrivaltime);
-                                intent.putExtra("completion time", estimatedCompletionTime);
-                                intent.putExtra("price", price);
-                                intent.putExtra("user type", userType);
-                                startActivity(intent);
+                                    Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
+                                    intent.putExtra("receiver id", providerUserID);
+                                    intent.putExtra("arrival time", estimatedArrivaltime);
+                                    intent.putExtra("completion time", estimatedCompletionTime);
+                                    intent.putExtra("price", price);
+                                    intent.putExtra("user type", userType);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else if(flag==2){
+
+                                    Intent failed = new Intent(ChosenProviderProfile.this, SeekerLocalRequestWaitingList.class);
+                                    startActivity(failed);
+                                    Toast.makeText(ChosenProviderProfile.this,"Provider declined",Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+
                             }
 
                             @Override
                             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                                Intent failed = new Intent(ChosenProviderProfile.this, SeekerLocalRequestWaitingList.class);
-                                //failed.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(failed);
-                                Toast.makeText(ChosenProviderProfile.this,"Provider declined",Toast.LENGTH_LONG).show();
-                                finish();
+
                             }
 
                             @Override

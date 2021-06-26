@@ -3,6 +3,7 @@ package com.example.mytestingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
@@ -357,7 +358,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
                     checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()){
+                            if (snapshot.exists()) {
                                 String seekerName = snapshot.child(userID).child("userName").getValue(String.class);
                                 confirmSeeker(seekerName);
                             }
@@ -368,7 +369,6 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
                         }
                     });
-
 
 
                 }
@@ -432,6 +432,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         Intent intent2 = new Intent(SeekerLocalRequestAutoMap.this, SeekerLocalRequestWaitingList.class);
         intent2.putExtra("seeker name", seekerName);
         startActivity(intent2);
+        finish();
 
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
 

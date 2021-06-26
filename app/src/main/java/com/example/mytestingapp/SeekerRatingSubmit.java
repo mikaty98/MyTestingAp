@@ -110,7 +110,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
                             Intent backintent = new Intent(SeekerRatingSubmit.this, SeekerMainHomeActivity.class);
                             startActivity(backintent);
-                            finish();
+
                         }
                     }
 
