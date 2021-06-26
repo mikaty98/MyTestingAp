@@ -147,6 +147,20 @@
                 android:textColor="@color/black"
                 />
 
+            <Button
+                android:id="@+id/optional"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Insert an image (optional)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:background="@drawable/custom_button"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/optionalImage"/>
+
 
             <Button
                 android:id="@+id/currentLocation"

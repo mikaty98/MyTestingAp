@@ -1,15 +1,25 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequest;
+import com.example.mytestingapp.ml.FaceDetection;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,16 +29,36 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SeekerLocalRequest extends AppCompatActivity {
 
 
-    private Button currentLocation, confrim;
+    private Button currentLocation, confrim, optional;
     private EditText requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName, buildingNumber, floorNumber, apartmentNumber;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
     private FirebaseStorage storage;
     private StorageReference ref;
+
+
+
+    public Uri imageUri;
+
+    private ImageView optionalImage;
+
+    private FirebaseAuth auth;
+
+
 
 
     public static final String TEXT2 = "com.example.mytestingapp";
@@ -42,6 +72,8 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
         currentLocation = findViewById(R.id.currentLocation);
 
+        optionalImage = findViewById(R.id.optionalImage);
+
 
         requestTitle = findViewById(R.id.requestTitle);
         requestDescription = findViewById(R.id.requestDescription);
@@ -54,6 +86,16 @@ public class SeekerLocalRequest extends AppCompatActivity {
         floorNumber = findViewById(R.id.floor);
         apartmentNumber = findViewById(R.id.apartment);
         confrim = findViewById(R.id.confirm);
+        optional = findViewById(R.id.optional);
+
+
+        optional.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                choosePicture();
+            }
+        });
 
 
         currentLocation.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +163,8 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
         reference.child(FirebaseAuth.getInstance().getUid()).setValue(l);
 
+        uploadImage();
+
         Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
         intent2.putExtra("seeker name", seekerName);
         startActivity(intent2);
@@ -131,4 +175,63 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
 
     }
+
+
+    private void choosePicture()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 100);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == 100 && resultCode == RESULT_OK && data!=null && data.getData()!=null)
+        {
+            imageUri = data.getData();
+            optionalImage.setImageURI(imageUri);
+        }
+    }
+
+    private void uploadImage()
+    {
+        auth = FirebaseAuth.getInstance();
+
+
+        String userID = auth.getCurrentUser().getUid();
+
+
+        if(imageUri != null)
+        {
+
+
+            storage = FirebaseStorage.getInstance();
+
+            ref = storage.getReference();
+
+            StorageReference riversRef = ref.child("images/"+userID+"item");
+
+            riversRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            Snackbar.make(findViewById(android.R.id.content),"Image Uploaded.",Snackbar.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getApplicationContext(),"Failed to upload", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+
+    }
+
 }

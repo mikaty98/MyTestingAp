@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,6 +23,8 @@ import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.Classes.LocalRequestApplicant;
 import com.example.mytestingapp.Classes.Provider;
 import com.example.mytestingapp.Classes.Seeker;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,13 +32,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
 
 public class LocalRequestInfoActivity extends AppCompatActivity {
 
     private TextView requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName,
                 buildingNumber, floorNumber, apartmentNumber, seekerNameTxt;
 
-    private Button submitBtn,submitBtn2,seekerReviewBtn;
+    private Button submitBtn,submitBtn2,seekerReviewBtn, viewImage;
     private LinearLayout hiddenLayout;
     private ScrollView scrollable;
 
@@ -42,6 +53,11 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
     private Provider provider;
     private String seekerName;
     private SharedPreferences sp;
+
+    private Bitmap[] bitmap;
+
+
+    private ImageView viewImage2;
 
 
     private DatabaseReference reference;
@@ -59,6 +75,9 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         //Toast.makeText(LocalRequestInfoActivity.this,"INTENT DONEEEE"+ "   "+ intent2,Toast.LENGTH_LONG).show();
 
         requestTitle = findViewById(R.id.requestTitleValue);
+
+        viewImage2 = findViewById(R.id.viewImage2);
+        viewImage = findViewById(R.id.viewImage);
         requestDescription = findViewById(R.id.requestDescriptionValue);
         city = findViewById(R.id.cityValue);
         suburb = findViewById(R.id.suburbValue);
@@ -136,6 +155,50 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                 reviewintent.putExtra("seeker id", seekerID);
                 reviewintent.putExtra("seeker Name", seekerName);
                 startActivity(reviewintent);
+            }
+        });
+
+        viewImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference pathReference = storageRef.child("images/"+seekerID+"item");
+
+                bitmap = new Bitmap[1];
+
+
+                try{
+                    File localfile = File.createTempFile(seekerID,".jpg");
+                    pathReference.getFile(localfile)
+                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                                    viewImage2.setImageBitmap(bitmap[0]);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
+                            viewImage2.setImageBitmap(bitmap[0]);
+
+                            Toast.makeText(LocalRequestInfoActivity.this, "No image by the seeker", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+                catch (Exception e){
+                    bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
+                    viewImage2.setImageBitmap(bitmap[0]);
+
+                    Toast.makeText(LocalRequestInfoActivity.this, "No image by the seeker", Toast.LENGTH_SHORT).show();
+
+
+                }
+
             }
         });
 

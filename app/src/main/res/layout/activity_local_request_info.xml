@@ -336,6 +336,23 @@
             android:id="@+id/seekerEmailValue"/>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="30dp"
+        android:text="View Image"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:id="@+id/viewImage"
+        android:background="@drawable/custom_button"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewImage2"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"

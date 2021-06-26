@@ -3,154 +3,191 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/background_colour"
-    tools:context=".SeekerLocalRequestAutoMap">
+    tools:context=".SeekerLocalRequest">
 
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Request a service"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:gravity="center"
-        android:id="@+id/requestDetails"
-        android:textColor="@color/black"
-        />
+        android:layout_height="wrap_content">
 
 
-    <EditText
-        android:id="@+id/requestTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Request Title"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/requestDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Request Description"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Location for your request"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:gravity="center"
-        android:id="@+id/requestLocation"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="City"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/suburb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Suburb"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/streetName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Street Name"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/streetNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="number"
-        android:hint="Street Number"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/buildingName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Building Name"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/buildingNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Building Number"
-        android:inputType="number"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/floor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="number"
-        android:hint="Floor Number"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/apartment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="number"
-        android:hint="Apartment Number"
-        android:textColorHint="#4C4545"
-        android:textColor="@color/black"
-        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Request a service"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                android:id="@+id/requestDetails"
+                android:textColor="@color/black"
+                />
 
 
-    <Button
-        android:id="@+id/getLocation"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Get Location"
-        android:background="@drawable/custom_button"
-        android:layout_marginBottom="20dp"/>
+            <EditText
+                android:id="@+id/requestTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Request Title"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
 
-    <Button
-        android:id="@+id/confirm"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Confirm"
-        android:background="@drawable/custom_button"/>
+            <EditText
+                android:id="@+id/requestDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Request Description"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location for your request"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                android:id="@+id/requestLocation"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="City"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/suburb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Suburb"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/streetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Street Name"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/streetNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Street Number"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/buildingName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Building Name"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/buildingNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Building Number"
+                android:inputType="number"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/floor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Floor Number"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/apartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Apartment Number"
+                android:textColorHint="#4C4545"
+                android:textColor="@color/black"
+                />
+
+            <Button
+                android:id="@+id/optional"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Insert an image (optional)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:background="@drawable/custom_button"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/optionalImage"/>
+
+
+            <Button
+                android:id="@+id/getLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Get current location"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:background="@drawable/custom_button"/>
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Confirm"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:background="@drawable/custom_button"/>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
 
 
 </LinearLayout>

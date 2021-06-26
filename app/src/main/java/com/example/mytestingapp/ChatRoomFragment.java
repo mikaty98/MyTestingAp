@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -64,7 +65,7 @@ public class ChatRoomFragment extends Fragment {
 
     EditText msg_text;
     RecyclerView recyclerView;
-    ImageButton SendBtn;
+    ImageButton SendBtn, callBtn;
     int flag = 0;
 
 
@@ -137,6 +138,7 @@ public class ChatRoomFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
 
         SendBtn = view.findViewById(R.id.btn_send);
+        callBtn = view.findViewById(R.id.callBtn);
         msg_text = view.findViewById(R.id.text_send);
 
 
@@ -308,6 +310,33 @@ public class ChatRoomFragment extends Fragment {
                 }
 
                 msg_text.setText("");
+            }
+        });
+
+        callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref = FirebaseDatabase.getInstance().getReference("Providers").child(receiverId).child("phoneNumber");
+                mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String phoneNumber = dataSnapshot.getValue(String.class);
+
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" +phoneNumber));
+                        startActivity(intent);
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 

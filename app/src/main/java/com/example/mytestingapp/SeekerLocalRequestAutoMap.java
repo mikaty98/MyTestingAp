@@ -1,6 +1,7 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -15,6 +16,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +24,13 @@ import android.widget.EditText;
 
 import android.content.Intent;
 import android.provider.Settings;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequest;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +40,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,7 +51,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
     private static final int REQUEST_LOCATION = 1;
 
-    Button getlocationBtn, confirm;
+    Button getlocationBtn, confirm, optional;
     EditText requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName, buildingNumber, floorNumber, apartmentNumber;
 
     LocationManager locationManager;
@@ -54,6 +61,12 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
     private DatabaseReference reference;
     private FirebaseStorage storage;
     private StorageReference ref;
+
+    public Uri imageUri;
+
+    private ImageView optionalImage;
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +100,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void getLocation() {
@@ -106,6 +120,11 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
             requestTitle = findViewById(R.id.requestTitle);
             requestDescription = findViewById(R.id.requestDescription);
+            optional = findViewById(R.id.optional);
+            optionalImage = findViewById(R.id.optionalImage);
+
+
+
 
             confirm = findViewById(R.id.confirm);
 
@@ -374,6 +393,15 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
                 }
             });
 
+
+            optional.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    choosePicture();
+                }
+            });
+
         }
 
     }
@@ -429,6 +457,8 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
         reference.child(RequestTitle).setValue(l);
 
+        uploadImage();
+
         Intent intent2 = new Intent(SeekerLocalRequestAutoMap.this, SeekerLocalRequestWaitingList.class);
         intent2.putExtra("seeker name", seekerName);
         startActivity(intent2);
@@ -436,6 +466,65 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));
 
+
+    }
+
+
+
+    private void choosePicture()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 100);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == 100 && resultCode == RESULT_OK && data!=null && data.getData()!=null)
+        {
+            imageUri = data.getData();
+            optionalImage.setImageURI(imageUri);
+        }
+    }
+
+    private void uploadImage()
+    {
+        auth = FirebaseAuth.getInstance();
+
+
+        String userID = auth.getCurrentUser().getUid();
+
+
+        if(imageUri != null)
+        {
+
+
+            storage = FirebaseStorage.getInstance();
+
+            ref = storage.getReference();
+
+            StorageReference riversRef = ref.child("images/"+userID+"item");
+
+            riversRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            Snackbar.make(findViewById(android.R.id.content),"Image Uploaded.",Snackbar.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getApplicationContext(),"Failed to upload", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
 
     }
 

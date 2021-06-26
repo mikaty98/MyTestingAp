@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Seeker;
+import com.example.mytestingapp.ml.FaceDetection;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,8 +33,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,6 +50,7 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
     private CircleImageView profilePic;
     private Uri imageUri;
     private Bitmap[] bitmap;
+    private Bitmap img;
     private Button saveBtn;
     private DatabaseReference reference;
     private StorageReference storageReference;
@@ -211,16 +219,85 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 100);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            profilePic.setImageURI(imageUri);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null)
+        {
+            boolean containingAFace = false;
+
+            if (requestCode == 100 && resultCode == RESULT_OK && data!=null && data.getData()!=null)
+            {
+                Uri uri = data.getData();
+                try
+                {
+                    img = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+                    Bitmap resized = Bitmap.createScaledBitmap(img, 224, 224, true);
+
+                    try {
+                        FaceDetection model = FaceDetection.newInstance(SeekerEditProfileActivity.this);
+
+                        // Creates inputs for reference.
+                        TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.UINT8);
+
+                        TensorImage tensorImage = new TensorImage(DataType.UINT8);
+                        tensorImage.load(resized);
+                        ByteBuffer byteBuffer = tensorImage.getBuffer();
+
+                        inputFeature0.loadBuffer(byteBuffer);
+
+                        // Runs model inference and gets result.
+                        FaceDetection.Outputs outputs = model.process(inputFeature0);
+                        TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+                        if(outputFeature0.getFloatArray()[0] > outputFeature0.getFloatArray()[1]
+                                && outputFeature0.getFloatArray()[0] > outputFeature0.getFloatArray()[2]
+                                && outputFeature0.getFloatArray()[0] > outputFeature0.getFloatArray()[3]
+                                && outputFeature0.getFloatArray()[0] > outputFeature0.getFloatArray()[4]
+                        )
+                        {
+                            containingAFace = true;
+
+                        }
+
+                        else
+                        {
+                            containingAFace = false;
+                        }
+
+
+                        // Releases model resources if no longer used.
+                        model.close();
+                    } catch (IOException e) {
+                        // TODO Handle the exception
+                    }
+
+
+
+
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+                if(containingAFace == true)
+                {
+                    imageUri = data.getData();
+                    profilePic.setImageURI(imageUri);
+                }
+
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Profile picture should show your face clearly", Toast.LENGTH_LONG).show();
+                }
+
+            }
 
         }
     }

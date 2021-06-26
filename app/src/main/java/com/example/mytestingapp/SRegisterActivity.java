@@ -301,6 +301,14 @@ public class SRegisterActivity extends AppCompatActivity {
             errorFlag = true;
         }
 
+        if(!PhoneNumber.startsWith("010") || !PhoneNumber.startsWith("011") || !PhoneNumber.startsWith("012"))
+        {
+            phoneNumber.setError("*");
+            errorFlag = true;
+        }
+
+
+
         if (TextUtils.isEmpty(Email)) {
             email.setError("*");
             errorFlag = true;

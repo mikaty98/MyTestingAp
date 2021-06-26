@@ -16,6 +16,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -66,7 +67,7 @@ public class ChatRoom extends AppCompatActivity {
 
     EditText msg_text;
     RecyclerView recyclerView;
-    ImageButton SendBtn;
+    ImageButton SendBtn, callBtn;
     int flag = 0;
 
     int flagg = 0;
@@ -106,6 +107,7 @@ public class ChatRoom extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
 
         SendBtn = findViewById(R.id.btn_send);
+        callBtn = findViewById(R.id.callBtn);
         msg_text = findViewById(R.id.text_send);
 
         imageView = findViewById(R.id.imageview_profile);
@@ -287,6 +289,33 @@ public class ChatRoom extends AppCompatActivity {
                 }
 
                 msg_text.setText("");
+            }
+        });
+
+        callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref = FirebaseDatabase.getInstance().getReference("Seekers").child(receiverId).child("phoneNumber");
+                mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String phoneNumber = dataSnapshot.getValue(String.class);
+
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" +phoneNumber));
+                        startActivity(intent);
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
