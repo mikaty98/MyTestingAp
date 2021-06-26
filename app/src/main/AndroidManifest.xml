@@ -55,7 +55,6 @@
         <activity android:name=".ProviderProfileActivity" />
         <activity android:name=".PLoginActivity" />
         <activity android:name=".PRegisterActivity" />
-        <activity android:name=".HomeActivity" />
         <activity android:name=".SRegisterActivity" />
         <activity android:name=".SLoginActivity">
             <intent-filter>

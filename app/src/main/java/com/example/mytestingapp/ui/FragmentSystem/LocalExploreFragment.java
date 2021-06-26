@@ -38,7 +38,6 @@ public class LocalExploreFragment extends Fragment {
     private String providerEmail;
 
 
-
     ListView listView;
     List<LocalRequest> localRequestList = new ArrayList<>();
 
@@ -83,11 +82,9 @@ public class LocalExploreFragment extends Fragment {
     };
 
 
-
     public LocalExploreFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -100,22 +97,19 @@ public class LocalExploreFragment extends Fragment {
 
         localRequestList.clear();
 
-        serviceAdaptor = new ServiceAdaptor(getActivity(),localRequestList);
+        serviceAdaptor = new ServiceAdaptor(getActivity(), localRequestList);
         listView = view.findViewById(R.id.serviceList);
         listView.setAdapter(serviceAdaptor);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             providerEmail = getArguments().getString("provider email");
         }
-
 
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequests");
 
 
         reference.addChildEventListener(childEventListener);
-
-
 
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +122,7 @@ public class LocalExploreFragment extends Fragment {
                 if (!suburbFilter.equals("")) {
                     Query query = reference.orderByChild("suburb").equalTo(suburbFilter);
                     query.addChildEventListener(childEventListener);
-                }
-                else{
+                } else {
                     Query query = reference.orderByChild("suburb");
                     query.addChildEventListener(childEventListener);
                 }
@@ -151,9 +144,6 @@ public class LocalExploreFragment extends Fragment {
 
         return view;
     }
-
-
-
 
 
 }

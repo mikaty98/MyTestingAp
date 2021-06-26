@@ -3,6 +3,7 @@ package com.example.mytestingapp.ui.FragmentSystem;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,9 @@ public class ProviderProfileFragment extends Fragment {
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private Bitmap[] bitmap;
+    private Uri imageUri;
+
 
     private String userID;
     
@@ -61,7 +65,7 @@ public class ProviderProfileFragment extends Fragment {
 
     private void getProfilePic(){
         storageReference = FirebaseStorage.getInstance().getReference().child("images/"+userID);
-        final Bitmap[] bitmap = new Bitmap[1];
+        bitmap = new Bitmap[1];
         try{
             File localfile = File.createTempFile(userID,".jpg");
             storageReference.getFile(localfile)

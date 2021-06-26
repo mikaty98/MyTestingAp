@@ -17,6 +17,7 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:gravity="center"
         android:id="@+id/requestDetails"
+        android:textColor="@color/black"
         />
 
 
@@ -26,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="Request Title"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -35,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Request Description"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
 
@@ -46,6 +49,7 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:gravity="center"
         android:id="@+id/requestLocation"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -54,7 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="City"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -63,7 +68,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="Suburb"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -72,7 +78,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="Street Name"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -82,7 +89,8 @@
         android:layout_margin="5dp"
         android:inputType="number"
         android:hint="Street Number"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -91,7 +99,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="Building Name"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -101,7 +110,8 @@
         android:layout_margin="5dp"
         android:hint="Building Number"
         android:inputType="number"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -111,7 +121,8 @@
         android:layout_margin="5dp"
         android:inputType="number"
         android:hint="Floor Number"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -121,7 +132,8 @@
         android:layout_margin="5dp"
         android:inputType="number"
         android:hint="Apartment Number"
-        android:textColorHint="@color/white"
+        android:textColorHint="#4C4545"
+        android:textColor="@color/black"
         />
 
 

@@ -49,6 +49,7 @@ public class SeekerProfileFragment extends Fragment {
     private DatabaseReference reference;
 
     private StorageReference storageReference;
+    private Bitmap[] bitmap;
 
     private String userID;
 
@@ -116,7 +117,7 @@ public class SeekerProfileFragment extends Fragment {
 
     private void getProfilePic(){
         storageReference = FirebaseStorage.getInstance().getReference().child("images/"+userID);
-        final Bitmap[] bitmap = new Bitmap[1];
+        bitmap = new Bitmap[1];
         try{
             File localfile = File.createTempFile(userID,".jpg");
             storageReference.getFile(localfile)

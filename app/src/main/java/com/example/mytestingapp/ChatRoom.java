@@ -325,6 +325,7 @@ public class ChatRoom extends AppCompatActivity {
                                                 intent.putExtra("user type", userType);
 
                                                 startActivity(intent);
+                                                finish();
                                             }
                                         }).show();
                             }

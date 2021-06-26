@@ -1,14 +1,21 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Seeker;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,7 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,6 +41,8 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
     private String userID;
     private EditText username, gender, age, id, phoneNumber;
     private CircleImageView profilePic;
+    private Uri imageUri;
+    private Bitmap[] bitmap;
     private Button saveBtn;
     private DatabaseReference reference;
     private StorageReference storageReference;
@@ -52,7 +63,7 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
 
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        
+
         reference = FirebaseDatabase.getInstance().getReference("Seekers");
         Query checkUser = reference.orderByChild("userID").equalTo(userID);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -76,19 +87,89 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
             }
         });
 
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePicture();
+            }
+        });
+
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                reference.child(userID).setValue(seeker);
-                
-            }
+            public void onClick(View v) { register(); }
         });
+    }
+    private void register() {
+        String Id = id.getText().toString().trim();
+        String UserName = username.getText().toString().trim();
+        String Gender = gender.getText().toString().trim();
+        String Agetxt = age.getText().toString().trim();
+        Integer Age;
+        if (Agetxt.equals("")) {
+            Age = null;
+        } else {
+            Age = Integer.parseInt(Agetxt);
+        }
+        String PhoneNumber = phoneNumber.getText().toString().trim();
+
+        boolean errorFlag = false;
+
+        if (TextUtils.isEmpty(Id) || Id.length() != 14) {
+            id.setError("*");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(UserName)) {
+            username.setError("*");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(Gender)) {
+            gender.setError("*");
+            errorFlag = true;
+        }
+        if (!(Gender.equals("Male") || Gender.equals("male") || Gender.equals("Female") || Gender.equals("female"))) {
+            gender.setError("Invalid input");
+            errorFlag = true;
+        }
+        if (Age == null) {
+            age.setError("*");
+            errorFlag = true;
+        } else if (Age < 18 || Age > 100) {
+            age.setError("Inappropriate age");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(PhoneNumber) || PhoneNumber.length() != 11) {
+            phoneNumber.setError("*");
+            errorFlag = true;
+        }
+        if (imageUri == null) {
+            Toast.makeText(getApplicationContext(), "Profile picture required", Toast.LENGTH_LONG).show();
+            errorFlag = true;
+        }
+
+        if (errorFlag) {
+            return;
+        }
+
+        reference = FirebaseDatabase.getInstance().getReference("Providers").child(userID);
+        reference.child("id").setValue(Id);
+        reference.child("userName").setValue(UserName);
+        reference.child("gender").setValue(Gender);
+        reference.child("age").setValue(Age.toString());
+        reference.child("phoneNumber").setValue(PhoneNumber);
+        uploadPic();
+
+        Intent intent = new Intent(SeekerEditProfileActivity.this,SeekerMainHomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+
     }
 
     private void getProfilePic() {
         storageReference = FirebaseStorage.getInstance().getReference().child("images/" + userID);
-        final Bitmap[] bitmap = new Bitmap[1];
+        bitmap = new Bitmap[1];
         try {
             File localfile = File.createTempFile(userID, ".jpg");
             storageReference.getFile(localfile)
@@ -98,6 +179,7 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
                             bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
                             profilePic.setImageBitmap(bitmap[0]);
                             seeker.setImageBitmap(bitmap[0]);
+                            imageUri = getImageUri(SeekerEditProfileActivity.this, bitmap[0]);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -105,6 +187,7 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
                     bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
                     profilePic.setImageBitmap(bitmap[0]);
                     seeker.setImageBitmap(bitmap[0]);
+                    imageUri = getImageUri(SeekerEditProfileActivity.this, bitmap[0]);
                 }
             });
 
@@ -112,8 +195,52 @@ public class SeekerEditProfileActivity extends AppCompatActivity {
             bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
             profilePic.setImageBitmap(bitmap[0]);
             seeker.setImageBitmap(bitmap[0]);
+            imageUri = getImageUri(SeekerEditProfileActivity.this, bitmap[0]);
         }
 
+    }
+
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private void choosePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            profilePic.setImageURI(imageUri);
+
+        }
+    }
+    private void uploadPic() {
+
+        storageReference = FirebaseStorage.getInstance().getReference().child("images/" + userID);
+
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 }

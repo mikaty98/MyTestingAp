@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,7 +44,8 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
     private String userID;
     private EditText username, jobDescription, gender, age, id, phoneNumber;
     private CircleImageView profilePic;
-    public Uri imageUri;
+    private Uri imageUri;
+    private Bitmap[] bitmap;
     private Button saveBtn;
     private DatabaseReference reference;
     private StorageReference storageReference;
@@ -80,7 +84,7 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
                     id.setText(provider.getId());
                     phoneNumber.setText(provider.getPhoneNumber());
                     profilePic.setImageBitmap(provider.getImageBitmap());
-                    //TODO fix profile pic
+
                 }
             }
 
@@ -172,6 +176,7 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
         uploadPic();
 
         Intent intent = new Intent(ProviderEditProfileActivity.this,ProviderHomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
 
@@ -179,7 +184,7 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
 
     private void getProfilePic() {
         storageReference = FirebaseStorage.getInstance().getReference().child("images/" + userID);
-        final Bitmap[] bitmap = new Bitmap[1];
+        bitmap = new Bitmap[1];
         try {
             File localfile = File.createTempFile(userID, ".jpg");
             storageReference.getFile(localfile)
@@ -189,6 +194,7 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
                             bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
                             profilePic.setImageBitmap(bitmap[0]);
                             provider.setImageBitmap(bitmap[0]);
+                            imageUri = getImageUri(ProviderEditProfileActivity.this,bitmap[0]);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -196,6 +202,7 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
                     bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
                     profilePic.setImageBitmap(bitmap[0]);
                     provider.setImageBitmap(bitmap[0]);
+                    imageUri = getImageUri(ProviderEditProfileActivity.this,bitmap[0]);
                 }
             });
 
@@ -203,6 +210,7 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
             bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
             profilePic.setImageBitmap(bitmap[0]);
             provider.setImageBitmap(bitmap[0]);
+            imageUri = getImageUri(ProviderEditProfileActivity.this,bitmap[0]);
         }
 
     }
@@ -243,5 +251,13 @@ public class ProviderEditProfileActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
 
 }

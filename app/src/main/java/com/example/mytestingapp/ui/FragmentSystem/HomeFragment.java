@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mytestingapp.Classes.SeekerRating;
 import com.example.mytestingapp.R;
 import com.example.mytestingapp.SeekerLocalRequest;
 import com.example.mytestingapp.SeekerLocalRequestWaitingList;
@@ -27,8 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeFragment extends Fragment {
 
 
-    private Button localService;
-    private Button localWaiting;
+    private Button localService, globalService;
+    private Button localWaiting, globalWaiting;
     private TextView welcomeUser;
     private String seekerID, seekerEmail, seekerUserName;
 

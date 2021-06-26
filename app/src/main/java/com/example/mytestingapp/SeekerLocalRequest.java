@@ -1,5 +1,6 @@
 package com.example.mytestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,8 +11,12 @@ import android.widget.EditText;
 
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -73,7 +78,6 @@ public class SeekerLocalRequest extends AppCompatActivity {
                 String text = intent.getStringExtra("seeker email");
 
                 Intent intent1 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
-                intent1.putExtra("seeker email", text);
                 startActivity(intent1);
 
 
@@ -88,24 +92,32 @@ public class SeekerLocalRequest extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent = getIntent();
-                String text = intent.getStringExtra("seeker email");
+                //String SeekerEmail = text;
+                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                reference = FirebaseDatabase.getInstance().getReference("Seekers");
+                Query checkUser = reference.orderByChild("userID").equalTo(userID);
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            String seekerEmail = snapshot.child(userID).child("email").getValue(String.class);
+                            confirmSeeker(seekerEmail);
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                String SeekerEmail = text;
-                confirmSeeker(SeekerEmail);
+                    }
+                });
 
-                Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
-                intent2.putExtra("seeker email", SeekerEmail);
-                startActivity(intent2);
-                finish();
             }
         });
 
 
     }
 
-    private void confirmSeeker(String SeekerEmail)
+    private void confirmSeeker(String seekerEmail)
     {
 
         String RequestTitle = requestTitle.getText().toString().trim();
@@ -122,11 +134,16 @@ public class SeekerLocalRequest extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference().child("LocalRequests");
 
-        LocalRequest l = new LocalRequest(RequestTitle,RequestDes,City,Suburb,StreetName,StreetNumber.toString(),BuildingName,BuildingNumber.toString(),FloorNumber.toString(),ApartmentNumber.toString(),SeekerEmail
+        LocalRequest l = new LocalRequest(RequestTitle,RequestDes,City,Suburb,StreetName,StreetNumber.toString(),BuildingName,BuildingNumber.toString(),FloorNumber.toString(),ApartmentNumber.toString(),seekerEmail
         , FirebaseAuth.getInstance().getUid());
 
 
         reference.child(FirebaseAuth.getInstance().getUid()).setValue(l);
+
+        Intent intent2 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestWaitingList.class);
+        intent2.putExtra("seeker email", seekerEmail);
+        startActivity(intent2);
+        finish();
 
 
         //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestWaitingList.class));

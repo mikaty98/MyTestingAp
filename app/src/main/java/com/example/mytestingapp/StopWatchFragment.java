@@ -272,6 +272,7 @@ public class StopWatchFragment extends Fragment {
 
 
                         startActivity(intent);
+                        getActivity().finish();
 
 
                     }

@@ -67,7 +67,7 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
         receiverId = intent.getStringExtra("receiver id");
         userType = intent.getStringExtra("user type");
-        completionTime = intent.getIntExtra("completion time",60);
+        completionTime = intent.getIntExtra("completion time", 60);
         price = intent.getStringExtra("price");
 
 
@@ -110,8 +110,7 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
             }
 
             @Override
-            public void onFinish()
-            {
+            public void onFinish() {
 
                 textView.setText("00:00");
 
@@ -127,16 +126,14 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
         reference1.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
-            {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                 hiddenLayout.setVisibility(View.VISIBLE);
 
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
-            {
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
 
@@ -187,7 +184,7 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
                 finalPricee = String.valueOf(finalPrice);
 
-                final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+                final_price.setText("Final Price to be paid by the seeker to the provider: " + finalPricee + " EGP");
 
 
                 Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRatingSubmit.class);
@@ -199,9 +196,6 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
     }
