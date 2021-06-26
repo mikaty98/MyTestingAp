@@ -28,8 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeFragment extends Fragment {
 
 
-    private Button localService, globalService;
-    private Button localWaiting, globalWaiting;
+    private Button localService;
+    private Button localWaiting,cancelRequest;
     private TextView welcomeUser;
     private String seekerID, seekerEmail, seekerUserName;
 
@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment {
 
         localService = view.findViewById(R.id.localService);
         localWaiting = view.findViewById(R.id.localWaiting);
+        cancelRequest = view.findViewById(R.id.cancelRequestBtn);
         welcomeUser = view.findViewById(R.id.welcomeUser);
 
         seekerID = FirebaseAuth.getInstance().getUid();
@@ -57,7 +58,6 @@ public class HomeFragment extends Fragment {
         localService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
                 reference.orderByChild("seekerID").equalTo(seekerID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,6 +119,14 @@ public class HomeFragment extends Fragment {
                 });
 
 
+            }
+        });
+
+        cancelRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
+                reference.child(seekerID).removeValue();
             }
         });
 

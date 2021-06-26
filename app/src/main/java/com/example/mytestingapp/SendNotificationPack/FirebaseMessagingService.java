@@ -93,6 +93,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         builder.setContentIntent(pendingIntent);
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(remoteMessage.getNotification().getBody()));
         builder.setAutoCancel(true);
+        builder.setOngoing(true);
         builder.setPriority(Notification.PRIORITY_MAX);
 
         mNotificationManager =

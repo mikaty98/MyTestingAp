@@ -46,6 +46,15 @@
             android:id="@+id/localWaiting"
             android:background="@drawable/custom_button"
             />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Cancel request"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:id="@+id/cancelRequestBtn"
+            android:background="@drawable/custom_button"
+            />
 
 
 
