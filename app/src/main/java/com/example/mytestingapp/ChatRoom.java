@@ -335,6 +335,10 @@ public class ChatRoom extends AppCompatActivity {
                         String buildingNumber = dataSnapshot.child("buildingNumber").getValue(String.class);
                         String apartmentNumber = dataSnapshot.child("apartmentNumber").getValue(String.class);
                         String floorNumber = dataSnapshot.child("floorNumber").getValue(String.class);
+                        String streetName = dataSnapshot.child("streetName").getValue(String.class);
+                        String streetNumber = dataSnapshot.child("streetNumber").getValue(String.class);
+
+
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -343,7 +347,8 @@ public class ChatRoom extends AppCompatActivity {
                                 if (!isFinishing()){
                                     new AlertDialog.Builder(ChatRoom.this)
                                             .setTitle("Request Location Details")
-                                            .setMessage("Building Name:  "+buildingName+"\n\n"+ "Building Number:  "+buildingNumber+"\n\n"+
+                                            .setMessage("Street Name:  "+streetName+"\n\n"+ "Street Number:  "+streetNumber+"\n\n"+
+                                                    "Building Name:  "+buildingName+"\n\n"+ "Building Number:  "+buildingNumber+"\n\n"+
                                                     "Apartment Number:  "+apartmentNumber+"\n\n" + "Floor Number:  "+floorNumber+"\n\n"
                                             )
                                             .setCancelable(false)

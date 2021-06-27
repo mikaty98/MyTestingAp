@@ -137,20 +137,26 @@ public class SeekerRatingSubmit extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
-                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                        String userName = dataSnapshot.child("userName").getValue(String.class);
                         String userEmail = dataSnapshot.child("email").getValue(String.class);
+                        String userAge = dataSnapshot.child("age").getValue(String.class);
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String userGender = dataSnapshot.child("gender").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
 
 
 
                         runOnUiThread(new Runnable() {
                             @Override
-                            public void run(){
+                            public void run() {
 
                                 if (!isFinishing()){
                                     new AlertDialog.Builder(SeekerRatingSubmit.this)
-                                            .setTitle("Service Provider Details")
-                                            .setMessage("Email:   "+ userEmail+ "\n\n"+ "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n")
+                                            .setTitle("Service Seeker Details")
+                                            .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
+                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
+                                            )
                                             .setCancelable(false)
                                             .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
                                                 @Override
