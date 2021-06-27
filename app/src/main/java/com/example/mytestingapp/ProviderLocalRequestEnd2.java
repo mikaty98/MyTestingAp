@@ -2,8 +2,10 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +35,9 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
     EditText editText, note, final_price;
     Chronometer timer;
     Long passedTime;
+
+    Button userBtn;
+
 
     private LinearLayout hiddenLayout;
 
@@ -75,6 +82,8 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
 
         finalPrice = priceNumber;
+
+        userBtn = findViewById(R.id.userBtn);
 
 
         textView = findViewById(R.id.text_view2021);
@@ -193,6 +202,65 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
                 intentt.putExtra("user type", "provider");
 
                 startActivity(intentt);
+
+            }
+        });
+
+
+
+
+        userBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("Seekers").child(receiverId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String userName = dataSnapshot.child("userName").getValue(String.class);
+                        String userEmail = dataSnapshot.child("email").getValue(String.class);
+                        String userAge = dataSnapshot.child("age").getValue(String.class);
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String userGender = dataSnapshot.child("gender").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (!isFinishing()){
+                                    new AlertDialog.Builder(ProviderLocalRequestEnd2.this)
+                                            .setTitle("Service Seeker Details")
+                                            .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
+                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
+                                            )
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
             }
         });

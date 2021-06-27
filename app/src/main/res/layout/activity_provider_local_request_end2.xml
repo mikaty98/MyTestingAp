@@ -26,9 +26,6 @@
             android:textStyle="bold"
             android:editable="false"
             />
-
-
-
     </LinearLayout>
 
 
@@ -133,9 +130,26 @@
             android:background="@drawable/custom_button"/>
 
 
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="700dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userBtn"
+            android:text="Service Seeker Details"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:background="@drawable/custom_button"/>
 
     </LinearLayout>
+
 
 
 

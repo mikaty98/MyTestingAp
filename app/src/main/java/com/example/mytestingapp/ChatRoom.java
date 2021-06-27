@@ -67,7 +67,7 @@ public class ChatRoom extends AppCompatActivity {
 
     EditText msg_text;
     RecyclerView recyclerView;
-    ImageButton SendBtn, callBtn;
+    ImageButton SendBtn, callBtn, infoBtn, userBtn;
     int flag = 0;
 
     int flagg = 0;
@@ -108,10 +108,13 @@ public class ChatRoom extends AppCompatActivity {
 
         SendBtn = findViewById(R.id.btn_send);
         callBtn = findViewById(R.id.callBtn);
+        userBtn = findViewById(R.id.userBtn);
         msg_text = findViewById(R.id.text_send);
 
         imageView = findViewById(R.id.imageview_profile);
         username = findViewById(R.id.username1);
+
+        infoBtn = findViewById(R.id.infoBtn);
 
 
        // Toolbar toolbar = findViewById(R.id.toolbar2);
@@ -315,6 +318,114 @@ public class ChatRoom extends AppCompatActivity {
 
                     }
                 });
+
+            }
+        });
+
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("LocalRequests").child(receiverId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String buildingName = dataSnapshot.child("buildingName").getValue(String.class);
+                        String buildingNumber = dataSnapshot.child("buildingNumber").getValue(String.class);
+                        String apartmentNumber = dataSnapshot.child("apartmentNumber").getValue(String.class);
+                        String floorNumber = dataSnapshot.child("floorNumber").getValue(String.class);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (!isFinishing()){
+                                    new AlertDialog.Builder(ChatRoom.this)
+                                            .setTitle("Request Location Details")
+                                            .setMessage("Building Name:  "+buildingName+"\n\n"+ "Building Number:  "+buildingNumber+"\n\n"+
+                                                    "Apartment Number:  "+apartmentNumber+"\n\n" + "Floor Number:  "+floorNumber+"\n\n"
+                                            )
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
+        });
+
+
+        userBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("Seekers").child(receiverId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String userName = dataSnapshot.child("userName").getValue(String.class);
+                        String userEmail = dataSnapshot.child("email").getValue(String.class);
+                        String userAge = dataSnapshot.child("age").getValue(String.class);
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String userGender = dataSnapshot.child("gender").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (!isFinishing()){
+                                    new AlertDialog.Builder(ChatRoom.this)
+                                            .setTitle("Service Seeker Details")
+                                            .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
+                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
+                                            )
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
             }
         });

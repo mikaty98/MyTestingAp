@@ -3,6 +3,7 @@ package com.example.mytestingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,12 +40,19 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LocalRequestInfoActivity extends AppCompatActivity {
 
-    private TextView requestTitle, requestDescription, city, suburb, streetName, streetNumber, buildingName,
-                buildingNumber, floorNumber, apartmentNumber, seekerNameTxt;
+    private TextView requestTitle, requestDescription, city, suburb, streetName, streetNumber,seekerNameTxt;
 
     private Button submitBtn,submitBtn2,seekerReviewBtn, viewImage;
     private LinearLayout hiddenLayout;
@@ -83,10 +94,6 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         suburb = findViewById(R.id.suburbValue);
         streetName = findViewById(R.id.streetNameValue);
         streetNumber = findViewById(R.id.streetNumberValue);
-        buildingName = findViewById(R.id.buildingNameValue);
-        buildingNumber = findViewById(R.id.buildingNumberValue);
-        floorNumber = findViewById(R.id.floorNumberValue);
-        apartmentNumber = findViewById(R.id.apartmentNumberValue);
         seekerNameTxt = findViewById(R.id.seekerEmailValue);
 
         submitBtn = findViewById(R.id.submitBtn);
@@ -108,10 +115,6 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
         suburb.setText(localRequest.getSuburb());
         streetName.setText(localRequest.getStreetName());
         streetNumber.setText(localRequest.getStreetNumber());
-        buildingName.setText(localRequest.getBuildingName());
-        buildingNumber.setText(localRequest.getBuildingNumber());
-        floorNumber.setText(localRequest.getFloorNumber());
-        apartmentNumber.setText(localRequest.getApartmentNumber());
         seekerNameTxt.setText(localRequest.getseekerName());
         seekerID = localRequest.getSeekerID();
 
@@ -177,6 +180,7 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                     bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
                                     viewImage2.setImageBitmap(bitmap[0]);
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -289,6 +293,8 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+
+
 }

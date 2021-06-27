@@ -1,8 +1,10 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +29,8 @@ public class ProviderRatingSubmit extends AppCompatActivity {
     String userType;
     String price;
     String providerName;
+    Button userBtn;
+
 
     Button submitBtn;
 
@@ -51,6 +55,7 @@ public class ProviderRatingSubmit extends AppCompatActivity {
 
 
         ratingNote = findViewById(R.id.ratingNote);
+        userBtn = findViewById(R.id.userBtn);
         price_value = findViewById(R.id.price_value);
         review = findViewById(R.id.review);
 
@@ -101,6 +106,63 @@ public class ProviderRatingSubmit extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+
+            }
+        });
+
+
+        userBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("Seekers").child(seekerId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String userName = dataSnapshot.child("userName").getValue(String.class);
+                        String userEmail = dataSnapshot.child("email").getValue(String.class);
+                        String userAge = dataSnapshot.child("age").getValue(String.class);
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String userGender = dataSnapshot.child("gender").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (!isFinishing()){
+                                    new AlertDialog.Builder(ProviderRatingSubmit.this)
+                                            .setTitle("Service Seeker Details")
+                                            .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
+                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
+                                            )
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
 

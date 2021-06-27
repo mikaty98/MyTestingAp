@@ -1,6 +1,7 @@
 package com.example.mytestingapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -63,9 +64,10 @@ public class ChatRoomFragment extends Fragment {
     TextView username;
     ImageView imageView;
 
+
     EditText msg_text;
     RecyclerView recyclerView;
-    ImageButton SendBtn, callBtn;
+    ImageButton SendBtn, callBtn, userBtn1;
     int flag = 0;
 
 
@@ -139,6 +141,7 @@ public class ChatRoomFragment extends Fragment {
 
         SendBtn = view.findViewById(R.id.btn_send);
         callBtn = view.findViewById(R.id.callBtn);
+        userBtn1 = view.findViewById(R.id.userBtn1);
         msg_text = view.findViewById(R.id.text_send);
 
 
@@ -310,6 +313,56 @@ public class ChatRoomFragment extends Fragment {
                 }
 
                 msg_text.setText("");
+            }
+        });
+
+        userBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("Providers").child(receiverId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                        String userEmail = dataSnapshot.child("email").getValue(String.class);
+
+
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (!getActivity().isFinishing()){
+                                    new AlertDialog.Builder(getContext())
+                                            .setTitle("Service Provider Details")
+                                            .setMessage("Email:   "+ userEmail+ "\n\n"+ "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n")
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
             }
         });
 

@@ -71,7 +71,7 @@ public class SeekerReviewListActivity extends AppCompatActivity {
         seekerName = getIntent().getStringExtra("seeker Name");
 
         seekerNameText = findViewById(R.id.seekerNameText);
-        seekerNameText.setText("Reviews on " + seekerName);
+        seekerNameText.setText("Ratings And Reviews On " + seekerName);
 
         listView = findViewById(R.id.seekerReviewsList);
         providerReviewAdaptor = new ProviderReviewAdaptor(this, ProvidersRatingList);

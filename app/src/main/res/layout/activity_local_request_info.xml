@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Request Info"
+        android:text="Service Request Information"
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textIsSelectable="false"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button"
         android:layout_margin="30dp"
-        android:text="Seeker Review"
+        android:text="Seeker Ratings And Reviews"
         android:textColor="@color/white"
         android:id="@+id/seekerReviewBtn"/>
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:text="Request title:"
+            android:text="Request Title:"
             android:textColor="#000000"
             android:textSize="17dp"
             android:layout_marginLeft="10dp"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:text="Request description:"
+            android:text="Request Description:"
             android:textColor="#000000"
             android:textSize="17dp"
             android:layout_marginLeft="10dp"
@@ -211,115 +211,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:text="Building name:"
-            android:textColor="#000000"
-            android:textSize="17dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Value"
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:id="@+id/buildingNameValue"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Building number:"
-            android:textColor="#000000"
-            android:textSize="17dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Value"
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:id="@+id/buildingNumberValue"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Floor number:"
-            android:textColor="#000000"
-            android:textSize="17dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Value"
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:id="@+id/floorNumberValue"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Apartment number:"
-            android:textColor="#000000"
-            android:textSize="17dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Value"
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:id="@+id/apartmentNumberValue"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Request seeker Name:"
+            android:text="Service Seeker Name:"
             android:textColor="#000000"
             android:textSize="17dp"
             android:layout_marginLeft="10dp"
@@ -357,7 +249,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="30dp"
-        android:text="Apply"
+        android:text="Apply For This Service"
         android:textSize="20dp"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -382,6 +274,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="40dp"
+                android:layout_gravity="left"
                 android:hint="Price Value" />
 
             <EditText
@@ -389,13 +282,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="40dp"
-                android:hint="Estimated Arrival time in Minutes" />
+                android:layout_gravity="left"
+                android:hint="Estimated Arrival Time in Minutes" />
 
             <EditText
                 android:id="@+id/estimatedCompletionTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:hint="Estimated Task Completion Time in Minutes" />
 
         </LinearLayout>
@@ -408,7 +302,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="30dp"
-            android:text="Submit proposal"
+            android:text="Submit Proposal"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="20dp"

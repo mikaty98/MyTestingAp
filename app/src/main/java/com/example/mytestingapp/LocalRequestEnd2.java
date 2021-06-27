@@ -2,8 +2,11 @@ package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,10 +39,12 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
     String receiverId;
 
+    private ProgressDialog progressDialog;
+
     private LinearLayout hiddenLayout;
 
 
-    Button confirmBtn;
+    Button confirmBtn, userBtn1;
 
     int  completionTime;
     long finalPrice;
@@ -74,6 +80,7 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
         finalPrice = pricee;
 
+        userBtn1 = findViewById(R.id.userBtn1);
         textView = findViewById(R.id.text_view2021);
         editText = findViewById(R.id.price_value);
         note = findViewById(R.id.note);
@@ -128,6 +135,13 @@ public class LocalRequestEnd2 extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
+                progressDialog = new ProgressDialog(LocalRequestEnd2.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog2);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
 
                 rootNode = FirebaseDatabase.getInstance();
                 SeekerLocalRequestCompletionConfirm s = new SeekerLocalRequestCompletionConfirm(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -199,9 +213,55 @@ public class LocalRequestEnd2 extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+
+        userBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("Providers").child(receiverId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                        String userEmail = dataSnapshot.child("email").getValue(String.class);
 
 
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (!isFinishing()){
+                                    new AlertDialog.Builder(LocalRequestEnd2.this)
+                                            .setTitle("Service Provider Details")
+                                            .setMessage("Email:   "+ userEmail+ "\n\n"+ "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n")
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
             }

@@ -1,8 +1,10 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +31,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
     String seekerName;
 
 
-    Button submitBtn;
+    Button submitBtn, userBtn1;
 
     EditText price_value, ratingNote, review;
 
@@ -55,6 +57,8 @@ public class SeekerRatingSubmit extends AppCompatActivity {
         ratingNote = findViewById(R.id.ratingNote);
         price_value = findViewById(R.id.price_value);
         review = findViewById(R.id.review);
+
+        userBtn1 = findViewById(R.id.userBtn1);
 
         submitBtn = findViewById(R.id.submitButton);
 
@@ -116,6 +120,56 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+        });
+
+        userBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference("Providers").child(providerId);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String IdNumber = dataSnapshot.child("id").getValue(String.class);
+                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                        String userEmail = dataSnapshot.child("email").getValue(String.class);
+
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run(){
+
+                                if (!isFinishing()){
+                                    new AlertDialog.Builder(SeekerRatingSubmit.this)
+                                            .setTitle("Service Provider Details")
+                                            .setMessage("Email:   "+ userEmail+ "\n\n"+ "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n")
+                                            .setCancelable(false)
+                                            .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        });
+
+
+
+                        //do what you want with the likes
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });

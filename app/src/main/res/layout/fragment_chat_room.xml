@@ -45,6 +45,8 @@
             />
 
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_messages"
             android:layout_width="wrap_content"
@@ -94,7 +96,17 @@
                 android:background="@drawable/call"
                 />
 
-
+            <ImageButton
+                android:id="@+id/userBtn1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/logoo"
+                />
 
 
 

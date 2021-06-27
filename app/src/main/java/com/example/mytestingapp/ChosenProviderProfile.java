@@ -56,7 +56,7 @@ import retrofit2.Response;
 public class ChosenProviderProfile extends AppCompatActivity {
 
 
-    private EditText username, jobDescription, gender, age, id, email, phoneNumber;
+    private EditText username, jobDescription, gender, age;
     private CircleImageView profilePic;
 
     private Button acceptButton, backButton,providerReviewBtn;
@@ -100,9 +100,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
         jobDescription = findViewById(R.id.job_description);
         gender = findViewById(R.id.gender);
         age = findViewById(R.id.age);
-        id = findViewById(R.id.id);
-        email = findViewById(R.id.email);
-        phoneNumber = findViewById(R.id.phone_number);
         profilePic = findViewById(R.id.profilePic);
 
         acceptButton = findViewById(R.id.acceptButton);
@@ -163,9 +160,6 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
 
                     age.setText("Age:   " + provider.getAge());
-                    id.setText("ID Number:   " + provider.getId());
-                    email.setText("Email:   " + provider.getEmail());
-                    phoneNumber.setText("Phone Number:   " + provider.getPhoneNumber());
 
                     profilePic.setImageBitmap(provider.getImageBitmap());
 

@@ -1,5 +1,6 @@
 package com.example.mytestingapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +71,9 @@ public class StopWatchFragment extends Fragment {
 
     FirebaseUser firebaseUser;
     private DatabaseReference reference3;
+
+    private ProgressDialog progressDialog;
+
 
 
 
@@ -151,6 +156,9 @@ public class StopWatchFragment extends Fragment {
 
         finalPrice = price;
 
+
+
+
         textView = view.findViewById(R.id.text_view2021);
         editText = view.findViewById(R.id.price_value);
         note = view.findViewById(R.id.note);
@@ -206,6 +214,12 @@ public class StopWatchFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+
+                progressDialog = new ProgressDialog(getContext());
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog1);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
                 flag = 1;
 
                 firebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
@@ -222,6 +236,7 @@ public class StopWatchFragment extends Fragment {
 
                 reference = rootNode.getReference().child("SeekerLocalRequestArrivalConfirm");
                 reference.child(zzzz).setValue(s);
+
 
 
                 SeekerLocalRequestArrivalConfirm seekerLocalRequestArrivalConfirm = new SeekerLocalRequestArrivalConfirm(zzzz);

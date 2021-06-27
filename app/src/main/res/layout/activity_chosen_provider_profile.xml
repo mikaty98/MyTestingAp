@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:background="@drawable/custom_button"
-                android:text="See Provider review"
+                android:text="Provider Ratings And Reviews"
                 android:layout_margin="30dp"
                 android:id="@+id/providerReviewBtn"/>
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:editable="false"
-                android:hint="Username"
+                android:hint="User Name"
                 android:textColorHint="@color/white" />
 
             <EditText
@@ -84,39 +84,6 @@
                 android:inputType="number"
                 android:editable="false"
                 android:id="@+id/age"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:layout_margin="10dp"
-                android:hint="ID Number"
-                android:editable="false"
-                android:inputType="number"
-                android:id="@+id/id"
-                />
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:layout_margin="10dp"
-                android:hint="Phone Number"
-                android:editable="false"
-                android:inputType="phone"
-                android:id="@+id/phone_number"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Email"
-                android:textColorHint="@color/white"
-                android:editable="false"
-                android:id="@+id/email"
                 />
 
             <Button
