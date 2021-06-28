@@ -22,16 +22,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/suburbText"
+                android:textColor="@color/white"
                 android:text="Suburb: "
                 android:textAllCaps="true"
                 android:textSize="20dp"
-                android:textColor="@color/black">
+                >
 
             </TextView>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:textColor="@color/white"
                 android:id="@+id/suburbEditText"/>
 
         </LinearLayout>
@@ -43,6 +45,7 @@
            <Button
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
+               android:textColor="@color/white"
                android:text="Filter"
                android:textAllCaps="true"
                android:id="@+id/filterBtn"
@@ -60,6 +63,7 @@
 
             <ListView
                 android:layout_width="match_parent"
+                android:textColor="@color/white"
                 android:layout_height="match_parent"
                 android:id="@+id/serviceList"
                 >

@@ -17,6 +17,7 @@
 
         <EditText
             android:id="@+id/price_value"
+            android:textColor="@color/white"
             android:textAllCaps="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +25,6 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:editable="false"
-            android:textColor="@color/black"
             />
 
     </LinearLayout>
@@ -39,6 +39,7 @@
 
         <EditText
             android:id="@+id/ratingNote"
+            android:textColor="@color/white"
             android:textAllCaps="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
+            android:textColor="@color/white"
             android:numStars="5"
             android:stepSize="0.5"
             android:outlineSpotShadowColor="@color/black"
@@ -83,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Type a review..."
+            android:textColor="@color/white"
             android:id="@+id/review"
             android:gravity="center"
             android:padding="5dp"
@@ -104,10 +107,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/submitButton"
+            android:textColor="@color/white"
             android:text="Submit"
             android:textAllCaps="true"
             android:background="@drawable/custom_button"
-            android:textColor="@color/white"
             />
 
     </LinearLayout>
@@ -124,10 +127,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/userBtn1"
+            android:textColor="@color/white"
             android:text="Service Provider Details"
             android:textAllCaps="true"
             android:background="@drawable/custom_button"
-            android:textColor="@color/white"
             />
 
     </LinearLayout>

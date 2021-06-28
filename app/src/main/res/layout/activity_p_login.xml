@@ -26,7 +26,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
 
             <EditText
@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="EMAIL"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:id="@+id/editTextTextEmailAddress"
                 />
@@ -43,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="PASSWORD"
+                android:textColor="@color/white"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:id="@+id/editTextTextPassword"
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Log In"
+                android:textColor="@color/white"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/button"
@@ -64,9 +67,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="FORGOT PASSWORD?"
-                android:textAllCaps="true"
-
                 android:padding="10dp"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:id="@+id/forget_password"
                 />
@@ -76,9 +78,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Don't have an account? Sign up!"
-                android:textAllCaps="true"
-
                 android:padding="10dp"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:id="@+id/textView"
                 />
@@ -89,7 +90,6 @@
                 android:gravity="center"
                 android:text="Log in as a service seeker"
                 android:textAllCaps="true"
-
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:id="@+id/textView2"

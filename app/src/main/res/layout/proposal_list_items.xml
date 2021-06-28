@@ -32,6 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textColor="@color/white"
                     android:text="Provider Name:"
                     android:textAllCaps="true"
                     >
@@ -43,6 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Value"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold">
 
@@ -65,6 +67,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:layout_marginRight="10dp"
                         android:text="Price:"
                         android:textAllCaps="true"
@@ -77,6 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Value"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold">
 
@@ -94,6 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:textColor="@color/white"
                         android:text="Arrival Time:"
                         android:textAllCaps="true"
                         >
@@ -104,6 +109,7 @@
                         android:id="@+id/EstimatedArrivalTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:text="Value"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -122,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:text="Service Time:"
+                        android:textColor="@color/white"
                         android:textAllCaps="true"
                         >
 
@@ -131,6 +138,7 @@
                         android:id="@+id/EstimatedCompletionTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:text="Value"
                         android:textSize="14sp"
                         android:textStyle="bold">

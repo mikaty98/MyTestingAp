@@ -23,10 +23,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Log In As A Service Seeker"
+                android:textColor="@color/white"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
-                android:textColor="@color/black"
                 />
 
             <EditText
@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="EMAIL"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:inputType="textEmailAddress"
                 android:id="@+id/editTextTextEmailAddress"
@@ -44,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="PASSWORD"
+                android:textColor="@color/white"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:id="@+id/editTextTextPassword"
@@ -54,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Log In"
+                android:textColor="@color/white"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/button"
@@ -64,10 +67,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:text="Forget Password?"
                 android:textAllCaps="true"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:id="@+id/forget_password"
 
                 />
@@ -77,9 +80,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Don't have an account? Sign up!"
+                android:textColor="@color/white"
                 android:textAllCaps="true"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:id="@+id/textView"
                 />
 

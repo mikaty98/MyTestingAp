@@ -12,8 +12,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:gravity="center"
+        android:textColor="@color/white"
         android:layout_marginBottom="100dp"
         android:textAllCaps="true"
         android:orientation="vertical"
@@ -72,7 +72,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="User Name:"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15dp"
                     android:translationY="10dp" />
 
@@ -80,6 +80,7 @@
                     android:id="@+id/username_reg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_margin="10dp"
                     android:hint="USER NAME"
                     android:textColorHint="@color/white" />
@@ -95,7 +96,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="Job Description:"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15dp"
                     android:translationY="10dp" />
 
@@ -104,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:textColor="@color/white"
                     android:hint="JOB DESCRIPTION"
                     android:textColorHint="@color/white" />
 
@@ -117,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="ID Number:"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textAllCaps="true"
                     android:textSize="15dp"
                     android:translationY="10dp" />
@@ -126,6 +128,7 @@
                     android:id="@+id/id_reg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_margin="10dp"
                     android:hint="ID NUMBER"
                     android:inputType="number"
@@ -142,7 +145,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="Phone Number:"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15dp"
                     android:translationY="10dp" />
 
@@ -151,6 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:textColor="@color/white"
                     android:hint="PHONE NUMBER"
                     android:inputType="phone"
                     android:textColorHint="@color/white" />

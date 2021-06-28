@@ -24,9 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:text="Profile"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
@@ -61,7 +61,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="User Name:"
                         android:textAllCaps="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:translationY="10dp" />
 
@@ -73,8 +73,8 @@
                         android:editable="false"
                         android:inputType="none"
                         android:hint="USER NAME"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
 
 
                 </TableRow>
@@ -88,7 +88,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="Gender:"
                         android:textAllCaps="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:translationY="10dp" />
 
@@ -100,8 +100,8 @@
                         android:editable="false"
                         android:hint="GENDER"
                         android:inputType="none"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
 
 
                 </TableRow>
@@ -114,7 +114,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="Birth Date:"
                         android:textAllCaps="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:translationY="10dp" />
 
@@ -126,8 +126,8 @@
                         android:editable="false"
                         android:inputType="none"
                         android:hint="(DAY/MONTH/YEAR):"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
 
 
                 </TableRow>
@@ -140,7 +140,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="ID Number:"
                         android:textAllCaps="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:translationY="10dp" />
 
@@ -152,8 +152,8 @@
                         android:editable="false"
                         android:hint="ID NUMBER"
                         android:inputType="none"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
 
 
                 </TableRow>
@@ -166,7 +166,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="Phone Number:"
                         android:textAllCaps="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:translationY="10dp" />
 
@@ -178,8 +178,8 @@
                         android:editable="false"
                         android:hint="PHONE NUMBER"
                         android:inputType="none"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
 
 
                 </TableRow>
@@ -191,7 +191,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="Email: "
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textAllCaps="true"
                         android:textSize="15dp"
                         android:translationY="10dp" />
@@ -204,8 +204,8 @@
                         android:editable="false"
                         android:inputType="none"
                         android:hint="EMAIL"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
 
 
                 </TableRow>
