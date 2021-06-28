@@ -40,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SeekerProfileFragment extends Fragment {
 
 
-    private EditText username,gender,age,id,email,phoneNumber;
+    private EditText username,gender,birthDate,id,email,phoneNumber;
     private CircleImageView profilePic;
     private Button editBtn;
 
@@ -68,7 +68,12 @@ public class SeekerProfileFragment extends Fragment {
 
         username = view.findViewById(R.id.username);
         gender = view.findViewById(R.id.gender);
-        age = view.findViewById(R.id.age);
+
+        birthDate = view.findViewById(R.id.BirthDate1);
+
+
+
+
         id = view.findViewById(R.id.id);
         email = view.findViewById(R.id.email);
         phoneNumber = view.findViewById(R.id.phone_number);
@@ -83,13 +88,18 @@ public class SeekerProfileFragment extends Fragment {
         checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists())
+                {
                     seeker = snapshot.child(userID).getValue(Seeker.class);
                     getProfilePic();
 
+                    String birthDay = seeker.getBirthDay();
+                    String birthMonth = seeker.getBirthMonth();
+                    String birthYear = seeker.getBirthYear();
+
                     username.setText(seeker.getUserName());
                     gender.setText(seeker.getGender());
-                    age.setText(seeker.getAge());
+                    birthDate.setText(birthDay+"/"+birthMonth+"/"+birthYear);
                     id.setText(seeker.getId());
                     email.setText(seeker.getEmail());
                     phoneNumber.setText(seeker.getPhoneNumber());

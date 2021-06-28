@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:inputType="text"
                 android:hint="Request Title"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
@@ -48,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:inputType="text"
                 android:hint="Request Description"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
@@ -69,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="City"
+                android:inputType="text"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -79,6 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="Suburb"
+                android:inputType="text"
+
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -89,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="Street Name"
+                android:inputType="text"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -109,6 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:inputType="text"
                 android:hint="Building Name"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"

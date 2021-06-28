@@ -56,7 +56,7 @@ import retrofit2.Response;
 public class ChosenProviderProfile extends AppCompatActivity {
 
 
-    private EditText username, jobDescription, gender, age;
+    private EditText username, jobDescription, gender, birthDate;
     private CircleImageView profilePic;
 
     private Button acceptButton, backButton,providerReviewBtn;
@@ -99,7 +99,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
         username = findViewById(R.id.username);
         jobDescription = findViewById(R.id.job_description);
         gender = findViewById(R.id.gender);
-        age = findViewById(R.id.age);
+        birthDate = findViewById(R.id.BirthDate2);
         profilePic = findViewById(R.id.profilePic);
 
         acceptButton = findViewById(R.id.acceptButton);
@@ -122,7 +122,15 @@ public class ChosenProviderProfile extends AppCompatActivity {
                     provider.setUserName(snapshot.child(providerUserID).child("userName").getValue(String.class));
                     provider.setJobDesc(snapshot.child(providerUserID).child("jobDesc").getValue(String.class));
                     provider.setGender(snapshot.child(providerUserID).child("gender").getValue(String.class));
-                    provider.setAge(snapshot.child(providerUserID).child("age").getValue(String.class));
+
+                    String birthDay = snapshot.child(providerUserID).child("birthDay").getValue(String.class);
+                    String birthMonth = snapshot.child(providerUserID).child("birthMonth").getValue(String.class);
+                    String birthYear = snapshot.child(providerUserID).child("birthYear").getValue(String.class);
+
+                    provider.setBirthDay(birthDay);
+                    provider.setBirthMonth(birthMonth);
+                    provider.setBirthYear(birthYear);
+
                     provider.setPhoneNumber(snapshot.child(providerUserID).child("phoneNumber").getValue(String.class));
 
 
@@ -159,7 +167,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                     gender.setText("Gender:   " + provider.getGender());
 
 
-                    age.setText("Age:   " + provider.getAge());
+                    birthDate.setText("Birth Date: "+birthDay+"/"+birthMonth+"/"+birthYear);
 
                     profilePic.setImageBitmap(provider.getImageBitmap());
 
@@ -186,10 +194,17 @@ public class ChosenProviderProfile extends AppCompatActivity {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = new ProgressDialog(ChosenProviderProfile.this);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        progressDialog = new ProgressDialog(ChosenProviderProfile.this);
+                        progressDialog.show();
+                        progressDialog.setContentView(R.layout.progress_dialog);
+                        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    }
+                });
+
 
 
                 //Sending notification to provider part
@@ -226,6 +241,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                                     intent.putExtra("completion time", estimatedCompletionTime);
                                     intent.putExtra("price", price);
                                     intent.putExtra("user type", userType);
+                                    progressDialog.dismiss();
                                     startActivity(intent);
                                     finish();
                                 }

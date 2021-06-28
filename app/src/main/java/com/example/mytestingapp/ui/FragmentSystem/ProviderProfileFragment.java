@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
+import com.example.mytestingapp.Classes.Seeker;
 import com.example.mytestingapp.ProviderEditProfileActivity;
 import com.example.mytestingapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProviderProfileFragment extends Fragment {
 
-    private EditText username,jobDescription,gender,age,id,email,phoneNumber;
+    private EditText username,jobDescription,gender,birthDate,id,email,phoneNumber;
     private CircleImageView profilePic;
     private Button editBtn;
 
@@ -105,7 +106,7 @@ public class ProviderProfileFragment extends Fragment {
         username = view.findViewById(R.id.username);
         jobDescription = view.findViewById(R.id.job_description);
         gender = view.findViewById(R.id.gender);
-        age = view.findViewById(R.id.age);
+        birthDate = view.findViewById(R.id.BirthDate4);
         id = view.findViewById(R.id.id);
         email = view.findViewById(R.id.email);
         phoneNumber = view.findViewById(R.id.phone_number);
@@ -123,25 +124,24 @@ public class ProviderProfileFragment extends Fragment {
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    provider.setEmail(snapshot.child(userID).child("email").getValue(String.class));
-                    provider.setPassword(snapshot.child(userID).child("password").getValue(String.class));
-                    provider.setId(snapshot.child(userID).child("id").getValue(String.class));
-                    provider.setUserName(snapshot.child(userID).child("userName").getValue(String.class));
-                    provider.setJobDesc(snapshot.child(userID).child("jobDesc").getValue(String.class));
-                    provider.setGender(snapshot.child(userID).child("gender").getValue(String.class));
-                    provider.setAge(snapshot.child(userID).child("age").getValue(String.class));
-                    provider.setPhoneNumber(snapshot.child(userID).child("phoneNumber").getValue(String.class));
+                if (snapshot.exists())
+                {
+                    provider = snapshot.child(userID).getValue(Provider.class);
                     getProfilePic();
 
+                    String birthDay = provider.getBirthDay();
+                    String birthMonth = provider.getBirthMonth();
+                    String birthYear = provider.getBirthYear();
+
                     username.setText(provider.getUserName());
-                    jobDescription.setText(provider.getJobDesc());
                     gender.setText(provider.getGender());
-                    age.setText(provider.getAge());
+                    jobDescription.setText(provider.getJobDesc());
+                    birthDate.setText(birthDay+"/"+birthMonth+"/"+birthYear);
                     id.setText(provider.getId());
                     email.setText(provider.getEmail());
                     phoneNumber.setText(provider.getPhoneNumber());
                     profilePic.setImageBitmap(provider.getImageBitmap());
+
                 }
             }
 

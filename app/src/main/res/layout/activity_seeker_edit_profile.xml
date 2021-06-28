@@ -9,6 +9,18 @@
     android:orientation="vertical"
     tools:context=".PRegisterActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:text="Edit Profile"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="100dp"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,7 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -31,7 +44,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="bottom"
-                    android:layout_margin="20dp"
+                    android:layout_margin="0dp"
                     android:src="@drawable/blankprofilepic"
                     app:civ_border_color="@color/black"
                     app:civ_border_width="2dp" />
@@ -48,53 +61,77 @@
 
             </TableRow>
 
+            <TableRow>
 
-            <EditText
-                android:id="@+id/username_reg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Username"
-                android:textColorHint="@color/white" />
-
-
-            <EditText
-                android:id="@+id/gender_reg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Gender"
-                android:textColorHint="@color/white" />
-
-            <EditText
-                android:id="@+id/age_reg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Age"
-                android:inputType="number"
-                android:textColorHint="@color/white" />
-
-            <EditText
-                android:id="@+id/id_reg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="ID Number"
-                android:inputType="number"
-                android:textColorHint="@color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="User Name:"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:translationY="10dp" />
 
 
-            <EditText
-                android:id="@+id/phone_number_reg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Phone Number"
-                android:inputType="phone"
-                android:textColorHint="@color/white" />
+                <EditText
+                    android:id="@+id/username_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="User Name"
+                    android:inputType="text"
+                    android:textColorHint="@color/white" />
 
 
+            </TableRow>
+
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="ID Number:"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:translationY="10dp" />
+
+                <EditText
+                    android:id="@+id/id_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="ID Number"
+                    android:inputType="number"
+                    android:textColorHint="@color/white" />
+
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Phone Number:"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:translationY="10dp" />
+
+
+                <EditText
+                    android:id="@+id/phone_number_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Phone Number"
+                    android:inputType="phone"
+                    android:textColorHint="@color/white" />
+
+
+            </TableRow>
 
 
 

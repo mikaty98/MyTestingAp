@@ -18,6 +18,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -448,6 +449,71 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         String BuildingNumber = buildingNumber.getText().toString().trim();
         String FloorNumber = floorNumber.getText().toString().trim();
         String ApartmentNumber = apartmentNumber.getText().toString().trim();
+
+
+        boolean errorFlag = false;
+
+        if (TextUtils.isEmpty(RequestTitle))
+        {
+            requestTitle.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(RequestDes))
+        {
+            requestDescription.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(City))
+        {
+            city.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(Suburb))
+        {
+            suburb.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(StreetName))
+        {
+            streetName.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(StreetNumber))
+        {
+            streetNumber.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(BuildingName))
+        {
+            buildingName.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(BuildingNumber))
+        {
+            buildingNumber.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(FloorNumber))
+        {
+            floorNumber.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(ApartmentNumber))
+        {
+            apartmentNumber.setError("This field can not be left empty");
+            errorFlag = true;
+        }
+
+
+        if (errorFlag)
+        {
+            return;
+        }
 
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference().child("LocalRequests");

@@ -31,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Username"
+                android:hint="User Name"
+                android:inputType="text"
                 android:textColorHint="@color/white"
                 android:id="@+id/username_reg"
                 />
@@ -44,7 +45,19 @@
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
                 android:hint="Gender"
+                android:inputType="text"
                 android:id="@+id/gender_reg"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Birth Date"
+                android:id="@+id/birthDate"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 />
 
             <EditText
@@ -52,10 +65,39 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="Age"
+                android:hint="Day"
                 android:inputType="number"
-                android:id="@+id/age_reg"
+                android:id="@+id/birthDay"
                 />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Month"
+                android:id="@+id/birthMonth"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white"
+                android:layout_margin="10dp"
+                android:inputType="number"
+                android:hint="Year"
+                android:id="@+id/birthYear"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/idd"
+                android:layout_margin="20dp"
+                />
+
 
             <EditText
                 android:layout_width="match_parent"
@@ -83,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/white"
                 android:id="@+id/editTextTextEmailAddress"
                 />

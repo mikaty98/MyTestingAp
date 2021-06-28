@@ -71,10 +71,9 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="Age"
-                android:inputType="number"
+                android:hint="BirthDate (Day/Month/Year)"
                 android:editable="false"
-                android:id="@+id/age"
+                android:id="@+id/BirthDate3"
                 />
 
             <EditText

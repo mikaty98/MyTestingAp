@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
@@ -135,17 +136,25 @@ public class SLoginActivity extends AppCompatActivity {
         String inputEmail = email.getText().toString().trim();
         String inputPassword = password.getText().toString().trim();
 
-        if (TextUtils.isEmpty(inputEmail)){
+        if (TextUtils.isEmpty(inputEmail))
+        {
             email.setError("Email Required");
             //email.setBackgroundColor(0xFFFF0000);
             errorFlag = true;
         }
-        else if (!inputEmail.contains("@") || !inputEmail.contains(".com")){
+        else if (!inputEmail.contains("@") || !inputEmail.contains(".com"))
+        {
             email.setError("Invalid Email");
             //email.setBackgroundColor(0xFFFF0000);
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(inputPassword)){
+        else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches())
+        {
+            email.setError("Wrong email format");
+            errorFlag = true;
+        }
+        if (TextUtils.isEmpty(inputPassword))
+        {
             password.setError("Password Required");
             //password.setBackgroundColor(0xFFFF0000);
             errorFlag = true;

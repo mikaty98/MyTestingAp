@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Provider {
-    private String userName,jobDesc,gender,age,id,phoneNumber,email,password,userID;
+    private String userName,jobDesc,gender,birthDay, birthMonth, birthYear, id,phoneNumber,email,password,userID;
     private Bitmap image;
     private boolean sentProposal, gotAccepted;
 
@@ -16,7 +16,9 @@ public class Provider {
         userName = in.readString();
         jobDesc = in.readString();
         gender = in.readString();
-        age = in.readString();
+        birthDay = in.readString();
+        birthMonth = in.readString();
+        birthYear = in.readString();
         id = in.readString();
         phoneNumber = in.readString();
         email = in.readString();
@@ -58,13 +60,6 @@ public class Provider {
         this.gender = gender;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
 
     public String getId() {
         return id;
@@ -127,11 +122,13 @@ public class Provider {
         this.sentProposal = false;
     }
 
-    public Provider(String userName, String jobDesc, String gender, String age, String id, String phoneNumber, String email, String password) {
+    public Provider(String userName, String jobDesc, String gender, String birthDay, String birthMonth, String birthYear, String id, String phoneNumber, String email, String password) {
         this.userName = userName;
         this.jobDesc = jobDesc;
         this.gender = gender;
-        this.age = age;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -142,4 +139,27 @@ public class Provider {
     }
 
 
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
+    }
 }

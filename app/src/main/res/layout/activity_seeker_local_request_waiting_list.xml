@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Request Proposals"
+            android:text="Service Request Proposals"
             android:textSize="30dp"
             android:layout_marginTop="20dp"
             android:textColor="@color/black">

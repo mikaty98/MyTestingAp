@@ -49,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PRegisterActivity extends AppCompatActivity {
 
-    private EditText userName,jobDesc,gender,age,id,phoneNumber,email,password,confirmPassword;
+    private EditText userName,jobDesc,gender,birthDay, birthMonth, birthYear,id,phoneNumber,email,password,confirmPassword;
     private Button registerbtn;
     private TextView loginbtn,seeker;
 
@@ -79,7 +79,11 @@ public class PRegisterActivity extends AppCompatActivity {
         id = findViewById(R.id.id_reg);
         userName = findViewById(R.id.username_reg);
         gender = findViewById(R.id.gender_reg);
-        age = findViewById(R.id.age_reg);
+
+        birthDay = findViewById(R.id.birthDay);
+        birthMonth = findViewById(R.id.birthMonth);
+        birthYear = findViewById(R.id.birthYear);
+
         phoneNumber = findViewById(R.id.phone_number_reg);
         email = findViewById(R.id.email_reg);
         password = findViewById(R.id.password_reg);
@@ -247,15 +251,13 @@ public class PRegisterActivity extends AppCompatActivity {
         String UserName = userName.getText().toString().trim();
         String JobDesc = jobDesc.getText().toString().trim();
         String Gender = gender.getText().toString().trim();
-        String Agetxt = age.getText().toString().trim();
-        Integer Age;
-        if (Agetxt.equals(""))
-        {
-             Age = null;
-        }
-        else{
-             Age = Integer.parseInt(Agetxt);
-        }
+
+        String BirthDay =  birthDay.getText().toString().trim();
+
+
+        String BirthMonth = birthMonth.getText().toString().trim();
+
+        String BirthYear = birthYear.getText().toString().trim();
 
         String Email = email.getText().toString().trim();
         String PhoneNumber = phoneNumber.getText().toString().trim();
@@ -264,71 +266,179 @@ public class PRegisterActivity extends AppCompatActivity {
 
         boolean errorFlag = false;
 
-        if (TextUtils.isEmpty(Id) || Id.length() != 14) {
-            id.setError("*");
+
+        if (TextUtils.isEmpty(JobDesc))
+        {
+            jobDesc.setError("Job Description can not be left empty");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(UserName)) {
-            userName.setError("*");
+        int flag = 0;
+        int flag1 = 0;
+        int flag2 = 0;
+
+        if (TextUtils.isEmpty(BirthDay))
+        {
+            birthDay.setError("This field can not be left empty");
+            flag = 1;
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(JobDesc)) {
-            jobDesc.setError("*");
+        if(flag == 0)
+        {
+            if(Integer.valueOf(BirthDay) > 31)
+            {
+                birthDay.setError("Invalid Input");
+                errorFlag = true;
+            }
+
+            if(Integer.valueOf(BirthDay) < 1)
+            {
+                birthDay.setError("Invalid Input");
+                errorFlag = true;
+            }
+
+        }
+
+
+
+        if (TextUtils.isEmpty(BirthMonth))
+        {
+            birthMonth.setError("This field can not be left empty");
+            flag1 = 1;
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(Gender)) {
-            gender.setError("*");
+        if(flag1 == 0)
+        {
+            if(Integer.valueOf(BirthMonth) > 12)
+            {
+                birthMonth.setError("Invalid Input");
+                errorFlag = true;
+            }
+
+            if(Integer.valueOf(BirthMonth) < 1)
+            {
+                birthMonth.setError("Invalid Input");
+                errorFlag = true;
+            }
+
+        }
+
+
+        if (TextUtils.isEmpty(BirthYear))
+        {
+            birthYear.setError("ID number can not be left empty");
+            flag2 = 1;
             errorFlag = true;
         }
 
-        if (!(Gender.equals("Male") || Gender.equals("male") || Gender.equals("Female") || Gender.equals("female"))) {
+        if(flag2 == 0)
+        {
+            if(Integer.valueOf(BirthYear) < 1921)
+            {
+                birthYear.setError("Inappropriate Age");
+                errorFlag = true;
+            }
+
+            if(Integer.valueOf(BirthDay) < 1)
+            {
+                birthYear.setError("Invalid Input");
+                errorFlag = true;
+            }
+
+            if(Integer.valueOf(BirthYear) > 2003)
+            {
+                birthYear.setError("Inappropriate Age");
+                errorFlag = true;
+            }
+
+        }
+
+
+        if (TextUtils.isEmpty(Id))
+        {
+            id.setError("ID number can not be left empty");
+            errorFlag = true;
+        }
+
+        if(Id.length() != 14)
+        {
+            id.setError("Id number is incorrect or incomplete");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(UserName))
+        {
+            userName.setError("User name can not be left empty");
+            errorFlag = true;
+        }
+
+        if (TextUtils.isEmpty(Gender))
+        {
+            gender.setError("Gender can not be left empty");
+            errorFlag = true;
+        }
+
+        if (!(Gender.equals("Male") || Gender.equals("male") || Gender.equals("Female") || Gender.equals("female")))
+        {
             gender.setError("Invalid input");
             errorFlag = true;
         }
 
-        if (Age == null){
-            age.setError("*");
-            errorFlag = true;
-        }
-
-        else if (Age < 18 || Age > 100){
-            age.setError("Inappropriate age");
-            errorFlag = true;
-        }
-
-        if (TextUtils.isEmpty(PhoneNumber) || PhoneNumber.length() != 11){
-            phoneNumber.setError("*");
-            errorFlag = true;
-        }
-
-        if(!PhoneNumber.startsWith("010") || !PhoneNumber.startsWith("011") || !PhoneNumber.startsWith("012"))
+        if (TextUtils.isEmpty(PhoneNumber))
         {
-            phoneNumber.setError("*");
+            phoneNumber.setError("Phone number can not be empty");
+            errorFlag = true;
+        }
+
+        if(PhoneNumber.length() != 11)
+        {
+            phoneNumber.setError("Phone number is incomplete");
             errorFlag = true;
         }
 
 
+        if(!PhoneNumber.startsWith("010"))
+        {
+            if(!PhoneNumber.startsWith("011"))
+            {
+                if(!PhoneNumber.startsWith("012"))
+                {
+                    if(!PhoneNumber.startsWith("015"))
+                    {
+                        phoneNumber.setError("Phone number is incorrect");
+                        errorFlag = true;
 
-        if (TextUtils.isEmpty(Email)) {
-            email.setError("*");
+                    }
+                }
+            }
+
+        }
+
+        if (TextUtils.isEmpty(Email))
+        {
+            email.setError("Email can not be left empty");
             errorFlag = true;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()){
-            email.setError("wrong format");
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+        {
+            email.setError("Wrong email format");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(Password)) {
-            password.setError("*");
+        if (TextUtils.isEmpty(Password))
+        {
+            password.setError("Password can not be left empty");
             errorFlag = true;
         }
-        if (Password.length()<6){
-            password.setError("password must be more than 6 characters");
+        if (Password.length()<6)
+        {
+            password.setError("Password must be more than 6 characters");
         }
-        if (TextUtils.isEmpty(ConPassword)) {
-            confirmPassword.setError("*");
+
+        if (TextUtils.isEmpty(ConPassword))
+        {
+            confirmPassword.setError("This field can not be left empty");
             errorFlag = true;
         }
         if (!TextUtils.equals(Password, ConPassword)) {
@@ -338,7 +448,8 @@ public class PRegisterActivity extends AppCompatActivity {
             errorFlag = true;
         }
 
-        if (imageUri == null){
+        if (imageUri == null)
+        {
             Toast.makeText(getApplicationContext(),"Profile picture required", Toast.LENGTH_LONG).show();
             errorFlag = true;
         }
@@ -348,7 +459,7 @@ public class PRegisterActivity extends AppCompatActivity {
         } else {
             rootNode = FirebaseDatabase.getInstance();
 
-            Provider p = new Provider(UserName,JobDesc,Gender,Age.toString(),Id,PhoneNumber,Email,Password);
+            Provider p = new Provider(UserName,JobDesc,Gender,BirthDay.toString(),BirthMonth.toString(),BirthYear.toString(),Id,PhoneNumber,Email,Password);
 
             auth.fetchSignInMethodsForEmail(p.getEmail()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {  //Checking id email already exists or not
                 @Override

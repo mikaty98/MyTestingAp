@@ -8,13 +8,15 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Seeker {
-    private String userName,gender,age,id,phoneNumber,email,password,userID;
+    private String userName,gender,birthDay,birthMonth, birthYear,id,phoneNumber,email,password,userID;
     private Bitmap image;
 
     protected Seeker(Parcel in) {
         userName = in.readString();
         gender = in.readString();
-        age = in.readString();
+        birthDay = in.readString();
+        birthMonth = in.readString();
+        birthYear = in.readString();
         id = in.readString();
         phoneNumber = in.readString();
         email = in.readString();
@@ -48,12 +50,12 @@ public class Seeker {
         this.gender = gender;
     }
 
-    public String getAge() {
-        return age;
+    public String getBirthDay() {
+        return birthDay;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
     }
 
     public String getId() {
@@ -99,10 +101,12 @@ public class Seeker {
     public Seeker() {
     }
 
-    public Seeker(String userName, String gender, String age, String id, String phoneNumber, String email, String password) {
+    public Seeker(String userName, String gender, String birthDay, String birthMonth, String birthYear, String id, String phoneNumber, String email, String password) {
         this.userName = userName;
         this.gender = gender;
-        this.age = age;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -111,4 +115,19 @@ public class Seeker {
     }
 
 
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
+    }
 }

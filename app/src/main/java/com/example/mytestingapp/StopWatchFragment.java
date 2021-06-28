@@ -215,10 +215,16 @@ public class StopWatchFragment extends Fragment {
             public void onClick(View v)
             {
 
-                progressDialog = new ProgressDialog(getContext());
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog1);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                getActivity().runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        progressDialog = new ProgressDialog(getContext());
+                        progressDialog.show();
+                        progressDialog.setContentView(R.layout.progress_dialog1);
+                        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                    }
+                });
 
                 flag = 1;
 
@@ -284,6 +290,9 @@ public class StopWatchFragment extends Fragment {
 
                         intent.putExtra("flag", flag);
                         intent.putExtra("zzz", zzzz);
+
+                        progressDialog.dismiss();
+
 
 
                         startActivity(intent);

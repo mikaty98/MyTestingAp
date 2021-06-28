@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Task Time:">
+                        android:text="Service Time:">
 
                     </TextView>
 

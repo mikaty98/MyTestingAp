@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -226,68 +227,85 @@ public class LocalRequestInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                boolean errorflag = false;
+
+
                 int PriceValue;
                 int EstimatedArrivalTime;
                 int EstimatedCompletionTime;
 
-                try{
+                String priceValuee = priceValue.getText().toString().trim();
+                String arrivalTime = estimatedArrivalTime.getText().toString().trim();
+                String completionTime = estimatedCompletionTime.getText().toString().trim();
 
-                    PriceValue = Integer.parseInt(priceValue.getText().toString().trim());
-                    EstimatedArrivalTime = Integer.parseInt(estimatedArrivalTime.getText().toString().trim());
-                    EstimatedCompletionTime= Integer.parseInt(estimatedCompletionTime.getText().toString().trim());
-                }
-                catch(Exception e){
-
-                    PriceValue = 0;
-                    EstimatedArrivalTime = 24;
-                    EstimatedCompletionTime = 24;
+                if (TextUtils.isEmpty(priceValuee))
+                {
+                    priceValue.setError("This field can not be left empty");
+                    errorflag = true;
                 }
 
+                if (TextUtils.isEmpty(arrivalTime))
+                {
+                    estimatedArrivalTime.setError("This field can not be left empty");
+                    errorflag = true;
+                }
 
-                LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, provider.getUserName());
-
-                reference = FirebaseDatabase.getInstance().getReference("Providers");
-                reference.child(providerID).child("sentProposal").setValue(true);
-
-
-                reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
-                reference.child(seekerID).child(providerID).setValue(localRequestApplicant);
-
-                /*After submitting proposal, Provider will be sent to a waiting room waiting for the seeker to accept his proposal*/
-
-                Intent intent = new Intent(LocalRequestInfoActivity.this, ProviderWaitingRoomActivity.class);
-                sp = getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("receiver id", seekerID);
-                editor.putString("user type","provider");
-                editor.putInt("arrival time", EstimatedArrivalTime);
-                editor.putInt("completion time", EstimatedCompletionTime);
-                editor.putInt("price", PriceValue);
-                editor.commit();
-                sp = getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
-                editor = sp.edit();
-                editor.putString("seeker id", localRequest.getSeekerID());
-                editor.commit();
-                startActivity(intent);
-                finish();
+                if (TextUtils.isEmpty(completionTime))
+                {
+                    estimatedCompletionTime.setError("This field can not be left empty");
+                    errorflag = true;
+                }
 
 
-//                String one = "dF4CifhWkvTQ9ZZoEhbaPDbmKeI3";
-//
-//                userType = "provider";
-//
-//                Intent intent = new Intent(LocalRequestInfoActivity.this, ChatRoom.class);
-//                intent.putExtra("receiver id", one);
-//                intent.putExtra("user type", userType);
-//                intent.putExtra("arrival time", EstimatedArrivalTime);
-//                intent.putExtra("completion time", EstimatedCompletionTime);
-//                intent.putExtra("price", PriceValue);
-//
-//                startActivity(intent);
+                if(errorflag)
+                {
+                    return;
+                }
+                else
+                {
+                    try{
+
+                        PriceValue = Integer.parseInt(priceValue.getText().toString().trim());
+                        EstimatedArrivalTime = Integer.parseInt(estimatedArrivalTime.getText().toString().trim());
+                        EstimatedCompletionTime= Integer.parseInt(estimatedCompletionTime.getText().toString().trim());
+                    }
+                    catch(Exception e){
+
+                        PriceValue = 0;
+                        EstimatedArrivalTime = 24;
+                        EstimatedCompletionTime = 24;
+                    }
 
 
 
+                    LocalRequestApplicant localRequestApplicant = new LocalRequestApplicant(PriceValue,EstimatedArrivalTime,EstimatedCompletionTime, providerID, provider.getUserName());
 
+                    reference = FirebaseDatabase.getInstance().getReference("Providers");
+                    reference.child(providerID).child("sentProposal").setValue(true);
+
+
+                    reference = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals");
+                    reference.child(seekerID).child(providerID).setValue(localRequestApplicant);
+
+                    /*After submitting proposal, Provider will be sent to a waiting room waiting for the seeker to accept his proposal*/
+
+                    Intent intent = new Intent(LocalRequestInfoActivity.this, ProviderWaitingRoomActivity.class);
+                    sp = getSharedPreferences("DataSentToChatRoom", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("receiver id", seekerID);
+                    editor.putString("user type","provider");
+                    editor.putInt("arrival time", EstimatedArrivalTime);
+                    editor.putInt("completion time", EstimatedCompletionTime);
+                    editor.putInt("price", PriceValue);
+                    editor.commit();
+                    sp = getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
+                    editor = sp.edit();
+                    editor.putString("seeker id", localRequest.getSeekerID());
+                    editor.commit();
+                    startActivity(intent);
+                    finish();
+
+                }
 
 
             }

@@ -137,12 +137,16 @@ public class LocalRequestEnd2 extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                progressDialog = new ProgressDialog(LocalRequestEnd2.this);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog2);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        progressDialog = new ProgressDialog(LocalRequestEnd2.this);
+                        progressDialog.show();
+                        progressDialog.setContentView(R.layout.progress_dialog2);
+                        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    }
+                });
 
                 rootNode = FirebaseDatabase.getInstance();
                 SeekerLocalRequestCompletionConfirm s = new SeekerLocalRequestCompletionConfirm(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -184,6 +188,9 @@ public class LocalRequestEnd2 extends AppCompatActivity {
                         intentt.putExtra("receiver id", receiverId);
                         intentt.putExtra("price", finalPricee);
                         intentt.putExtra("user type", "seeker");
+
+                        progressDialog.dismiss();
+
 
                         startActivity(intentt);
                         finish();
