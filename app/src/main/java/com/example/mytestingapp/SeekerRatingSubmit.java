@@ -64,9 +64,9 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
         ratingBar = findViewById(R.id.rating_bar);
 
-        price_value.setText("Final price to be paid by the seeker to the provider: " + price);
+        price_value.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + price);
 
-        ratingNote.setText("Rate the Provider");
+        ratingNote.setText("RATE THE PROVIDER");
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +139,13 @@ public class SeekerRatingSubmit extends AppCompatActivity {
                     {
                         String userName = dataSnapshot.child("userName").getValue(String.class);
                         String userEmail = dataSnapshot.child("email").getValue(String.class);
-                        String userAge = dataSnapshot.child("age").getValue(String.class);
+
+                        String birthDay = dataSnapshot.child("birthDay").getValue(String.class);
+                        String birthMonth = dataSnapshot.child("birthMonth").getValue(String.class);
+                        String birthYear = dataSnapshot.child("birthYear").getValue(String.class);
+
+                        String birthDate = birthDay+"/"+birthMonth+"/"+birthYear;
+
                         String IdNumber = dataSnapshot.child("id").getValue(String.class);
                         String userGender = dataSnapshot.child("gender").getValue(String.class);
                         String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
@@ -152,9 +158,9 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
                                 if (!isFinishing()){
                                     new AlertDialog.Builder(SeekerRatingSubmit.this)
-                                            .setTitle("Service Seeker Details")
+                                            .setTitle("Service Provider Details")
                                             .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
-                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Gender:  "+userGender+"\n\n" + "Birth Date:  "+birthDate+"\n\n" +
                                                     "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
                                             )
                                             .setCancelable(false)

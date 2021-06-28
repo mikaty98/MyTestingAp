@@ -94,9 +94,9 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
         hiddenLayout = findViewById(R.id.hidden_layout);
         confirmBtn = findViewById(R.id.confirmBtn);
 
-        editText.setText("Initial Price to be paid by the seeker to the provider: " + price + " EGP");
+        editText.setText("INITIAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + price + " EGP");
 
-        note.setText("Note: Each 5 minute-period after the completion time will deduct 1 EGP from the price to be paid by the seeker to the provider");
+        note.setText("NOTE: EACH 5-MINUTE PERIOD PAST THE COMPLETION TIME WILL DEDUCT 1 EGP FROM THE PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER");
 
         long duration = TimeUnit.MINUTES.toMillis(completionTime);
 
@@ -193,7 +193,7 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
                 finalPricee = String.valueOf(finalPrice);
 
-                final_price.setText("Final Price to be paid by the seeker to the provider: " + finalPricee + " EGP");
+                final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + finalPricee + " EGP");
 
 
                 Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRatingSubmit.class);
@@ -220,7 +220,13 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
                     {
                         String userName = dataSnapshot.child("userName").getValue(String.class);
                         String userEmail = dataSnapshot.child("email").getValue(String.class);
-                        String userAge = dataSnapshot.child("age").getValue(String.class);
+
+                        String birthDay = dataSnapshot.child("birthDay").getValue(String.class);
+                        String birthMonth = dataSnapshot.child("birthMonth").getValue(String.class);
+                        String birthYear = dataSnapshot.child("birthYear").getValue(String.class);
+
+                        String birthDate = birthDay+"/"+birthMonth+"/"+birthYear;
+
                         String IdNumber = dataSnapshot.child("id").getValue(String.class);
                         String userGender = dataSnapshot.child("gender").getValue(String.class);
                         String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
@@ -235,7 +241,7 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
                                     new AlertDialog.Builder(ProviderLocalRequestEnd2.this)
                                             .setTitle("Service Seeker Details")
                                             .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
-                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Gender:  "+userGender+"\n\n" + "Birth Date:  "+birthDate+"\n\n" +
                                                     "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
                                             )
                                             .setCancelable(false)

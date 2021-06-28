@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Profile"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 />
@@ -43,14 +44,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:editable="false"
-                android:hint="Username"
+                android:hint="USER NAME"
                 android:textColorHint="@color/white" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Job Description"
+                android:hint="JOB DESCRIPTION"
                 android:textColorHint="@color/white"
                 android:editable="false"
                 android:id="@+id/job_description"
@@ -62,7 +63,7 @@
                 android:textColorHint="@color/white"
                 android:editable="false"
                 android:layout_margin="10dp"
-                android:hint="Gender"
+                android:hint="GENDER"
                 android:id="@+id/gender"
                 />
 
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="BirthDate (Day/Month/Year)"
+                android:hint="BIRTH DATE (DAY/MONTH/YEAR)"
                 android:editable="false"
                 android:id="@+id/BirthDate3"
                 />
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="ID Number"
+                android:hint="ID NUMBER"
                 android:editable="false"
                 android:inputType="number"
                 android:id="@+id/id"
@@ -93,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="Phone Number"
+                android:hint="PHONE NUMBER"
                 android:editable="false"
                 android:inputType="phone"
                 android:id="@+id/phone_number"
@@ -103,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Email"
+                android:hint="EMAIL"
                 android:textColorHint="@color/white"
                 android:editable="false"
                 android:id="@+id/email"
@@ -113,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Password"
+                android:hint="PASSWORD"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:editable="false"

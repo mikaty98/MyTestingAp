@@ -17,6 +17,7 @@
 
         <EditText
             android:id="@+id/price_value"
+            android:textAllCaps="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -38,6 +39,7 @@
 
         <EditText
             android:id="@+id/ratingNote"
+            android:textAllCaps="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -103,6 +105,7 @@
             android:gravity="center"
             android:id="@+id/submitButton"
             android:text="Submit"
+            android:textAllCaps="true"
             android:background="@drawable/custom_button"
             android:textColor="@color/white"
             />
@@ -122,6 +125,7 @@
             android:gravity="center"
             android:id="@+id/userBtn1"
             android:text="Service Provider Details"
+            android:textAllCaps="true"
             android:background="@drawable/custom_button"
             android:textColor="@color/white"
             />

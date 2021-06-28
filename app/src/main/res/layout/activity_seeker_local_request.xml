@@ -25,6 +25,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="true"
                 android:text="Request a service"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:inputType="text"
-                android:hint="Request Title"
+                android:hint="REQUEST TITLE"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:inputType="text"
-                android:hint="Request Description"
+                android:hint="REQUEST DESCRIPTION"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -59,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location for your request"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 android:id="@+id/requestLocation"
@@ -70,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="City"
+                android:hint="CITY"
                 android:inputType="text"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
@@ -81,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Suburb"
+                android:hint="SUBURB"
                 android:inputType="text"
 
                 android:textColorHint="#4C4545"
@@ -93,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Street Name"
+                android:hint="STREET NAME"
                 android:inputType="text"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
@@ -105,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:inputType="number"
-                android:hint="Street Number"
+                android:hint="STREET NUMBER"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -116,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:inputType="text"
-                android:hint="Building Name"
+                android:hint="BUILDING NAME"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -126,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Building Number"
+                android:hint="BUILDING NUMBER"
                 android:inputType="number"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
@@ -138,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:inputType="number"
-                android:hint="Floor Number"
+                android:hint="FLOOR NUMBER"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -149,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:inputType="number"
-                android:hint="Apartment Number"
+                android:hint="APARTMENT NUMBER"
                 android:textColorHint="#4C4545"
                 android:textColor="@color/black"
                 />
@@ -160,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Insert an image (optional)"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
 
@@ -175,6 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Use current location"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
 
@@ -184,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Confirm"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
 

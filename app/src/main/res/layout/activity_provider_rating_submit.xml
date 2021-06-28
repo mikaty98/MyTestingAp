@@ -19,6 +19,7 @@
             android:id="@+id/price_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -38,6 +39,7 @@
 
         <EditText
             android:id="@+id/ratingNote"
+            android:textAllCaps="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -100,6 +102,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:gravity="center"
             android:id="@+id/submitButton"
             android:text="Submit"
@@ -122,7 +125,7 @@
             android:id="@+id/userBtn"
             android:text="Service Seeker Details"
             android:textAlignment="center"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:background="@drawable/custom_button"/>
 
     </LinearLayout>

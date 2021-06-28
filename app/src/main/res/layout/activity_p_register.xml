@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Registration Form For A Service Provider"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 />
@@ -31,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Username"
+                android:hint="USER NAME"
                 android:textColorHint="@color/white"
                 android:id="@+id/username_reg"
                 />
@@ -40,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Job Description"
+                android:hint="JOB DESCRIPTION"
                 android:textColorHint="@color/white"
                 android:id="@+id/job_description_reg"
                 />
@@ -50,14 +51,14 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="Gender"
+                android:hint="GENDER"
                 android:id="@+id/gender_reg"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Birth Date"
+                android:text="BIRTH DATE"
                 android:id="@+id/birthDate"
                 android:gravity="center"
                 android:layout_margin="20dp"
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="Day"
+                android:hint="DAY"
                 android:inputType="number"
                 android:id="@+id/birthDay"
                 />
@@ -81,7 +82,7 @@
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
                 android:inputType="number"
-                android:hint="Month"
+                android:hint="MONTH"
                 android:id="@+id/birthMonth"
                 />
 
@@ -91,7 +92,7 @@
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
                 android:inputType="number"
-                android:hint="Year"
+                android:hint="YEAR"
                 android:id="@+id/birthYear"
                 />
 
@@ -108,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="ID Number"
+                android:hint="ID NUMBER"
                 android:inputType="number"
                 android:id="@+id/id_reg"
                 />
@@ -119,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="Phone Number"
+                android:hint="PHONE NUMBER"
                 android:inputType="phone"
                 android:id="@+id/phone_number_reg"
                 />
@@ -128,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Email"
+                android:hint="EMAIL"
                 android:textColorHint="@color/white"
                 android:id="@+id/email_reg"
                 />
@@ -137,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Password"
+                android:hint="PASSWORD"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:id="@+id/password_reg"
@@ -147,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Confirm Password"
+                android:hint="CONFIRM PASSWORD"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:id="@+id/confirm_password_reg"
@@ -167,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Register"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/button_reg"
                 android:background="@drawable/custom_button"
@@ -178,6 +180,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Already have an account? Sign in!"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:padding="10dp"
                 android:id="@+id/sign_in"
@@ -186,6 +189,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="true"
                 android:gravity="center"
                 android:text="Register as a service seeker"
                 android:textColor="@color/white"

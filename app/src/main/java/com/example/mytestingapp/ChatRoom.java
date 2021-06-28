@@ -147,38 +147,38 @@ public class ChatRoom extends AppCompatActivity {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        reference = FirebaseDatabase.getInstance().getReference("Providers").child(receiverId);
+        reference1 = FirebaseDatabase.getInstance().getReference("Seekers").child(receiverId);
 
-        reference.addValueEventListener(new ValueEventListener() {
+
+        reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(snapshot.exists())
                 {
 
-                    flag = 1;
-
-                    Provider provider = snapshot.getValue(Provider.class);
-                    username.setText(provider.getUserName());
+                    Seeker seeker = snapshot.getValue(Seeker.class);
+                    username.setText(seeker.getUserName());
 
                     storageReference = FirebaseStorage.getInstance().getReference().child("images/"+receiverId);
                     final Bitmap[] bitmap = new Bitmap[1];
                     try{
-                        File localfile = File.createTempFile( provider.getId(),".jpg");
+                        File localfile = File.createTempFile(seeker.getId(),".jpg");
                         storageReference.getFile(localfile)
                                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                         bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
                                         imageView.setImageBitmap(bitmap[0]);
-                                        provider.setImageBitmap(bitmap[0]);
+                                        seeker.setImageBitmap(bitmap[0]);
+
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
                                 imageView.setImageBitmap(bitmap[0]);
-                                provider.setImageBitmap(bitmap[0]);
+                                seeker.setImageBitmap(bitmap[0]);
                             }
                         });
 
@@ -186,17 +186,15 @@ public class ChatRoom extends AppCompatActivity {
                     catch (Exception e){
                         bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
                         imageView.setImageBitmap(bitmap[0]);
-                        provider.setImageBitmap(bitmap[0]);
+                        seeker.setImageBitmap(bitmap[0]);
                     }
 
-                    imageView.setImageBitmap(provider.getImageBitmap());
-
+                    imageView.setImageBitmap(seeker.getImageBitmap());
 
                     readMessages(receiverId);
 
 
                 }
-
 
 
 
@@ -207,71 +205,6 @@ public class ChatRoom extends AppCompatActivity {
 
             }
         });
-
-        if (flag == 0)
-        {
-
-            reference1 = FirebaseDatabase.getInstance().getReference("Seekers").child(receiverId);
-
-
-            reference1.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    if(snapshot.exists())
-                    {
-
-                        Seeker seeker = snapshot.getValue(Seeker.class);
-                        username.setText(seeker.getUserName());
-
-                        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+receiverId);
-                        final Bitmap[] bitmap = new Bitmap[1];
-                        try{
-                            File localfile = File.createTempFile(seeker.getId(),".jpg");
-                            storageReference.getFile(localfile)
-                                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                            bitmap[0] = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                                            imageView.setImageBitmap(bitmap[0]);
-                                            seeker.setImageBitmap(bitmap[0]);
-
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    bitmap[0] = BitmapFactory.decodeFile("defaultProfilePic.jpeg");
-                                    imageView.setImageBitmap(bitmap[0]);
-                                    seeker.setImageBitmap(bitmap[0]);
-                                }
-                            });
-
-                        }
-                        catch (Exception e){
-                            bitmap[0] = BitmapFactory.decodeFile("app/defaultProfilePic.jpeg");
-                            imageView.setImageBitmap(bitmap[0]);
-                            seeker.setImageBitmap(bitmap[0]);
-                        }
-
-                        imageView.setImageBitmap(seeker.getImageBitmap());
-
-                        readMessages(receiverId);
-
-
-                    }
-
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-
-        }
 
 
 
@@ -390,7 +323,14 @@ public class ChatRoom extends AppCompatActivity {
                     {
                         String userName = dataSnapshot.child("userName").getValue(String.class);
                         String userEmail = dataSnapshot.child("email").getValue(String.class);
-                        String userAge = dataSnapshot.child("age").getValue(String.class);
+
+                        String birthDay = dataSnapshot.child("birthDay").getValue(String.class);
+                        String birthMonth = dataSnapshot.child("birthMonth").getValue(String.class);
+                        String birthYear = dataSnapshot.child("birthYear").getValue(String.class);
+
+                        String birthDate = birthDay+"/"+birthMonth+"/"+birthYear;
+
+
                         String IdNumber = dataSnapshot.child("id").getValue(String.class);
                         String userGender = dataSnapshot.child("gender").getValue(String.class);
                         String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
@@ -405,7 +345,7 @@ public class ChatRoom extends AppCompatActivity {
                                     new AlertDialog.Builder(ChatRoom.this)
                                             .setTitle("Service Seeker Details")
                                             .setMessage("Name:  "+userName+"\n\n"+ "Email:  "+userEmail+"\n\n"+
-                                                    "Gender:  "+userGender+"\n\n" + "Age:  "+userAge+"\n\n" +
+                                                    "Gender:  "+userGender+"\n\n" + "Birth Date:  "+birthDate+"\n\n" +
                                                     "Phone Number:  "+phoneNumber+"\n\n" +"ID Number:  "+IdNumber+"\n\n"
                                             )
                                             .setCancelable(false)
@@ -455,7 +395,7 @@ public class ChatRoom extends AppCompatActivity {
 
                             if (!isFinishing()){
                                 new AlertDialog.Builder(ChatRoom.this)
-                                        .setTitle("Confirmation check")
+                                        .setTitle("Arrival Confirmation")
                                         .setMessage("Please confirm your arrival")
                                         .setCancelable(false)
                                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
@@ -508,36 +448,6 @@ public class ChatRoom extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-        /*SharedPreferences sharedPreferencess = getSharedPreferences("intentt", Context.MODE_PRIVATE);
-        int intentt = sharedPreferencess.getInt("intentt", 0);
-
-        SharedPreferences sharedPreferencesss = getSharedPreferences("flag2", Context.MODE_PRIVATE);
-        String flag2 = sharedPreferencesss.getString("flag2", "zzz");
-
-       // Toast.makeText(ChatRoom.this,"INTENT DONEEEE"+ "   "+ intentt+" "+flag2,Toast.LENGTH_LONG).show();
-
-       // if(intentt == 1)
-       // {
-            /*if(flag2.equals(receiverId))
-            {
-                Intent intent = new Intent(ChatRoom.this, LocalRequestEnd2.class);  // destination activity can be changed
-                intent.putExtra("receiver id", receiverId);
-                intent.putExtra("arrival time", arrivalTime);
-                intent.putExtra("completion time", completionTime);
-                intent.putExtra("price", price);
-                intent.putExtra("user type", userType);
-                startActivity(intent);
-
-            }
-
-       // }
-
-             */
 
 
 

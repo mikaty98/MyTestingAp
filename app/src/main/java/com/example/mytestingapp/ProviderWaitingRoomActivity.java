@@ -39,8 +39,8 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Canceling Proposal")
-                        .setMessage("Are you sure you want to cancel proposal?")
+                        .setTitle("Cancel My Proposal")
+                        .setMessage("Are you sure you want to cancel your proposal?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
                             @Override

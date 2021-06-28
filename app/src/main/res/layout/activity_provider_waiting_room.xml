@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Waiting for the service seeker to accept your proposal"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="30dp"
@@ -35,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:background="@drawable/custom_button"
-        android:text="Cancel proposal"
+        android:textAllCaps="true"
+        android:text="Cancel your proposal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />

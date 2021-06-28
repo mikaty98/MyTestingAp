@@ -126,7 +126,7 @@
             android:id="@+id/confirmBtn"
             android:text="Confirm service completion"
             android:textAlignment="center"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:background="@drawable/custom_button"/>
 
 
@@ -145,7 +145,7 @@
             android:id="@+id/userBtn"
             android:text="Service Seeker Details"
             android:textAlignment="center"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:background="@drawable/custom_button"/>
 
     </LinearLayout>

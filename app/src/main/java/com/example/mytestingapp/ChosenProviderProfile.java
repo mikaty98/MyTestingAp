@@ -162,12 +162,12 @@ public class ChosenProviderProfile extends AppCompatActivity {
                     }
 
 
-                    username.setText("User Name:   " + provider.getUserName());
-                    jobDescription.setText("Job Description:   " + provider.getJobDesc());
-                    gender.setText("Gender:   " + provider.getGender());
+                    username.setText("USER NAME:   " + provider.getUserName());
+                    jobDescription.setText("JOB DESCRIPTION:   " + provider.getJobDesc());
+                    gender.setText("GENDER:   " + provider.getGender());
 
 
-                    birthDate.setText("Birth Date: "+birthDay+"/"+birthMonth+"/"+birthYear);
+                    birthDate.setText("BIRTH DATE: "+birthDay+"/"+birthMonth+"/"+birthYear);
 
                     profilePic.setImageBitmap(provider.getImageBitmap());
 
@@ -214,7 +214,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         String userToken = snapshot.getValue(String.class);
 
 
-                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(userToken, "Good new!", "Someone chose you to be their provider", getApplicationContext(), ChosenProviderProfile.this);
+                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(userToken, "Good news!", "Your proposal got accepted!", getApplicationContext(), ChosenProviderProfile.this);
                         notificationsSender.SendNotifications();
 
                         ConnectedSandP connectedSandP = new ConnectedSandP(FirebaseAuth.getInstance().getUid(), providerUserID, estimatedCompletionTime, "provider");

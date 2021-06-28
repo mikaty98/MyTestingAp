@@ -32,7 +32,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="Provider Name:">
+                    android:text="Provider Name:"
+                    android:textAllCaps="true"
+                    >
 
                 </TextView>
 
@@ -64,7 +66,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Price:">
+                        android:text="Price:"
+                        android:textAllCaps="true"
+                        >
 
                     </TextView>
 
@@ -90,7 +94,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Arrival Time:">
+                        android:text="Arrival Time:"
+                        android:textAllCaps="true"
+                        >
 
                     </TextView>
 
@@ -115,7 +121,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Service Time:">
+                        android:text="Service Time:"
+                        android:textAllCaps="true"
+                        >
 
                     </TextView>
 

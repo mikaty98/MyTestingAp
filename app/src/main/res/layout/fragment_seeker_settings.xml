@@ -14,6 +14,7 @@
         android:layout_gravity="center"
         android:background="@drawable/custom_button"
         android:text="Sign out"
+        android:textAllCaps="true"
         android:translationY="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

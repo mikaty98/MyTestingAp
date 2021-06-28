@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
                 if (snapshot.exists()) {
                     seekerEmail = snapshot.child(seekerID).child("email").getValue(String.class);
                     seekerUserName = snapshot.child(seekerID).child("userName").getValue(String.class);
-                    welcomeUser.setText("Welcome " + seekerUserName);
+                    welcomeUser.setText("WELCOME " + seekerUserName);
                 }
             }
 

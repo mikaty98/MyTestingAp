@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Profile"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 />
@@ -43,6 +44,7 @@
                 android:textColor="@color/white"
                 android:background="@drawable/custom_button"
                 android:text="Provider Ratings And Reviews"
+                android:textAllCaps="true"
                 android:layout_margin="30dp"
                 android:id="@+id/providerReviewBtn"/>
 
@@ -52,14 +54,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:editable="false"
-                android:hint="User Name"
+                android:hint="USER NAME"
                 android:textColorHint="@color/white" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Job Description"
+                android:hint="JOB DESCRIPTION"
                 android:textColorHint="@color/white"
                 android:editable="false"
                 android:id="@+id/job_description"
@@ -71,7 +73,7 @@
                 android:textColorHint="@color/white"
                 android:editable="false"
                 android:layout_margin="10dp"
-                android:hint="Gender"
+                android:hint="GENDER"
                 android:id="@+id/gender"
                 />
 
@@ -80,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 android:layout_margin="10dp"
-                android:hint="BirthDate (Day/Month/Year)"
+                android:hint="BIRTH DATE (DAY/MONTH/YEAR)"
                 android:editable="false"
                 android:id="@+id/BirthDate2"
                 />
@@ -89,8 +91,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Click here if you want this service provider to perform your task"
+                android:text="Click Here If You Want This Service Provider To Perform Your Service"
                 android:textAppearance="?android:textAppearanceMedium"
+                android:textAllCaps="true"
                 android:id="@+id/acceptButton"
                 android:background="@drawable/custom_button"
                 />
@@ -99,7 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Click here if you want to go back to the waiting list"
+                android:text="Click Here If You Want To Go Back To The Waiting List"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/backButton"
                 android:background="@drawable/custom_button"

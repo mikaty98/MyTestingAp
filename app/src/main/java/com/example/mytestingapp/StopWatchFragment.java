@@ -168,9 +168,9 @@ public class StopWatchFragment extends Fragment {
         seekerBtn = view.findViewById(R.id.seekerBtn);
 
 
-        editText.setText("Initial Price to be paid by the seeker to the provider: "+pricee+" EGP");
+        editText.setText("INITIAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: "+pricee+" EGP");
 
-        note.setText("Note: Each 3 minute-period after the arrival time will deduct 1 EGP from the price to be paid by the seeker to the provider");
+        note.setText("NOTE: EACH 3-MINUTE PERIOD PAST THE ARRIVAL TIME WILL DEDUCT 1 EGP FROM THE PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER");
 
         if(userType.equals("seeker"))
         {
@@ -278,7 +278,7 @@ public class StopWatchFragment extends Fragment {
 
                         finalPricee = String.valueOf(finalPrice);
 
-                        final_price.setText("Final Price to be paid by the seeker to the provider: "+finalPricee+" EGP");
+                        final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: "+finalPricee+" EGP");
 
                         reference3.child("finalPrice").setValue(finalPricee);
 
