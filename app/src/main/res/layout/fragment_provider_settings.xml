@@ -9,12 +9,26 @@
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/custom_button"
         android:text="Sign out"
+        android:textAllCaps="true"
+        android:translationY="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="350dp"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/custom_button"
+        android:text="Delete My Account"
         android:textAllCaps="true"
         android:translationY="200dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,13 +36,13 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/deleteBtn"
-        android:layout_width="wrap_content"
+        android:id="@+id/changePasswordBtn"
+        android:layout_width="350dp"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/custom_button"
-        android:text="Delete My Account"
+        android:text="Change Password"
         android:textAllCaps="true"
         android:translationY="300dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,13 +50,13 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/changePasswordBtn"
-        android:layout_width="wrap_content"
+        android:id="@+id/termsBtn"
+        android:layout_width="350dp"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/custom_button"
-        android:text="Change Password"
+        android:text="Terms and conditions"
         android:textAllCaps="true"
         android:translationY="400dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -30,7 +30,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class SeekerSettingsFragment extends Fragment {
 
-    private Button signOut, deleteBtn, changePasswordBtn;
+    private Button signOut, deleteBtn, changePasswordBtn, termsBtn;
     private FirebaseUser user;
 
     public SeekerSettingsFragment() {
@@ -46,6 +46,7 @@ public class SeekerSettingsFragment extends Fragment {
         signOut = view.findViewById(R.id.signOut);
         deleteBtn = view.findViewById(R.id.deleteBtn);
         changePasswordBtn = view.findViewById(R.id.changePasswordBtn);
+        termsBtn = view.findViewById(R.id.termsBtn);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,44 @@ public class SeekerSettingsFragment extends Fragment {
 
             }
         });
+
+        termsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (!getActivity().isFinishing()){
+                            new AlertDialog.Builder(getContext())
+                                    .setTitle("Terms And Conditions")
+                                    .setMessage("1- You can only request one service at a time."+"\n\n"
+                                            +"2- You can accept only one proposal from the waiting list of proposals for a given service request."
+                                            +"\n\n"+"3- Once there is a connection established between you and the selected service provider, you can't" +
+                                            " go back until the transaction is complete." +"\n\n" +
+                                            "4- Arrival time policy: Each 3-minute period past the arrival time will automatically deduct 1 EGP " +
+                                            "from the price you will pay to the service provider."
+                                            +"\n\n" +"5- Service completion time policy: Each 5-minute period past the service completion time will" +
+                                            " automatically deduct 1 EGP from the price you will pay to the service provider."
+                                    )
+                                    .setCancelable(false)
+                                    .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+
+                                        }
+                                    }).show();
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
