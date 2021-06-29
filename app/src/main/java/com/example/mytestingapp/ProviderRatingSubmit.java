@@ -38,9 +38,9 @@ public class ProviderRatingSubmit extends AppCompatActivity {
 
     RatingBar ratingBar;
 
-    FirebaseUser firebaseUser;
+    FirebaseUser firebaseUser, firebaseUser1;
 
-    DatabaseReference reference;
+    DatabaseReference reference, reference1;
     private Provider provider;
 
     @Override
@@ -88,6 +88,13 @@ public class ProviderRatingSubmit extends AppCompatActivity {
                             reference = FirebaseDatabase.getInstance().getReference().child("Seekers").child(seekerId).child("ratings");
                             reference.child(userId).setValue(providerRating);
 
+                            reference = FirebaseDatabase.getInstance().getReference("LocalRequests").child(seekerId);
+                            reference.removeValue();
+
+                            //Local request proposals removal
+                            reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(seekerId);
+                            reference.removeValue();
+
                             //completion removal
                             reference = FirebaseDatabase.getInstance().getReference("ProviderLocalRequestCompletionConfirm").child(userId);
                             reference.removeValue();
@@ -95,6 +102,15 @@ public class ProviderRatingSubmit extends AppCompatActivity {
                             //setting busy to false
                             reference = FirebaseDatabase.getInstance().getReference("Providers");
                             reference.child(userId).child("sentProposal").setValue(false);
+
+                            firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
+
+                            String myId = firebaseUser1.getUid();
+
+
+                            DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference("Providers");
+
+                            mref2.child(myId).child("gotAccepted").setValue(false);
 
                             Intent intent = new Intent(ProviderRatingSubmit.this, ProviderHomeActivity.class);
                             startActivity(intent);

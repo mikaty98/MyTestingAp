@@ -36,7 +36,7 @@
         android:layout_margin="30dp"
         android:textAllCaps="true"
         android:text="Seeker Ratings And Reviews"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:id="@+id/seekerReviewBtn"/>
 
 
@@ -240,7 +240,7 @@
         android:text="View Image"
         android:textSize="20dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textAllCaps="true"
         android:id="@+id/viewImage"
         android:background="@drawable/custom_button"/>
@@ -255,7 +255,7 @@
         android:layout_height="50dp"
         android:layout_margin="30dp"
         android:text="Apply For This Service"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textAllCaps="true"
         android:textSize="20dp"
         android:textAlignment="center"
@@ -282,6 +282,7 @@
                 android:inputType="number"
                 android:textColor="@color/white"
                 android:layout_gravity="left"
+                android:textColorHint="@color/white"
                 android:hint="PRICE VALUE" />
 
             <EditText
@@ -290,6 +291,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/white"
                 android:inputType="number"
+                android:textColorHint="@color/white"
                 android:layout_gravity="left"
                 android:hint="ESTIMATED ARRIVAL TIME IN MINUTES" />
 
@@ -298,6 +300,7 @@
                 android:layout_width="wrap_content"
                 android:textColor="@color/white"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/white"
                 android:inputType="number"
                 android:layout_gravity="left"
                 android:hint="ESTIMATED TASK COMPLETION TIME IN MINUTES"
@@ -314,7 +317,7 @@
             android:layout_height="50dp"
             android:layout_margin="30dp"
             android:text="Submit Proposal"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="20dp"

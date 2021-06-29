@@ -42,7 +42,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:background="@drawable/custom_button"
                 android:text="Provider Ratings And Reviews"
                 android:textAllCaps="true"
@@ -98,7 +98,7 @@
                 android:text="Click Here If You Want This Service Provider To Perform Your Service"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:id="@+id/acceptButton"
                 android:background="@drawable/custom_button"
                 />
@@ -109,7 +109,7 @@
                 android:layout_margin="10dp"
                 android:text="Click Here If You Want To Go Back To The Waiting List"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/backButton"
                 android:background="@drawable/custom_button"

@@ -86,6 +86,7 @@
             android:layout_height="wrap_content"
             android:hint="Type a review..."
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:id="@+id/review"
             android:gravity="center"
             android:padding="5dp"
@@ -108,7 +109,7 @@
             android:textAllCaps="true"
             android:gravity="center"
             android:id="@+id/submitButton"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="Submit"
             android:background="@drawable/custom_button"
             />
@@ -128,7 +129,7 @@
             android:id="@+id/userBtn"
             android:text="Service Seeker Details"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAllCaps="true"
             android:background="@drawable/custom_button"/>
 

@@ -1,9 +1,11 @@
 package com.example.mytestingapp.ui.FragmentSystem;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -64,7 +66,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            Toast.makeText(getActivity(), "You can't request two local services at the same time!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "You can't request two services at the same time!", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
@@ -104,7 +106,7 @@ public class HomeFragment extends Fragment {
                             startActivity(intent);
 
                         } else {
-                            Toast.makeText(getActivity(), "You didn't request a local service yet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "You didn't request a service yet", Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -124,9 +126,60 @@ public class HomeFragment extends Fragment {
 
         cancelRequest.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+
+
                 reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
-                reference.child(seekerID).removeValue();
+                reference.orderByChild("seekerID").equalTo(seekerID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                        if (dataSnapshot.exists())
+                        {
+                            new AlertDialog.Builder(v.getContext())
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle("Cancel Your Request")
+                                    .setMessage("Are you sure you want to cancel your request?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            reference = FirebaseDatabase.getInstance().getReference().child("LocalRequests");
+                                            reference.child(seekerID).removeValue();
+                                        }
+
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            return;
+
+                                        }
+                                    })
+                                    .show();
+
+
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "You didn't request a service yet", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
+
             }
         });
 

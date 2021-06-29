@@ -170,7 +170,7 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:src="@drawable/blankprofilepic"
-                app:civ_border_color="@color/black"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
                 />
 
@@ -180,7 +180,7 @@
                 android:layout_margin="10dp"
                 android:text="Register"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAllCaps="true"
                 android:id="@+id/RegisterButton"
                 android:background="@drawable/custom_button"

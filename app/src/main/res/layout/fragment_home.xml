@@ -34,7 +34,7 @@
             android:layout_margin="10dp"
             android:text="Request A Service"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/localService"
             android:background="@drawable/custom_button"
@@ -43,7 +43,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_margin="10dp"
             android:text="View The Waiting List Of Your Request Proposals"
             android:textAllCaps="true"
@@ -54,7 +54,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_margin="10dp"
             android:text="Cancel Your Request"
             android:textAllCaps="true"

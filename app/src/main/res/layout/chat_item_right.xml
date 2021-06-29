@@ -29,7 +29,7 @@
             android:layout_alignParentEnd="true"
             android:id="@+id/show_message"
             android:textSize="18sp"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:padding="8dp"
             android:layout_alignParentRight="true"/>
 

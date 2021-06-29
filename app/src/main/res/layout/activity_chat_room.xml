@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_colour"
     tools:context=".ChatRoom">
 
 
@@ -42,7 +43,7 @@
             android:layout_marginRight="6dp"
             android:layout_marginBottom="-1dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/ic_image"
+            android:background="@drawable/send"
             />
 
 
@@ -62,7 +63,7 @@
             android:layout_height="200dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="560dp"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/custom_button"
             android:theme="?attr/actionBarTheme">
 
             <ImageView
@@ -82,7 +83,7 @@
                 android:textSize="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:text="TextView" />
 
             <ImageButton

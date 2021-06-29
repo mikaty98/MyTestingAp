@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/custom_button"
+            android:background="@color/white"
             >
 
             <LinearLayout
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Service Request Title:"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAllCaps="true"
                     android:layout_marginRight="10dp">
 
@@ -44,7 +44,7 @@
                     android:id="@+id/titleValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:text="Value"
                     android:textSize="14sp"
                     android:textStyle="bold">
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Suburb:"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAllCaps="true"
                     android:layout_marginRight="10dp">
 
@@ -72,7 +72,7 @@
                 <TextView
                     android:id="@+id/suburbValue"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:text="Value"
                     android:textSize="14sp"
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Seeker Name:"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAllCaps="true"
                     android:layout_marginRight="10dp">
 
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="Value"
                     android:textSize="14sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold">
 
                 </TextView>

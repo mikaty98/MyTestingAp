@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.LocalRequest;
 import com.example.mytestingapp.LocalRequestInfoActivity;
+import com.example.mytestingapp.ProviderWaitingRoomActivity;
 import com.example.mytestingapp.R;
 import com.example.mytestingapp.Adapters.ServiceAdaptor;
 import com.google.firebase.database.ChildEventListener;
@@ -67,6 +70,9 @@ public class LocalExploreFragment extends Fragment {
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            serviceAdaptor.notifyDataSetChanged();
+
+            localRequestList.clear();
 
         }
 
@@ -93,6 +99,7 @@ public class LocalExploreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_local_explore, container, false);
 
         suburbEditText = view.findViewById(R.id.suburbEditText);
+
         filterBtn = view.findViewById(R.id.filterBtn);
 
         localRequestList.clear();
@@ -144,6 +151,7 @@ public class LocalExploreFragment extends Fragment {
 
         return view;
     }
+
 
 
 }

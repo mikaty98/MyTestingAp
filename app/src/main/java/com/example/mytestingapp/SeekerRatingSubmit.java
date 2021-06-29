@@ -28,7 +28,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
     String providerId;
     String userType;
     String price;
-    String seekerName;
+    String seekerName, seekerName1;
 
 
     Button submitBtn, userBtn1;
@@ -37,17 +37,14 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
     RatingBar ratingBar;
 
-    FirebaseUser firebaseUser;
+    FirebaseUser firebaseUser, firebaseUser1;
 
-    DatabaseReference reference;
+    DatabaseReference reference, reference1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeker_rating_submit);
-
-
-
 
         providerId = getIntent().getStringExtra("receiver id");
         userType = getIntent().getStringExtra("user type");
@@ -67,6 +64,7 @@ public class SeekerRatingSubmit extends AppCompatActivity {
         price_value.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + price);
 
         ratingNote.setText("RATE THE PROVIDER");
+
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +88,6 @@ public class SeekerRatingSubmit extends AppCompatActivity {
 
                             reference = FirebaseDatabase.getInstance().getReference().child("Providers").child(providerId).child("ratings");
                             reference.child(userId).setValue(seekerRating);
-
-                            //Local request removal
-                            reference = FirebaseDatabase.getInstance().getReference("LocalRequests").child(userId);
-                            reference.removeValue();
-
-                            //Local request proposals removal
-                            reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(userId);
-                            reference.removeValue();
 
                             //remove connection
                             reference = FirebaseDatabase.getInstance().getReference("StartingConnections").child(userId + providerId);

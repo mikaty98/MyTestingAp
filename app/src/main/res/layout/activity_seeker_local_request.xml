@@ -162,7 +162,7 @@
                 android:layout_margin="10dp"
                 android:text="Insert an image (optional)"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
 
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Use current location"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
@@ -190,7 +190,7 @@
                 android:layout_margin="10dp"
                 android:text="Confirm"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
 

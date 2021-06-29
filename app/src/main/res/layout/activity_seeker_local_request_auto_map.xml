@@ -162,7 +162,7 @@
                 android:layout_margin="10dp"
                 android:text="Insert an image (optional)"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>
 
@@ -175,7 +175,7 @@
             <Button
                 android:id="@+id/getLocation"
                 android:layout_width="match_parent"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Get current location"
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Confirm"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:background="@drawable/custom_button"/>

@@ -36,7 +36,7 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:src="@drawable/blankprofilepic"
-                app:civ_border_color="@color/black"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="2dp" />
 
             <Button
@@ -47,7 +47,7 @@
                 android:background="@drawable/custom_button"
                 android:text="Edit Profile"
                 android:textAllCaps="true"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
             <TableLayout
                 android:layout_width="match_parent"

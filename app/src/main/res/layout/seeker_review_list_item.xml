@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:text="Seeker Name: "
                     android:textAllCaps="true"
                     >
@@ -42,7 +42,7 @@
                     android:id="@+id/seekerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:text="Value"
                     android:textSize="14sp"
                     android:textStyle="bold">
@@ -56,8 +56,8 @@
                 android:id="@+id/raitingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:outlineAmbientShadowColor="@color/white"
-                android:outlineSpotShadowColor="@color/white"
+                android:outlineAmbientShadowColor="@color/black"
+                android:outlineSpotShadowColor="@color/black"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"/>
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:text="Review: "
                     android:textAllCaps="true"
                     >
@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Value"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold">
 

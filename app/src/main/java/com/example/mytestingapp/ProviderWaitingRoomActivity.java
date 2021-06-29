@@ -1,6 +1,7 @@
 package com.example.mytestingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,10 +12,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.mytestingapp.Classes.Provider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,12 +28,72 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
 
     private Button cancelBtn;
     private Provider provider;
-    private DatabaseReference reference;
-    private SharedPreferences sp;
+    private DatabaseReference reference, reference1, reference2, reference3;
+    private SharedPreferences sp, sp1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_waiting_room);
+
+        sp1 = getApplicationContext().getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
+        String seekerId = sp1.getString("seeker id","");
+
+
+
+        reference1 = FirebaseDatabase.getInstance().getReference().child("LocalRequests").child(seekerId);
+
+
+        reference1.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot)
+            {
+                reference2 = FirebaseDatabase.getInstance().getReference("Providers");
+                reference2.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if(snapshot.child(FirebaseAuth.getInstance().getUid()).child("gotAccepted").getValue(boolean.class) == false
+                                && snapshot.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").getValue(boolean.class) == true )
+                        {
+                            goBack();
+                            Toast.makeText(ProviderWaitingRoomActivity.this,"This request has been deleted",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                reference1.removeEventListener(this);
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         cancelBtn = findViewById(R.id.cancelBtn);
 
@@ -39,7 +102,7 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Cancel My Proposal")
+                        .setTitle("Cancel Your Proposal")
                         .setMessage("Are you sure you want to cancel your proposal?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
@@ -60,8 +123,8 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Canceling Proposal")
-                .setMessage("Are you sure you want to cancel proposal?")
+                .setTitle("Cancel Your Proposal")
+                .setMessage("Are you sure you want to cancel your proposal?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
                     @Override

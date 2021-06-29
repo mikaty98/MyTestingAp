@@ -76,6 +76,7 @@
         <service
             android:name=".SendNotificationPack.FirebaseMessagingService"
             android:permission="TODO"
+            android:enabled="true"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

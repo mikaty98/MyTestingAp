@@ -59,6 +59,7 @@ public class LocalRequestEnd1 extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Chat Room"));
         tabLayout.addTab(tabLayout.newTab().setText("Arrival Time Tracking"));
 
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

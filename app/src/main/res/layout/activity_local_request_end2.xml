@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/confirmBtn"
             android:text="Confirm Service Completion"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAllCaps="true"
             android:textAlignment="center"
             android:background="@drawable/custom_button"/>
@@ -156,7 +156,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/userBtn1"
             android:text="Service Provider Details"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:background="@drawable/custom_button"/>

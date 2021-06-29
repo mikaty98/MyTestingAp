@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_colour"
     tools:context=".ChatRoomFragment">
 
 
@@ -27,6 +28,7 @@
             android:layout_marginTop="40dp"
             android:textColor="@color/white"
             android:layout_toLeftOf="@+id/btn_send"
+            android:textColorHint="@color/white"
             android:background="@android:color/transparent"
             android:hint="Type a message..." />
 
@@ -42,7 +44,7 @@
             android:layout_marginRight="6dp"
             android:layout_marginBottom="-1dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/ic_image"
+            android:background="@drawable/send"
             />
 
 
@@ -63,7 +65,7 @@
             android:layout_height="200dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="560dp"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/custom_button"
             android:theme="?attr/actionBarTheme">
 
             <ImageView
@@ -79,7 +81,7 @@
             <TextView
                 android:id="@+id/username1"
                 android:layout_width="100dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
