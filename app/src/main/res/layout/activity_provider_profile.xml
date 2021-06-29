@@ -118,17 +118,6 @@
                 android:id="@+id/email"
                 />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="PASSWORD"
-                android:textColor="@color/white"
-                android:inputType="textPassword"
-                android:textColorHint="@color/white"
-                android:editable="false"
-                android:id="@+id/password"
-                />
 
 
 

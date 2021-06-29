@@ -461,14 +461,14 @@ public class SRegisterActivity extends AppCompatActivity {
             {
             rootNode = FirebaseDatabase.getInstance();
 
-            Seeker s = new Seeker(UserName,Gender,BirthDay.toString(),BirthMonth.toString(),BirthYear.toString(),Id,PhoneNumber,Email,Password);
+            Seeker s = new Seeker(UserName,Gender,BirthDay.toString(),BirthMonth.toString(),BirthYear.toString(),Id,PhoneNumber,Email);
 
             auth.fetchSignInMethodsForEmail(s.getEmail()).addOnCompleteListener(SRegisterActivity.this,new OnCompleteListener<SignInMethodQueryResult>() {  //Checking if email already exists or not
                 @Override
                 public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                     boolean check = !task.getResult().getSignInMethods().isEmpty();
                     if (!check){ //email not found
-                        auth.createUserWithEmailAndPassword(s.getEmail(),s.getPassword()).addOnCompleteListener(SRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                        auth.createUserWithEmailAndPassword(s.getEmail(),Password).addOnCompleteListener(SRegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
@@ -489,7 +489,7 @@ public class SRegisterActivity extends AppCompatActivity {
 
                     }
                     else{ //email already exists
-                        auth.signInWithEmailAndPassword(s.getEmail(),s.getPassword()).addOnCompleteListener(SRegisterActivity.this,new OnCompleteListener<AuthResult>() {
+                        auth.signInWithEmailAndPassword(s.getEmail(),Password).addOnCompleteListener(SRegisterActivity.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){  //if user registered with the same email and password
