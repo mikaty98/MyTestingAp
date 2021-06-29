@@ -28,7 +28,7 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
 
     private Button cancelBtn;
     private Provider provider;
-    private DatabaseReference reference, reference1, reference2, reference3;
+    private DatabaseReference reference, reference1, reference2, reference3, reference4;
     private SharedPreferences sp, sp1;
 
     @Override
@@ -80,6 +80,62 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                 });
 
                 reference1.removeEventListener(this);
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+        reference3 = FirebaseDatabase.getInstance().getReference().child("LocalRequestsProposals").child(seekerId);
+
+
+        reference3.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot)
+            {
+                reference4 = FirebaseDatabase.getInstance().getReference("Providers");
+                reference4.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if(snapshot.child(FirebaseAuth.getInstance().getUid()).child("gotAccepted").getValue(boolean.class) == false
+                                && snapshot.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").getValue(boolean.class) == true )
+                        {
+                            goBack();
+                            Toast.makeText(ProviderWaitingRoomActivity.this,"The service seeker has chosen another provider proposal",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                reference3.removeEventListener(this);
 
             }
 

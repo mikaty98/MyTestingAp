@@ -92,8 +92,8 @@ public class ProviderRatingSubmit extends AppCompatActivity {
                             reference.removeValue();
 
                             //Local request proposals removal
-                            reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(seekerId);
-                            reference.removeValue();
+                            //reference = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(seekerId);
+                            //reference.removeValue();
 
                             //completion removal
                             reference = FirebaseDatabase.getInstance().getReference("ProviderLocalRequestCompletionConfirm").child(userId);

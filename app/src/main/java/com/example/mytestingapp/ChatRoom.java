@@ -73,7 +73,7 @@ public class ChatRoom extends AppCompatActivity {
     int flagg = 0;
 
     FirebaseUser firebaseUser, firebaseUser1;
-    DatabaseReference reference;
+    DatabaseReference reference,reference5;
     DatabaseReference reference1;
     Intent intent;
 
@@ -144,14 +144,21 @@ public class ChatRoom extends AppCompatActivity {
         int price = intent.getIntExtra("price", 0);
         String userType = intent.getStringExtra("user type");
 
+
+
+        // user got accepted
+
         firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
-
         String myId = firebaseUser1.getUid();
-
-
         DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference("Providers");
-
         mref2.child(myId).child("gotAccepted").setValue(true);
+
+
+
+        //delete proposals
+
+        reference5 = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId);
+        reference5.removeValue();
 
 
 
