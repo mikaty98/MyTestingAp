@@ -51,13 +51,22 @@ public class LocalExploreFragment extends Fragment {
 
     ChildEventListener childEventListener = new ChildEventListener() {
         @Override
-        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+        {
 
             LocalRequest localRequest = snapshot.getValue(LocalRequest.class);
 
-            localRequestList.add(localRequest);
+            String picked = localRequest.getPicked();
 
-            serviceAdaptor.notifyDataSetChanged();
+            if(picked.equals("no"))
+            {
+                localRequestList.add(localRequest);
+
+                serviceAdaptor.notifyDataSetChanged();
+
+            }
+
+
         }
 
         @Override

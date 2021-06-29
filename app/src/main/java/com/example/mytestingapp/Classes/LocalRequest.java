@@ -20,12 +20,22 @@ public class LocalRequest implements Serializable
     String seekerName;
     String seekerID;
 
+    public String getPicked() {
+        return picked;
+    }
+
+    public void setPicked(String picked) {
+        this.picked = picked;
+    }
+
+    String picked;
+
 
 
     public LocalRequest() {
     }
 
-    public LocalRequest(String RequestTitle, String RequestDescription, String City, String Suburb, String StreetName, String StreetNumber, String BuildingName, String BuildingNumber, String FloorNumber, String ApartmentNumber,String seekerName,String seekerID)
+    public LocalRequest(String RequestTitle, String RequestDescription, String City, String Suburb, String StreetName, String StreetNumber, String BuildingName, String BuildingNumber, String FloorNumber, String ApartmentNumber,String seekerName,String seekerID, String picked)
     {
         requestTitle = RequestTitle;
         requestDescription = RequestDescription;
@@ -39,6 +49,7 @@ public class LocalRequest implements Serializable
         apartmentNumber = ApartmentNumber;
         this.seekerName = seekerName;
         this.seekerID = seekerID;
+        this.picked = picked;
     }
 
     public String getRequestTitle() {

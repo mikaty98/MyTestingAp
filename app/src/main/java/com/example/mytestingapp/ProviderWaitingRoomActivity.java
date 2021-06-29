@@ -28,7 +28,7 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
 
     private Button cancelBtn;
     private Provider provider;
-    private DatabaseReference reference, reference1, reference2, reference3, reference4;
+    private DatabaseReference reference, reference1, reference2, reference3, reference4, reference5, reference6;
     private SharedPreferences sp, sp1;
 
     @Override
@@ -66,6 +66,9 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                         if(snapshot.child(FirebaseAuth.getInstance().getUid()).child("gotAccepted").getValue(boolean.class) == false
                                 && snapshot.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").getValue(boolean.class) == true )
                         {
+                            reference5 = FirebaseDatabase.getInstance().getReference("Providers");
+                            reference5.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").setValue(false);
+
                             goBack();
                             Toast.makeText(ProviderWaitingRoomActivity.this,"This request has been deleted",Toast.LENGTH_LONG).show();
                         }
@@ -123,6 +126,11 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                                 && snapshot.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").getValue(boolean.class) == true )
                         {
                             goBack();
+
+                            reference6 = FirebaseDatabase.getInstance().getReference("LocalRequests").child(seekerId);
+                            reference6.child("picked").setValue("yes");
+
+
                             Toast.makeText(ProviderWaitingRoomActivity.this,"The service seeker has chosen another provider proposal",Toast.LENGTH_LONG).show();
                         }
 

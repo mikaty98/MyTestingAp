@@ -223,7 +223,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
         reference = rootNode.getReference().child("LocalRequests");
 
         LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), seekerName
-                , FirebaseAuth.getInstance().getUid());
+                , FirebaseAuth.getInstance().getUid(), "no");
 
 
         reference.child(FirebaseAuth.getInstance().getUid()).setValue(l);

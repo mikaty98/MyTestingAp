@@ -153,8 +153,6 @@ public class ChatRoom extends AppCompatActivity {
         DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference("Providers");
         mref2.child(myId).child("gotAccepted").setValue(true);
 
-
-
         //delete proposals
 
         reference5 = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId);
