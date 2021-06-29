@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeekerChangePasswordActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".SeekerChangePasswordActivity" />
         <activity android:name=".ProviderChangePasswordActivity" />
         <activity
             android:name=".SeekerMainHomeActivity"
@@ -55,13 +56,11 @@
         <activity android:name=".SeekerLocalRequest" />
         <activity android:name=".ProviderProfileActivity" />
         <activity
-            android:name=".PLoginActivity"
-            android:launchMode="singleTask" />
+            android:name=".PLoginActivity" />
         <activity android:name=".PRegisterActivity" />
         <activity android:name=".SRegisterActivity" />
         <activity
-            android:name=".SLoginActivity"
-            android:launchMode="singleTask">
+            android:name=".SLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

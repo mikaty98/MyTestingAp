@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Provider {
-    private String userName,jobDesc,gender,birthDay, birthMonth, birthYear, id,phoneNumber,email,password,userID;
+    private String userName,jobDesc,gender,birthDay, birthMonth, birthYear, id,phoneNumber,email,userID;
     private Bitmap image;
     private boolean sentProposal, gotAccepted;
 
@@ -22,7 +22,6 @@ public class Provider {
         id = in.readString();
         phoneNumber = in.readString();
         email = in.readString();
-        password = in.readString();
         userID = in.readString();
         image = in.readParcelable(Bitmap.class.getClassLoader());
     }
@@ -85,14 +84,6 @@ public class Provider {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getUserID() {
         return userID;
     }
@@ -122,7 +113,7 @@ public class Provider {
         this.sentProposal = false;
     }
 
-    public Provider(String userName, String jobDesc, String gender, String birthDay, String birthMonth, String birthYear, String id, String phoneNumber, String email, String password) {
+    public Provider(String userName, String jobDesc, String gender, String birthDay, String birthMonth, String birthYear, String id, String phoneNumber, String email) {
         this.userName = userName;
         this.jobDesc = jobDesc;
         this.gender = gender;
@@ -132,7 +123,6 @@ public class Provider {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.password = password;
         this.gotAccepted = false;
         this.sentProposal = false;
 

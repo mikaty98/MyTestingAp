@@ -87,20 +87,9 @@ public class ProviderChangePasswordActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        reference = FirebaseDatabase.getInstance().getReference("Providers").child(user.getUid());
-                        reference.child("password").setValue(NewPass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
                                     Toast.makeText(ProviderChangePasswordActivity.this, "PASSWORD UPDATED", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(ProviderChangePasswordActivity.this, PLoginActivity.class));
                                     finish();
-                                }
-                                else{
-                                    Toast.makeText(ProviderChangePasswordActivity.this, " Something went wrong. Please try again later.", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
                     } else {
                         Toast.makeText(ProviderChangePasswordActivity.this, " Something went wrong. Please try again later.", Toast.LENGTH_LONG).show();
                     }

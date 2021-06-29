@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Seeker {
-    private String userName,gender,birthDay,birthMonth, birthYear,id,phoneNumber,email,password,userID;
+    private String userName,gender,birthDay,birthMonth, birthYear,id,phoneNumber,email,userID;
     private Bitmap image;
 
     protected Seeker(Parcel in) {
@@ -20,7 +20,6 @@ public class Seeker {
         id = in.readString();
         phoneNumber = in.readString();
         email = in.readString();
-        password = in.readString();
         userID = in.readString();
         image = in.readParcelable(Bitmap.class.getClassLoader());
     }
@@ -82,14 +81,6 @@ public class Seeker {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getUserID() {
         return userID;
     }
@@ -101,7 +92,7 @@ public class Seeker {
     public Seeker() {
     }
 
-    public Seeker(String userName, String gender, String birthDay, String birthMonth, String birthYear, String id, String phoneNumber, String email, String password) {
+    public Seeker(String userName, String gender, String birthDay, String birthMonth, String birthYear, String id, String phoneNumber, String email) {
         this.userName = userName;
         this.gender = gender;
         this.birthDay = birthDay;
@@ -110,7 +101,6 @@ public class Seeker {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.password = password;
 
     }
 

@@ -459,14 +459,14 @@ public class PRegisterActivity extends AppCompatActivity {
         } else {
             rootNode = FirebaseDatabase.getInstance();
 
-            Provider p = new Provider(UserName,JobDesc,Gender,BirthDay.toString(),BirthMonth.toString(),BirthYear.toString(),Id,PhoneNumber,Email,Password);
+            Provider p = new Provider(UserName,JobDesc,Gender,BirthDay.toString(),BirthMonth.toString(),BirthYear.toString(),Id,PhoneNumber,Email);
 
             auth.fetchSignInMethodsForEmail(p.getEmail()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {  //Checking id email already exists or not
                 @Override
                 public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                     boolean check = !task.getResult().getSignInMethods().isEmpty();
                     if (!check){ //email not found
-                        auth.createUserWithEmailAndPassword(p.getEmail(),p.getPassword()).addOnCompleteListener(PRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                        auth.createUserWithEmailAndPassword(p.getEmail(),Password).addOnCompleteListener(PRegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
@@ -487,7 +487,7 @@ public class PRegisterActivity extends AppCompatActivity {
                     }
                     else{ //email already exists
                        // Toast.makeText(PRegisterActivity.this,"Email already exists",Toast.LENGTH_SHORT).show();
-                        auth.signInWithEmailAndPassword(p.getEmail(),p.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        auth.signInWithEmailAndPassword(p.getEmail(),Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){  //if user registered with the same email and password

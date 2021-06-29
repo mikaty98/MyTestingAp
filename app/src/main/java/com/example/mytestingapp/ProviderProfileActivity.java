@@ -10,7 +10,7 @@ import com.example.mytestingapp.Classes.Provider;
 
 public class ProviderProfileActivity extends AppCompatActivity {
 
-    private EditText username,jobDescription,gender,birthDate,id,email,password,phoneNumber;
+    private EditText username,jobDescription,gender,birthDate,id,email,phoneNumber;
     private ImageView profilePic;
 
     @Override
@@ -24,7 +24,6 @@ public class ProviderProfileActivity extends AppCompatActivity {
         birthDate = findViewById(R.id.BirthDate3);
         id = findViewById(R.id.id);
         email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
         phoneNumber = findViewById(R.id.phone_number);
         profilePic = findViewById(R.id.profilePic);
 
@@ -38,7 +37,6 @@ public class ProviderProfileActivity extends AppCompatActivity {
         birthDate.setText(p.getBirthDay()+"/"+p.getBirthMonth()+"/"+p.getBirthYear());
         id.setText(p.getId());
         email.setText(p.getEmail());
-        password.setText(p.getPassword());
         phoneNumber.setText(p.getPhoneNumber());
         profilePic.setImageBitmap(p.getImageBitmap());
 
