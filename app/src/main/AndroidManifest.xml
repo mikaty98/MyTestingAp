@@ -12,23 +12,26 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".SeekerMainHomeActivity" android:launchMode="singleTask"/>
+        android:theme="@style/AppTheme">
+        <activity android:name=".SeekerChangePasswordActivity"></activity>
+        <activity android:name=".ProviderChangePasswordActivity" />
+        <activity
+            android:name=".SeekerMainHomeActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".SeekerRatingSubmit" />
         <activity android:name=".ProviderRatingSubmit" />
         <activity android:name=".ProviderLocalRequestEndBuffer2" />
@@ -44,15 +47,21 @@
         <activity android:name=".SeekerLocalRequestAutoMap" />
         <activity android:name=".LocalRequestInfoActivity" />
         <activity android:name=".SeekerLocalRequestWaitingList" />
-        <activity android:name=".ProviderHomeActivity" android:launchMode="singleTask"/>
+        <activity
+            android:name=".ProviderHomeActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ProviderEditProfileActivity" />
         <activity android:name=".SeekerEditProfileActivity" />
         <activity android:name=".SeekerLocalRequest" />
         <activity android:name=".ProviderProfileActivity" />
-        <activity android:name=".PLoginActivity" android:launchMode="singleTask"/>
+        <activity
+            android:name=".PLoginActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".PRegisterActivity" />
         <activity android:name=".SRegisterActivity" />
-        <activity android:name=".SLoginActivity" android:launchMode="singleTask">
+        <activity
+            android:name=".SLoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,8 +79,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBy42hFhtoHZxD_YvKfPrqxV-bJQQ8d7hY" />
-
-
 
         <service
             android:name=".SendNotificationPack.FirebaseMessagingService"
