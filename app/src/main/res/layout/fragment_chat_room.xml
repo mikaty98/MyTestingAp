@@ -28,7 +28,6 @@
             android:layout_marginTop="40dp"
             android:textColor="@color/white"
             android:layout_toLeftOf="@+id/btn_send"
-            android:textColorHint="@color/white"
             android:background="@android:color/transparent"
             android:hint="Type a message..." />
 

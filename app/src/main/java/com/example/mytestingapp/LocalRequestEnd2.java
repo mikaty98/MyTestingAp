@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -192,11 +193,16 @@ public class LocalRequestEnd2 extends AppCompatActivity {
                         progressDialog.dismiss();
 
 
-                        startActivity(intentt);
-                        finish();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run()
+                            {
+                                startActivity(intentt);
+                                finish();
 
-
-
+                            }
+                        }, 4000);
                     }
 
                     @Override

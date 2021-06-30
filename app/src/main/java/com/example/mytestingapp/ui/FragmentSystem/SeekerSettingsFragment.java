@@ -52,15 +52,36 @@ public class SeekerSettingsFragment extends Fragment {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens").child(user.getUid());
-                reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getActivity(), SLoginActivity.class));
-                        getActivity().finish();
-                    }
-                });
+
+                new AlertDialog.Builder(v.getContext())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Sign Out")
+                        .setMessage("Are you sure you want to sign out?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens").child(user.getUid());
+                                reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        startActivity(new Intent(getActivity(), SLoginActivity.class));
+                                        getActivity().finish();
+                                    }
+                                });
+                            }
+
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .show();
+
 
             }
         });
@@ -108,7 +129,7 @@ public class SeekerSettingsFragment extends Fragment {
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext())
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Deleting Account")
+                        .setTitle("Delete Account")
                         .setMessage("Are you sure you want to delete your account permanently?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
@@ -150,6 +171,7 @@ public class SeekerSettingsFragment extends Fragment {
         changePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getActivity(), ProviderChangePasswordActivity.class));
                 getActivity().finish();
             }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -201,7 +202,17 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
                 intentt.putExtra("price", finalPricee);
                 intentt.putExtra("user type", "provider");
 
-                startActivity(intentt);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        startActivity(intentt);
+
+                    }
+                }, 4000);
+
 
             }
         });

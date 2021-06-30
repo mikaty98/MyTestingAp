@@ -127,10 +127,6 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                         {
                             goBack();
 
-                            reference6 = FirebaseDatabase.getInstance().getReference("LocalRequests").child(seekerId);
-                            reference6.child("picked").setValue("yes");
-
-
                             Toast.makeText(ProviderWaitingRoomActivity.this,"The service seeker has chosen another provider proposal",Toast.LENGTH_LONG).show();
                         }
 

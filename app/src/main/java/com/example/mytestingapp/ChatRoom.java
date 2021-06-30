@@ -73,7 +73,7 @@ public class ChatRoom extends AppCompatActivity {
     int flagg = 0;
 
     FirebaseUser firebaseUser, firebaseUser1;
-    DatabaseReference reference,reference5;
+    DatabaseReference reference,reference5, reference6;
     DatabaseReference reference1;
     Intent intent;
 
@@ -157,6 +157,9 @@ public class ChatRoom extends AppCompatActivity {
 
         reference5 = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId);
         reference5.removeValue();
+
+        reference6 = FirebaseDatabase.getInstance().getReference("LocalRequests").child(receiverId);
+        reference6.child("picked").setValue("yes");
 
 
 
@@ -426,8 +429,18 @@ public class ChatRoom extends AppCompatActivity {
                                                 intent.putExtra("completion time", completionTime);
                                                 intent.putExtra("user type", userType);
 
-                                                startActivity(intent);
-                                                finish();
+                                                final Handler handler = new Handler();
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run()
+                                                    {
+
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                }, 4000);
+
+
                                             }
                                         }).show();
                             }
@@ -438,6 +451,8 @@ public class ChatRoom extends AppCompatActivity {
                 {
                    // Toast.makeText(ChatRoom.this,"NOOOOOOOOOOOOOOOOO",Toast.LENGTH_LONG).show();
                 }
+
+                reference3.removeEventListener(this);
 
 
             }

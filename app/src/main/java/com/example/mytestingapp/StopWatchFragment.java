@@ -293,10 +293,19 @@ public class StopWatchFragment extends Fragment {
 
                         progressDialog.dismiss();
 
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run()
+                            {
+                                startActivity(intent);
+                                getActivity().finish();
 
 
-                        startActivity(intent);
-                        getActivity().finish();
+                            }
+                        }, 4000);
+
+
 
 
                     }
