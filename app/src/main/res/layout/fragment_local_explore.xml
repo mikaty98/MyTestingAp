@@ -9,47 +9,73 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:orientation="vertical"
-        android:layout_margin="40dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="40dp">
+            android:layout_margin="40dp"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/suburbText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/suburbText"
-                android:textColor="@color/white"
                 android:text="Suburb: "
                 android:textAllCaps="true"
-                android:textSize="20dp"
-                >
+                android:textColor="@color/white"
+                android:textSize="20dp">
 
             </TextView>
 
             <EditText
+                android:id="@+id/suburbEditText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textColor="@color/white"
-                android:id="@+id/suburbEditText"/>
+                android:textColor="@color/white" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rtText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Request title: "
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/requestTitleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-           <Button
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textColor="@color/black"
-               android:text="Filter"
-               android:textAllCaps="true"
-               android:id="@+id/filterBtn"
-               android:background="@drawable/custom_button"/>
+            <Button
+                android:id="@+id/filterBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
+                android:text="Filter"
+                android:textAllCaps="true"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

@@ -35,10 +35,8 @@ import java.util.List;
 
 public class LocalExploreFragment extends Fragment {
 
-    private EditText suburbEditText;
+    private EditText suburbEditText,requestTitleEditText;
     private Button filterBtn;
-
-    private String providerEmail;
 
 
     ListView listView;
@@ -51,18 +49,45 @@ public class LocalExploreFragment extends Fragment {
 
     ChildEventListener childEventListener = new ChildEventListener() {
         @Override
-        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
-        {
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             LocalRequest localRequest = snapshot.getValue(LocalRequest.class);
-
             String picked = localRequest.getPicked();
-
-            if(picked.equals("no"))
-            {
-                localRequestList.add(localRequest);
-
-                serviceAdaptor.notifyDataSetChanged();
+            String suburbFilter = suburbEditText.getText().toString().trim();
+            String titleFilter = requestTitleEditText.getText().toString().trim();
+            if ((!suburbFilter.equals(""))&&(!titleFilter.equals(""))) { //both are not empty
+                suburbEditText.setText("");
+                requestTitleEditText.setText("");
+                if (equalIgnoreCase(suburbFilter,localRequest.getSuburb())&&equalIgnoreCase(titleFilter,localRequest.getRequestTitle())) {
+                    if (picked.equals("no")) {
+                        localRequestList.add(localRequest);
+                        serviceAdaptor.notifyDataSetChanged();
+                    }
+                }
+            }
+            else if ((!suburbFilter.equals(""))&&titleFilter.equals("")){ //suburb not empty and title is empty
+                suburbEditText.setText("");
+                if (equalIgnoreCase(suburbFilter,localRequest.getSuburb())) {
+                    if (picked.equals("no")) {
+                        localRequestList.add(localRequest);
+                        serviceAdaptor.notifyDataSetChanged();
+                    }
+                }
+            }
+            else if (suburbFilter.equals("")&&(!titleFilter.equals(""))){ //suburb is empty and title not empty
+                requestTitleEditText.setText("");
+                if (equalIgnoreCase(titleFilter,localRequest.getRequestTitle())) {
+                    if (picked.equals("no")) {
+                        localRequestList.add(localRequest);
+                        serviceAdaptor.notifyDataSetChanged();
+                    }
+                }
+            }
+            else { // both are empty
+                if (picked.equals("no")) {
+                    localRequestList.add(localRequest);
+                    serviceAdaptor.notifyDataSetChanged();
+                }
 
             }
 
@@ -72,7 +97,6 @@ public class LocalExploreFragment extends Fragment {
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             serviceAdaptor.notifyDataSetChanged();
-
             localRequestList.clear();
 
         }
@@ -80,7 +104,6 @@ public class LocalExploreFragment extends Fragment {
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
             serviceAdaptor.notifyDataSetChanged();
-
             localRequestList.clear();
 
         }
@@ -108,6 +131,7 @@ public class LocalExploreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_local_explore, container, false);
 
         suburbEditText = view.findViewById(R.id.suburbEditText);
+        requestTitleEditText = view.findViewById(R.id.requestTitleEditText);
 
         filterBtn = view.findViewById(R.id.filterBtn);
 
@@ -117,32 +141,17 @@ public class LocalExploreFragment extends Fragment {
         listView = view.findViewById(R.id.serviceList);
         listView.setAdapter(serviceAdaptor);
 
-        if (getArguments() != null) {
-            providerEmail = getArguments().getString("provider email");
-        }
-
 
         reference = FirebaseDatabase.getInstance().getReference("LocalRequests");
-
-
         reference.addChildEventListener(childEventListener);
 
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                serviceAdaptor.clear();
-                String suburbFilter = suburbEditText.getText().toString().trim();
-                suburbEditText.setText("");
-
-                if (!suburbFilter.equals("")) {
-                    Query query = reference.orderByChild("suburb").equalTo(suburbFilter);
-                    query.addChildEventListener(childEventListener);
-                } else {
-                    Query query = reference.orderByChild("suburb");
-                    query.addChildEventListener(childEventListener);
-                }
-
+                localRequestList.clear();
+                serviceAdaptor.notifyDataSetChanged();
+                reference.addChildEventListener(childEventListener);
 
             }
         });
@@ -161,6 +170,76 @@ public class LocalExploreFragment extends Fragment {
         return view;
     }
 
+    static boolean equalIgnoreCase(String str1, String str2)
+    {
+        int i = 0;
 
+        // length of first string
+        int len1 = str1.length();
+
+        // length of second string
+        int len2 = str2.length();
+
+        // if length is not same
+        // simply return false since both string
+        // can not be same if length is not equal
+        if (len1 != len2)
+            return false;
+
+        // loop to match one by one
+        // all characters of both string
+        while (i < len1)
+        {
+
+            // if current characters of both string are same,
+            // increase value of i to compare next character
+            if (str1.charAt(i) == str2.charAt(i))
+            {
+                i++;
+            }
+
+            else if (!((str1.charAt(i) >= 'a' && str1.charAt(i) <= 'z')
+                    || (str1.charAt(i) >= 'A' && str1.charAt(i) <= 'Z')))
+            {
+                return false;
+            }
+
+            // do the same for second string
+            else if (!((str2.charAt(i) >= 'a' && str2.charAt(i) <= 'z')
+                    || (str2.charAt(i) >= 'A' && str2.charAt(i) <= 'Z')))
+            {
+                return false;
+            }
+
+            // this block of code will be executed
+            // if characters of both strings
+            // are of different cases
+            else
+            {
+                // compare characters by ASCII value
+                if (str1.charAt(i) >= 'a' && str1.charAt(i) <= 'z')
+                {
+                    if (str1.charAt(i) - 32 != str2.charAt(i))
+                        return false;
+                }
+
+                else if (str1.charAt(i) >= 'A' && str1.charAt(i) <= 'Z')
+                {
+                    if (str1.charAt(i) + 32 != str2.charAt(i))
+                        return false;
+                }
+
+                // if characters matched,
+                // increase the value of i to compare next char
+                i++;
+
+            } // end of outer else block
+
+        } // end of while loop
+
+
+        return true;
+
+    }
 
 }
