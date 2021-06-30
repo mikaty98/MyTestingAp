@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Service Deck</string>
+    <string name="app_name">ServiceDeck</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_provider_home">ProviderHomeActivity</string>
     <string name="tab_text_1">Tab 1</string>
