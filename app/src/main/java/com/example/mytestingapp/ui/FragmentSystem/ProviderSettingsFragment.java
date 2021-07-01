@@ -127,7 +127,7 @@ public class ProviderSettingsFragment extends Fragment {
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext())
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Deleting Account")
+                        .setTitle("Delete Account")
                         .setMessage("Are you sure you want to delete your account permanently?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
