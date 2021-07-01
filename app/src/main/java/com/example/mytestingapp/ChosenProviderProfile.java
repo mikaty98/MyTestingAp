@@ -218,7 +218,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         notificationsSender.SendNotifications();
 
                         ConnectedSandP connectedSandP = new ConnectedSandP(FirebaseAuth.getInstance().getUid(), providerUserID, estimatedCompletionTime, "provider");
-                        reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections").child(FirebaseAuth.getInstance().getUid() + providerUserID);
+                        reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
                         reference.child(FirebaseAuth.getInstance().getUid() + providerUserID).setValue(connectedSandP);
 
 
