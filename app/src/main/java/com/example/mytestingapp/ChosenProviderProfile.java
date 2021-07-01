@@ -223,7 +223,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
 
 
-                        reference.addChildEventListener(new ChildEventListener() {
+                        reference.child(FirebaseAuth.getInstance().getUid() + providerUserID).addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
@@ -231,7 +231,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
 
                             @Override
                             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                int flag = snapshot.child("startFlag").getValue(int.class);
+                                int flag = snapshot.getValue(Integer.class);
                                 if (flag == 1){
                                     userType = "seeker";
 
