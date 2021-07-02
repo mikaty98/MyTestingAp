@@ -85,7 +85,7 @@ public class SeekerChangePasswordActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                                    Toast.makeText(SeekerChangePasswordActivity.this, "PASSWORD UPDATED", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SeekerChangePasswordActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(SeekerChangePasswordActivity.this, SLoginActivity.class));
                                     finish();
                     } else {

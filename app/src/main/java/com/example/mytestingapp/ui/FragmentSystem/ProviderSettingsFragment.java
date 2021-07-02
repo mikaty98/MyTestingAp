@@ -168,7 +168,7 @@ public class ProviderSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ProviderChangePasswordActivity.class));
-                getActivity().finish();
+                //getActivity().finish();
             }
         });
 

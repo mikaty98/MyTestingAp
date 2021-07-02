@@ -173,7 +173,7 @@ public class SeekerSettingsFragment extends Fragment {
             public void onClick(View v) {
 
                 startActivity(new Intent(getActivity(), ProviderChangePasswordActivity.class));
-                getActivity().finish();
+                //getActivity().finish();
             }
         });
 
