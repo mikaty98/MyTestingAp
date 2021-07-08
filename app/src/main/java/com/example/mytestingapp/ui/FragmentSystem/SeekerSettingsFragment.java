@@ -18,6 +18,7 @@ import com.example.mytestingapp.PLoginActivity;
 import com.example.mytestingapp.ProviderChangePasswordActivity;
 import com.example.mytestingapp.R;
 import com.example.mytestingapp.SLoginActivity;
+import com.example.mytestingapp.SeekerChangePasswordActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -172,7 +173,7 @@ public class SeekerSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(getActivity(), ProviderChangePasswordActivity.class));
+                startActivity(new Intent(getActivity(), SeekerChangePasswordActivity.class));
                 //getActivity().finish();
             }
         });

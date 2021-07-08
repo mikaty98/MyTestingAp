@@ -96,15 +96,18 @@ public class LocalExploreFragment extends Fragment {
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            LocalRequest localRequest = snapshot.getValue(LocalRequest.class);
+            localRequestList.remove(localRequest);
             serviceAdaptor.notifyDataSetChanged();
-            localRequestList.clear();
 
         }
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            LocalRequest localRequest = snapshot.getValue(LocalRequest.class);
+            localRequestList.remove(localRequest);
             serviceAdaptor.notifyDataSetChanged();
-            localRequestList.clear();
+
 
         }
 
