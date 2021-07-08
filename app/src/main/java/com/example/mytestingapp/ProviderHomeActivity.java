@@ -67,8 +67,8 @@ public class ProviderHomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Closing Activity")
-                .setMessage("Are you sure you want to close the app?")
+                .setTitle("Closing Application")
+                .setMessage("Are you sure you want to close the application?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
                     @Override

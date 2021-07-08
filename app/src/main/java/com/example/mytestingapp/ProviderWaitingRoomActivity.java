@@ -28,7 +28,7 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
 
     private Button cancelBtn;
     private Provider provider;
-    private DatabaseReference reference, reference1, reference2, reference3, reference4, reference5, reference6;
+    private DatabaseReference reference, reference1, reference2, reference3, reference4, reference5, reference6, reference7;
     private SharedPreferences sp, sp1;
 
     @Override
@@ -167,8 +167,25 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                goBack();
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                reference6 = FirebaseDatabase.getInstance().getReference("Providers");
+                                reference6.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").setValue(false);
+
+                                sp = getApplicationContext().getSharedPreferences("DatasentToPLogin", Context.MODE_PRIVATE);
+                                String seekerID = sp.getString("seeker id","");
+
+                                reference7 = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(seekerID).child(FirebaseAuth.getInstance().getUid());
+
+                                reference7.child("deleted").setValue("yes");
+
+                                Intent intent = new Intent(ProviderWaitingRoomActivity.this, ProviderHomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+
+
+                                //goBack();
                             }
 
                         })
