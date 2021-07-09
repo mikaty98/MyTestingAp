@@ -116,7 +116,6 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), SLoginActivity.class));
-                //finish();
             }
 
 
@@ -127,7 +126,6 @@ public class SRegisterActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 startActivity(new Intent(getApplicationContext(), PRegisterActivity.class));
-                //finish();
             }
 
 
