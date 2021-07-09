@@ -7,17 +7,26 @@ import androidx.annotation.Nullable;
 public class LocalRequestApplicant {
     private int priceValue, EstimatedArrivalTime;
     private int EstimatedCompletionTime;
-    private String userID,providerName;
+    private String userID,providerName, deleted;
 
     public LocalRequestApplicant() {
     }
 
-    public LocalRequestApplicant(int priceValue, int estimatedArrivalTime, int estimatedCompletionTime, String userID, String providerName) {
+    public LocalRequestApplicant(int priceValue, int estimatedArrivalTime, int estimatedCompletionTime, String userID, String providerName, String deleted) {
         this.priceValue = priceValue;
         EstimatedArrivalTime = estimatedArrivalTime;
         EstimatedCompletionTime = estimatedCompletionTime;
         this.userID = userID;
         this.providerName = providerName;
+        this.deleted = deleted;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 
     public int getPriceValue() {
@@ -69,6 +78,6 @@ public class LocalRequestApplicant {
         }
         LocalRequestApplicant other = (LocalRequestApplicant)obj;
         return priceValue==other.getPriceValue() && EstimatedArrivalTime==other.getEstimatedArrivalTime() && EstimatedCompletionTime==other.getEstimatedCompletionTime()
-                && userID.equals(other.getUserID()) && providerName.equals(other.getproviderName());
+                && userID.equals(other.getUserID()) && providerName.equals(other.getproviderName()) && deleted.equals(other.getDeleted());
     }
 }

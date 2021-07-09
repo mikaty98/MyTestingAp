@@ -37,14 +37,27 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             LocalRequestApplicant localRequestApplicant = snapshot.getValue(LocalRequestApplicant.class);
-            localRequestApplicantList.add(localRequestApplicant);
-            proposalAdaptor.notifyDataSetChanged();
+
+            if(localRequestApplicant.getDeleted().equals("no"))
+            {
+                localRequestApplicantList.add(localRequestApplicant);
+                proposalAdaptor.notifyDataSetChanged();
+
+            }
+
         }
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            proposalAdaptor.notifyDataSetChanged();
-            //localRequestApplicantList.clear();
+            LocalRequestApplicant localRequestApplicant = snapshot.getValue(LocalRequestApplicant.class);
+
+            if(localRequestApplicant.getDeleted().equals("yes"))
+            {
+                localRequestApplicantList.remove(localRequestApplicant);
+                proposalAdaptor.notifyDataSetChanged();
+
+            }
+
 
         }
 
