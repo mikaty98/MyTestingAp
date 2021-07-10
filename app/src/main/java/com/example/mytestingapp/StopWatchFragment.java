@@ -138,6 +138,8 @@ public class StopWatchFragment extends Fragment {
         ref = storage.getReference();
         auth = FirebaseAuth.getInstance();
 
+        long start = System.currentTimeMillis();
+
         zzz = "zzz";
 
         zzzz = "zzz";
@@ -259,53 +261,95 @@ public class StopWatchFragment extends Fragment {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
                     {
+
                         textView.setText("00:00");
 
                         countDownTimer.cancel();
 
                         timer.stop();
 
-                        passedTime = Long.MIN_VALUE;
+                        long end = System.currentTimeMillis();
 
-                        passedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                        long timeElapsed = end - start;
 
+                        long duration1 = TimeUnit.MINUTES.toMillis(arrivalTime);
 
-                        long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+                        if(timeElapsed < duration1)
+                        {
 
-                        long deductedMoney = minutes / 3;
+                            final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: "+pricee+" EGP");
 
-                        finalPrice = finalPrice - deductedMoney;
+                            reference3.child("finalPrice").setValue(pricee);
 
-                        finalPricee = String.valueOf(finalPrice);
+                            Intent intent = new Intent(getActivity(), LocalRequestEnd2.class);
+                            intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
+                            intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
+                            intent.putExtra("price", pricee);
+                            intent.putExtra("user type", localRequestEnd1.getUserType());
 
-                        final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: "+finalPricee+" EGP");
+                            intent.putExtra("flag", flag);
+                            intent.putExtra("zzz", zzzz);
 
-                        reference3.child("finalPrice").setValue(finalPricee);
+                            progressDialog.dismiss();
 
-                        Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
-                        intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
-                        intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
-                        intent.putExtra("price", finalPricee);
-                        intent.putExtra("user type", localRequestEnd1.getUserType());
-
-                        intent.putExtra("flag", flag);
-                        intent.putExtra("zzz", zzzz);
-
-                        progressDialog.dismiss();
-
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run()
-                            {
-                                startActivity(intent);
-                                getActivity().finish();
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run()
+                                {
+                                    startActivity(intent);
+                                    getActivity().finish();
 
 
-                            }
-                        }, 4000);
+                                }
+                            }, 4000);
+
+                        }
 
 
+                        else if(timeElapsed > duration1)
+                        {
+                            passedTime = Long.MIN_VALUE;
+
+                            passedTime = timeElapsed - duration1;
+
+                            long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+
+                            long deductedMoney = minutes / 3;
+
+                            finalPrice = finalPrice - deductedMoney;
+
+                            finalPricee = String.valueOf(finalPrice);
+
+                            final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: "+finalPricee+" EGP");
+
+                            reference3.child("finalPrice").setValue(finalPricee);
+
+                            Intent intent = new Intent(getActivity(), LocalRequestEnd2.class);
+                            intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
+                            intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
+                            intent.putExtra("price", finalPricee);
+                            intent.putExtra("user type", localRequestEnd1.getUserType());
+
+                            intent.putExtra("flag", flag);
+                            intent.putExtra("zzz", zzzz);
+
+                            progressDialog.dismiss();
+
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run()
+                                {
+                                    startActivity(intent);
+                                    getActivity().finish();
+
+
+                                }
+                            }, 4000);
+
+
+                        }
 
 
                     }

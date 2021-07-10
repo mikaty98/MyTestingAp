@@ -71,6 +71,9 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
         setTitle("Completion Time Tracking");
 
+        long start = System.currentTimeMillis();
+
+
         intent = getIntent();
 
         receiverId = intent.getStringExtra("receiver id");
@@ -182,37 +185,72 @@ public class ProviderLocalRequestEnd2 extends AppCompatActivity {
 
                 timer.stop();
 
-                passedTime = Long.MIN_VALUE;
+                long end = System.currentTimeMillis();
 
-                passedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                long timeElapsed = end - start;
 
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+                long duration1 = TimeUnit.MINUTES.toMillis(completionTime);
 
-                long deductedMoney = minutes / 5;
-
-                finalPrice = finalPrice - deductedMoney;
-
-                finalPricee = String.valueOf(finalPrice);
-
-                final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + finalPricee + " EGP");
+                if(timeElapsed < duration1)
+                {
+                    final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + price + " EGP");
 
 
-                Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRatingSubmit.class);
-                intentt.putExtra("receiver id", receiverId);
-                intentt.putExtra("price", finalPricee);
-                intentt.putExtra("user type", "provider");
+                    Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRatingSubmit.class);
+                    intentt.putExtra("receiver id", receiverId);
+                    intentt.putExtra("price", price);
+                    intentt.putExtra("user type", "provider");
 
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run()
-                    {
-                        startActivity(intentt);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            startActivity(intentt);
 
-                    }
-                }, 4000);
+                        }
+                    }, 4000);
 
+
+                }
+
+                else if(timeElapsed > duration1)
+                {
+                    passedTime = Long.MIN_VALUE;
+
+                    passedTime = timeElapsed - duration1;
+
+                    long minutes = TimeUnit.MILLISECONDS.toMinutes(passedTime);
+
+                    long deductedMoney = minutes / 5;
+
+                    finalPrice = finalPrice - deductedMoney;
+
+                    finalPricee = String.valueOf(finalPrice);
+
+                    final_price.setText("FINAL PRICE TO BE PAID BY THE SEEKER TO THE PROVIDER: " + finalPricee + " EGP");
+
+
+                    Intent intentt = new Intent(ProviderLocalRequestEnd2.this, ProviderRatingSubmit.class);
+                    intentt.putExtra("receiver id", receiverId);
+                    intentt.putExtra("price", finalPricee);
+                    intentt.putExtra("user type", "provider");
+
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            startActivity(intentt);
+
+                        }
+                    }, 4000);
+
+
+
+                }
 
             }
         });

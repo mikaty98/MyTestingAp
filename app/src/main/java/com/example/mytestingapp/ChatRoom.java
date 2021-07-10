@@ -429,6 +429,8 @@ public class ChatRoom extends AppCompatActivity {
                                                 intent.putExtra("completion time", completionTime);
                                                 intent.putExtra("user type", userType);
 
+                                                dialog.dismiss();
+
                                                 final Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override

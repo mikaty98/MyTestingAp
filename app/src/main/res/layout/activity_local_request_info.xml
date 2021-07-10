@@ -283,7 +283,7 @@
                 android:textColor="@color/white"
                 android:layout_gravity="left"
                 android:textColorHint="@color/white"
-                android:hint="PRICE VALUE" />
+                android:hint="PRICE VALUE IN EGP" />
 
             <EditText
                 android:id="@+id/estimatedArrivalTime"
