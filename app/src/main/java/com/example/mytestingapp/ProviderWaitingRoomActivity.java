@@ -226,9 +226,9 @@ public class ProviderWaitingRoomActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()){
-                            provider = snapshot.child(FirebaseAuth.getInstance().getUid()).getValue(Provider.class);
-                            provider.setSentProposal(false);
-                            reference.child(FirebaseAuth.getInstance().getUid()).setValue(provider);
+//                            provider = snapshot.child(FirebaseAuth.getInstance().getUid()).getValue(Provider.class);
+//                            provider.setSentProposal(false);
+                            reference.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").setValue(false);
                             Intent intent = new Intent(ProviderWaitingRoomActivity.this, ProviderHomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

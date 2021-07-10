@@ -56,11 +56,11 @@
         <activity android:name=".SeekerLocalRequest" />
         <activity android:name=".ProviderProfileActivity" />
         <activity
-            android:name=".PLoginActivity" />
+            android:name=".PLoginActivity" android:launchMode="singleTask"/>
         <activity android:name=".PRegisterActivity" />
         <activity android:name=".SRegisterActivity" />
         <activity
-            android:name=".SLoginActivity">
+            android:name=".SLoginActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

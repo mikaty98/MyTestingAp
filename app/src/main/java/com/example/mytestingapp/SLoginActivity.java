@@ -28,8 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SLoginActivity extends AppCompatActivity {
 
-    private EditText email,password;
-    private TextView registerbtn,providerbtn,forgetPassword;
+    private EditText email, password;
+    private TextView registerbtn, providerbtn, forgetPassword;
     private Button loginbtn;
 
     private FirebaseDatabase rootNode;
@@ -45,20 +45,19 @@ public class SLoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser user = mauth.getCurrentUser();
-        if (user!=null){
+        if (user != null) {
             userID = user.getUid();
             Query checkuser = reference.orderByChild("userID").equalTo(userID);
             checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
+                    if (snapshot.exists()) {
                         String email = snapshot.child(userID).child("email").getValue(String.class);
                         Intent intent = new Intent(SLoginActivity.this, SeekerMainHomeActivity.class);
                         intent.putExtra("seeker email", email);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
+                    } else {
                         //user must log in
                         //mauth.signOut();
                     }
@@ -70,8 +69,7 @@ public class SLoginActivity extends AppCompatActivity {
                 }
             });
 
-        }
-        else{
+        } else {
             //user must log in
             mauth.signOut();
         }
@@ -93,35 +91,35 @@ public class SLoginActivity extends AppCompatActivity {
 
         mauth = FirebaseAuth.getInstance();
 
-        registerbtn.setOnClickListener(new View.OnClickListener(){
+        registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 startActivity(new Intent(getApplicationContext(), SRegisterActivity.class));
-                
+
             }
 
         });
 
-        providerbtn.setOnClickListener(new View.OnClickListener(){
+        providerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), PLoginActivity.class));
             }
 
         });
 
-        forgetPassword.setOnClickListener(new View.OnClickListener(){
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class));
             }
 
         });
 
-        loginbtn.setOnClickListener(new View.OnClickListener(){
+        loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 SeekerLogin();
 
             }
@@ -129,60 +127,55 @@ public class SLoginActivity extends AppCompatActivity {
 
 
     }
-    private void SeekerLogin(){
+
+    private void SeekerLogin() {
         rootNode = FirebaseDatabase.getInstance();
 
         boolean errorFlag = false;
         String inputEmail = email.getText().toString().trim();
         String inputPassword = password.getText().toString().trim();
 
-        if (TextUtils.isEmpty(inputEmail))
-        {
+        if (TextUtils.isEmpty(inputEmail)) {
             email.setError("Email Required");
             //email.setBackgroundColor(0xFFFF0000);
             errorFlag = true;
-        }
-        else if (!inputEmail.contains("@") || !inputEmail.contains(".com"))
-        {
+        } else if (!inputEmail.contains("@") || !inputEmail.contains(".com")) {
             email.setError("Invalid Email");
             //email.setBackgroundColor(0xFFFF0000);
             errorFlag = true;
-        }
-        else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches())
-        {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches()) {
             email.setError("Wrong email format");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(inputPassword))
-        {
+        if (TextUtils.isEmpty(inputPassword)) {
             password.setError("Password Required");
             //password.setBackgroundColor(0xFFFF0000);
             errorFlag = true;
         }
 
-        if (errorFlag){return;}
-        else {
+        if (errorFlag) {
+            return;
+        } else {
 
-            mauth.signInWithEmailAndPassword(inputEmail,inputPassword).addOnCompleteListener(SLoginActivity.this, new OnCompleteListener<AuthResult>() {
+            mauth.signInWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(SLoginActivity.this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){ //email and password found
-                        userID = task .getResult().getUser().getUid();
+                    if (task.isSuccessful()) { //email and password found
+                        userID = task.getResult().getUser().getUid();
                         mauth.updateCurrentUser(task.getResult().getUser());
                         reference = rootNode.getReference().child("Seekers");
                         Query checkuser = reference.orderByChild("userID").equalTo(userID);
                         checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()){ //email and passowrd found in Seeker database
+                                if (snapshot.exists()) { //email and passowrd found in Seeker database
                                     String text = snapshot.child(userID).child("userName").getValue(String.class);
                                     Intent intent = new Intent(SLoginActivity.this, SeekerMainHomeActivity.class);
                                     intent.putExtra("seeker username", text);
                                     startActivity(intent);
                                     finish();
-                                }
-                                else{
-                                    Toast.makeText(SLoginActivity.this,"User not registered",Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(SLoginActivity.this, "User not registered", Toast.LENGTH_LONG).show();
                                 }
                             }
 
@@ -191,9 +184,8 @@ public class SLoginActivity extends AppCompatActivity {
 
                             }
                         });
-                    }
-                    else {
-                        Toast.makeText(SLoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
