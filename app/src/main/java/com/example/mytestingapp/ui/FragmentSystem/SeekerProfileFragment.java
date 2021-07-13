@@ -58,8 +58,42 @@ public class SeekerProfileFragment extends Fragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        reference = FirebaseDatabase.getInstance().getReference("Seekers");
 
+        Query checkuser = reference.orderByChild("userID").equalTo(userID);
+        checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    seeker = snapshot.child(userID).getValue(Seeker.class);
+                    getProfilePic();
+
+                    String birthDay = seeker.getBirthDay();
+                    String birthMonth = seeker.getBirthMonth();
+                    String birthYear = seeker.getBirthYear();
+
+                    username.setText(seeker.getUserName());
+                    gender.setText(seeker.getGender());
+                    birthDate.setText(birthDay+"/"+birthMonth+"/"+birthYear);
+                    id.setText(seeker.getId());
+                    email.setText(seeker.getEmail());
+                    phoneNumber.setText(seeker.getPhoneNumber());
+                    profilePic.setImageBitmap(seeker.getImageBitmap());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),"user not found", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -155,4 +189,6 @@ public class SeekerProfileFragment extends Fragment {
         }
 
     }
+
+
 }

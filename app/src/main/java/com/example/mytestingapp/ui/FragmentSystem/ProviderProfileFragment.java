@@ -96,6 +96,48 @@ public class ProviderProfileFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("Providers");
+
+        Query checkUser = reference.orderByChild("userID").equalTo(userID);
+
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    provider = snapshot.child(userID).getValue(Provider.class);
+                    getProfilePic();
+
+                    String birthDay = provider.getBirthDay();
+                    String birthMonth = provider.getBirthMonth();
+                    String birthYear = provider.getBirthYear();
+
+                    username.setText(provider.getUserName());
+                    gender.setText(provider.getGender());
+                    jobDescription.setText(provider.getJobDesc());
+                    birthDate.setText(birthDay+"/"+birthMonth+"/"+birthYear);
+                    id.setText(provider.getId());
+                    email.setText(provider.getEmail());
+                    phoneNumber.setText(provider.getPhoneNumber());
+                    profilePic.setImageBitmap(provider.getImageBitmap());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),"user not found", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 

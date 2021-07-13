@@ -61,6 +61,7 @@ public class SeekerMainHomeActivity extends AppCompatActivity {
 
     }
 
+
     private void UpdateToken() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken = FirebaseInstanceId.getInstance().getToken();
@@ -84,5 +85,7 @@ public class SeekerMainHomeActivity extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
+
+
 
 }
