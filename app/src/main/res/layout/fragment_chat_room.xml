@@ -14,7 +14,73 @@
         android:layout_height="match_parent"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@drawable/custom_button"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageview_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/ic_launcher_foreground"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="31dp" />
+
+
+            <TextView
+                android:id="@+id/username1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/callBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="-1dp"
+                android:background="@drawable/call" />
+
+            <ImageButton
+                android:id="@+id/userBtn1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="-1dp"
+                android:background="@drawable/logoo" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_messages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar2"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="40dp"
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/text_send"
@@ -24,12 +90,11 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="57dp"
             android:layout_marginRight="6dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="40dp"
-            android:textColor="@color/white"
+            android:layout_marginBottom="0dp"
             android:layout_toLeftOf="@+id/btn_send"
             android:background="@android:color/transparent"
-            android:hint="Type a message..." />
+            android:hint="Type a message..."
+            android:textColor="@color/white" />
 
 
         <ImageButton
@@ -39,80 +104,14 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="-1dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/send"
-            />
+            android:background="@drawable/send" />
 
 
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_messages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:layout_marginBottom="40dp"
-            android:visibility="visible" />
-
-        <androidx.appcompat.widget.Toolbar
-
-            android:id="@+id/toolbar2"
-            android:layout_width="400dp"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="560dp"
-            android:background="@drawable/custom_button"
-            android:theme="?attr/actionBarTheme">
-
-            <ImageView
-                android:id="@+id/imageview_profile"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                app:srcCompat="@mipmap/ic_launcher"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="31dp" />
-
-
-            <TextView
-                android:id="@+id/username1"
-                android:layout_width="100dp"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <ImageButton
-                android:id="@+id/callBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="-1dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/call"
-                />
-
-            <ImageButton
-                android:id="@+id/userBtn1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="-1dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/logoo"
-                />
-
-
-
-        </androidx.appcompat.widget.Toolbar>
 
 
 
