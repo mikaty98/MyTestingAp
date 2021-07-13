@@ -125,8 +125,6 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
             optionalImage = findViewById(R.id.optionalImage);
 
 
-
-
             confirm = findViewById(R.id.confirm);
 
             city = findViewById(R.id.city);
@@ -397,8 +395,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
             optional.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     choosePicture();
                 }
             });
@@ -453,65 +450,54 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
         boolean errorFlag = false;
 
-        if (TextUtils.isEmpty(RequestTitle))
-        {
+        if (TextUtils.isEmpty(RequestTitle)) {
             requestTitle.setError("This field can not be left empty");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(RequestDes))
-        {
+        if (TextUtils.isEmpty(RequestDes)) {
             requestDescription.setError("This field can not be left empty");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(City))
-        {
+        if (TextUtils.isEmpty(City)) {
             city.setError("This field can not be left empty");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(Suburb))
-        {
+        if (TextUtils.isEmpty(Suburb)) {
             suburb.setError("This field can not be left empty");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(StreetName))
-        {
+        if (TextUtils.isEmpty(StreetName)) {
             streetName.setError("This field can not be left empty");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(StreetNumber))
-        {
+        if (TextUtils.isEmpty(StreetNumber)) {
             streetNumber.setError("This field can not be left empty");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(BuildingName))
-        {
+        if (TextUtils.isEmpty(BuildingName)) {
             buildingName.setError("This field can not be left empty");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(BuildingNumber))
-        {
+        if (TextUtils.isEmpty(BuildingNumber)) {
             buildingNumber.setError("This field can not be left empty");
             errorFlag = true;
         }
 
-        if (TextUtils.isEmpty(FloorNumber))
-        {
+        if (TextUtils.isEmpty(FloorNumber)) {
             floorNumber.setError("This field can not be left empty");
             errorFlag = true;
         }
-        if (TextUtils.isEmpty(ApartmentNumber))
-        {
+        if (TextUtils.isEmpty(ApartmentNumber)) {
             apartmentNumber.setError("This field can not be left empty");
             errorFlag = true;
         }
 
 
-        if (errorFlag)
-        {
+        if (errorFlag) {
             return;
         }
 
@@ -521,7 +507,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         LocalRequest l = new LocalRequest(RequestTitle, RequestDes, City, Suburb, StreetName, StreetNumber.toString(), BuildingName, BuildingNumber.toString(), FloorNumber.toString(), ApartmentNumber.toString(), seekerName,
                 FirebaseAuth.getInstance().getUid(), "no");
 
-        reference.child(RequestTitle).setValue(l);
+        reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(l);
 
         uploadImage();
 
@@ -536,9 +522,7 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
     }
 
 
-
-    private void choosePicture()
-    {
+    private void choosePicture() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -551,43 +535,40 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if (requestCode == 100 && resultCode == RESULT_OK && data!=null && data.getData()!=null)
-        {
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             optionalImage.setImageURI(imageUri);
         }
     }
 
-    private void uploadImage()
-    {
+    private void uploadImage() {
         auth = FirebaseAuth.getInstance();
 
 
         String userID = auth.getCurrentUser().getUid();
 
 
-        if(imageUri != null)
-        {
+        if (imageUri != null) {
 
 
             storage = FirebaseStorage.getInstance();
 
             ref = storage.getReference();
 
-            StorageReference riversRef = ref.child("images/"+userID+"item");
+            StorageReference riversRef = ref.child("images/" + userID + "item");
 
             riversRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             // Get a URL to the uploaded content
-                            Snackbar.make(findViewById(android.R.id.content),"Image Uploaded.",Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(findViewById(android.R.id.content), "Image Uploaded.", Snackbar.LENGTH_LONG).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(getApplicationContext(),"Failed to upload", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_LONG).show();
                         }
                     });
         }

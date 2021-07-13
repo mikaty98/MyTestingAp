@@ -1,6 +1,10 @@
 package com.example.mytestingapp.Classes;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
+
+import kotlinx.coroutines.internal.LocalAtomics_commonKt;
 
 
 public class LocalRequest implements Serializable
@@ -149,7 +153,12 @@ public class LocalRequest implements Serializable
     }
 
 
-
-
-
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof LocalRequest)){
+            return false;
+        }
+        LocalRequest other = (LocalRequest) obj;
+        return (seekerID == other.getSeekerID());
+    }
 }
