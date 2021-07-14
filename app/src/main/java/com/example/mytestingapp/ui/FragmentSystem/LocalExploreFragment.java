@@ -56,8 +56,7 @@ public class LocalExploreFragment extends Fragment {
             String suburbFilter = suburbEditText.getText().toString().trim();
             String titleFilter = requestTitleEditText.getText().toString().trim();
             if ((!suburbFilter.equals(""))&&(!titleFilter.equals(""))) { //both are not empty
-                suburbEditText.setText("");
-                requestTitleEditText.setText("");
+
                 if (equalIgnoreCase(suburbFilter,localRequest.getSuburb())&&equalIgnoreCase(titleFilter,localRequest.getRequestTitle())) {
                     if (picked.equals("no")) {
                         localRequestList.add(localRequest);
@@ -66,7 +65,6 @@ public class LocalExploreFragment extends Fragment {
                 }
             }
             else if ((!suburbFilter.equals(""))&&titleFilter.equals("")){ //suburb not empty and title is empty
-                suburbEditText.setText("");
                 if (equalIgnoreCase(suburbFilter,localRequest.getSuburb())) {
                     if (picked.equals("no")) {
                         localRequestList.add(localRequest);
@@ -75,7 +73,6 @@ public class LocalExploreFragment extends Fragment {
                 }
             }
             else if (suburbFilter.equals("")&&(!titleFilter.equals(""))){ //suburb is empty and title not empty
-                requestTitleEditText.setText("");
                 if (equalIgnoreCase(titleFilter,localRequest.getRequestTitle())) {
                     if (picked.equals("no")) {
                         localRequestList.add(localRequest);
@@ -156,6 +153,7 @@ public class LocalExploreFragment extends Fragment {
                 localRequestList.clear();
                 serviceAdaptor.notifyDataSetChanged();
                 reference.addChildEventListener(childEventListener);
+
 
             }
         });
