@@ -575,4 +575,10 @@ public class SeekerLocalRequestAutoMap extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(SeekerLocalRequestAutoMap.this, SeekerLocalRequest.class));
+        finish();
+    }
 }

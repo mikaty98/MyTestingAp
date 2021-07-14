@@ -106,6 +106,7 @@ public class SeekerLocalRequest extends AppCompatActivity {
 
                 Intent intent1 = new Intent(SeekerLocalRequest.this, SeekerLocalRequestAutoMap.class);
                 startActivity(intent1);
+                finish();
 
 
                 //startActivity(new Intent(getApplicationContext(), SeekerLocalRequestAutoMap.class));
