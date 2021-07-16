@@ -71,7 +71,7 @@ public class SeekerReviewListActivity extends AppCompatActivity {
             if (snapshot.exists()){
                 n = (int) snapshot.getChildrenCount();
                 avg = getAvg(sum,n);
-                avgRatingText.setText(String.format("Average rating: ★%.1f", avg));
+                avgRatingText.setText(String.format("AVERAGE RATING:  ★%.1f", avg));
             }
         }
 
@@ -93,7 +93,7 @@ public class SeekerReviewListActivity extends AppCompatActivity {
         seekerNameText = findViewById(R.id.seekerNameText);
         avgRatingText = findViewById(R.id.avgRatingText);
 
-        seekerNameText.setText("Ratings And Reviews On " + seekerName);
+        seekerNameText.setText("RATINGS AND REVIEWS ON:  " + seekerName);
 
         listView = findViewById(R.id.seekerReviewsList);
         providerReviewAdaptor = new ProviderReviewAdaptor(this, ProvidersRatingList);

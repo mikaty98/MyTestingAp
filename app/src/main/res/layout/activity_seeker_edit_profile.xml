@@ -7,20 +7,22 @@
     android:background="@drawable/background_colour"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".PRegisterActivity">
+    tools:context=".SRegisterActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="true"
         android:orientation="vertical"
         android:text="Edit Profile"
-        android:textColor="@color/white"
-        android:textAllCaps="true"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:layout_marginBottom="100dp"
+
         />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,8 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -45,20 +46,10 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="bottom"
-                    android:layout_margin="0dp"
+                    android:layout_margin="20dp"
                     android:src="@drawable/blankprofilepic"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="2dp" />
-
-                <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="30dp"
-                    android:background="@drawable/custom_button"
-                    android:textAllCaps="true"
-                    android:text="Save"
-                    android:textColor="@color/black" />
 
 
             </TableRow>
@@ -70,22 +61,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="User Name:"
-                    android:textColor="@color/white"
                     android:textAllCaps="true"
+                    android:textColor="@color/white"
                     android:textSize="15dp"
                     android:translationY="10dp" />
 
-
                 <EditText
                     android:id="@+id/username_reg"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_margin="10dp"
                     android:hint="USER NAME"
-                    android:inputType="text"
                     android:textColorHint="@color/white" />
-
 
             </TableRow>
 
@@ -106,8 +94,8 @@
                     android:id="@+id/id_reg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:textColor="@color/white"
+                    android:layout_margin="10dp"
                     android:hint="ID NUMBER"
                     android:inputType="number"
                     android:textColorHint="@color/white" />
@@ -122,25 +110,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Phone Number:"
-                    android:textColor="@color/white"
                     android:textAllCaps="true"
+                    android:textColor="@color/white"
                     android:textSize="15dp"
                     android:translationY="10dp" />
-
 
                 <EditText
                     android:id="@+id/phone_number_reg"
                     android:layout_width="match_parent"
-                    android:textColor="@color/white"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:textColor="@color/white"
                     android:hint="PHONE NUMBER"
                     android:inputType="phone"
                     android:textColorHint="@color/white" />
-
-
             </TableRow>
 
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:background="@drawable/custom_button"
+                    android:text="Save"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+
+            </TableRow>
 
 
         </TableLayout>

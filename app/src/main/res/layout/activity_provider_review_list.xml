@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="15dp"
+            android:textSize="20dp"
+            android:textAppearance="?android:textAppearanceLarge"
             android:layout_marginTop="20dp"
             android:textColor="@color/white"
             android:id="@+id/providerNameText">
@@ -27,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="15dp"
+            android:textSize="20dp"
+            android:textAppearance="?android:textAppearanceLarge"
             android:layout_marginTop="20dp"
             android:textColor="@color/white"
             android:id="@+id/avgRatingText">

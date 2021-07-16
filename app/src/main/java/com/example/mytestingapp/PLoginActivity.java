@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.mytestingapp.Classes.Provider;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,7 +119,7 @@ public class PLoginActivity extends AppCompatActivity {
         loginbtn = findViewById(R.id.button);
 
         mauth = FirebaseAuth.getInstance();
-
+        
         registerbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

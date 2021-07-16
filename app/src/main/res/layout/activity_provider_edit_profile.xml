@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/white"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="10dp"
         android:textAllCaps="true"
         android:orientation="vertical"
         android:text="Edit Profile"
@@ -50,16 +50,6 @@
                     android:src="@drawable/blankprofilepic"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="2dp" />
-
-                <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="30dp"
-                    android:background="@drawable/custom_button"
-                    android:textAllCaps="true"
-                    android:text="Save"
-                    android:textColor="@color/black" />
 
 
             </TableRow>
@@ -158,6 +148,25 @@
                     android:hint="PHONE NUMBER"
                     android:inputType="phone"
                     android:textColorHint="@color/white" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:background="@drawable/custom_button"
+                    android:text="Save"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+
             </TableRow>
 
 
