@@ -333,4 +333,16 @@ public class LocalRequestEnd2 extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Alert")
+                .setMessage("Cannot leave this page until the transaction is complete.")
+                .setPositiveButton("Ok", null)
+                .show();
+    }
 }
+

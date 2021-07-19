@@ -45,6 +45,15 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
 
             }
 
+            else if(localRequestApplicant.getDeleted().equals("yes"))
+            {
+                localRequestApplicantList.remove(localRequestApplicant);
+                proposalAdaptor.notifyDataSetChanged();
+
+            }
+
+
+
         }
 
         @Override
@@ -54,6 +63,13 @@ public class SeekerLocalRequestWaitingList extends AppCompatActivity {
             if(localRequestApplicant.getDeleted().equals("yes"))
             {
                 localRequestApplicantList.remove(localRequestApplicant);
+                proposalAdaptor.notifyDataSetChanged();
+
+            }
+
+            else if(localRequestApplicant.getDeleted().equals("no"))
+            {
+                localRequestApplicantList.add(localRequestApplicant);
                 proposalAdaptor.notifyDataSetChanged();
 
             }

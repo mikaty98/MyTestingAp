@@ -26,7 +26,7 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
     private Button cancelBtn, acceptBtn;
     private String receiverId, usertype;
     private int arrivalTime, completionTime, price;
-    private DatabaseReference reference, reference1;
+    private DatabaseReference reference, reference1, reference8, reference9, reference10, reference11, reference12, reference13;
 
 
     FirebaseUser firebaseUser;
@@ -62,8 +62,21 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
                                     usertype = child.child("userType").getValue(String.class);
                                     completionTime = child.child("completionTime").getValue(Integer.class);
 
-                                    goBack();
+                                    reference10 = FirebaseDatabase.getInstance().getReference("Providers");
+                                    reference10.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").setValue(false);
 
+                                    reference11 = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId).child(FirebaseAuth.getInstance().getUid());
+
+                                    reference11.child("deleted").setValue("yes");
+
+
+                                    reference13 = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+                                    reference13.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(2);
+
+                                    Intent intent = new Intent(ProviderConfirmationActivity.this, ProviderHomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
                                 }
 
                             }
@@ -179,8 +192,21 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
                             usertype = child.child("userType").getValue(String.class);
                             completionTime = child.child("completionTime").getValue(Integer.class);
 
-                            goBack();
+                            reference8 = FirebaseDatabase.getInstance().getReference("Providers");
+                            reference8.child(FirebaseAuth.getInstance().getUid()).child("sentProposal").setValue(false);
 
+                            reference9 = FirebaseDatabase.getInstance().getReference("LocalRequestsProposals").child(receiverId).child(FirebaseAuth.getInstance().getUid());
+
+                            reference9.child("deleted").setValue("yes");
+
+
+                            reference12 = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
+                            reference12.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(2);
+
+                            Intent intent = new Intent(ProviderConfirmationActivity.this, ProviderHomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
                         }
 
                     }
