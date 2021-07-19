@@ -72,12 +72,13 @@ public class LocalRequestApplicant {
 
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(@Nullable Object obj)
+    {
         if (!(obj instanceof LocalRequestApplicant)){
             return false;
         }
-        LocalRequestApplicant other = (LocalRequestApplicant)obj;
-        return priceValue==other.getPriceValue() && EstimatedArrivalTime==other.getEstimatedArrivalTime() && EstimatedCompletionTime==other.getEstimatedCompletionTime()
-                && userID.equals(other.getUserID()) && providerName.equals(other.getproviderName()) && deleted.equals(other.getDeleted());
+
+        LocalRequestApplicant other = (LocalRequestApplicant) obj;
+        return (userID == other.getUserID());
     }
 }

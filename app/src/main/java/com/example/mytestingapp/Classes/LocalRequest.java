@@ -154,7 +154,8 @@ public class LocalRequest implements Serializable
 
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(@Nullable Object obj)
+    {
         if (!(obj instanceof LocalRequest)){
             return false;
         }
