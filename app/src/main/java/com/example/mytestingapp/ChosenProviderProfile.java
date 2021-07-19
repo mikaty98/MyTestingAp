@@ -232,7 +232,11 @@ public class ChosenProviderProfile extends AppCompatActivity {
                             @Override
                             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                 int flag = snapshot.getValue(Integer.class);
-                                if (flag == 1){
+                                if (flag == 1)
+                                {
+
+                                    Toast.makeText(ChosenProviderProfile.this,"Provider accepted",Toast.LENGTH_LONG).show();
+
                                     userType = "seeker";
 
                                     Intent intent = new Intent(ChosenProviderProfile.this, LocalRequestEnd1.class);
@@ -241,15 +245,18 @@ public class ChosenProviderProfile extends AppCompatActivity {
                                     intent.putExtra("completion time", estimatedCompletionTime);
                                     intent.putExtra("price", price);
                                     intent.putExtra("user type", userType);
-                                    progressDialog.dismiss();
+                                   // progressDialog.dismiss();
                                     startActivity(intent);
                                     finish();
                                 }
-                                else if(flag==2){
+                                else if(flag==2)
+                                {
+
+                                    Toast.makeText(ChosenProviderProfile.this,"Provider declined. Please choose another provider to perform your service.",Toast.LENGTH_LONG).show();
+
 
                                     Intent failed = new Intent(ChosenProviderProfile.this, SeekerLocalRequestWaitingList.class);
                                     startActivity(failed);
-                                    Toast.makeText(ChosenProviderProfile.this,"Provider declined",Toast.LENGTH_LONG).show();
                                     finish();
                                 }
 
