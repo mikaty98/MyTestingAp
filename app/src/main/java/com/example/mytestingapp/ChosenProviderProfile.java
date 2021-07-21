@@ -217,7 +217,7 @@ public class ChosenProviderProfile extends AppCompatActivity {
                         FcmNotificationsSender notificationsSender = new FcmNotificationsSender(userToken, "Good news!", "Your proposal got accepted!", getApplicationContext(), ChosenProviderProfile.this);
                         notificationsSender.SendNotifications();
 
-                        ConnectedSandP connectedSandP = new ConnectedSandP(FirebaseAuth.getInstance().getUid(), providerUserID, estimatedCompletionTime, "provider");
+                        ConnectedSandP connectedSandP = new ConnectedSandP(FirebaseAuth.getInstance().getUid(), providerUserID, estimatedCompletionTime, "provider", estimatedArrivaltime, price);
                         reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
                         reference.child(FirebaseAuth.getInstance().getUid() + providerUserID).setValue(connectedSandP);
 

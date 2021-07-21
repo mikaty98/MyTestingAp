@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_colour"
+    tools:context=".ProviderChatRoomFragment">
+
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@drawable/custom_button"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageview_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/ic_launcher_foreground"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="31dp" />
+
+
+
+            <TextView
+                android:id="@+id/username1"
+                android:layout_width="100dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="TextView" />
+
+            <ImageButton
+                android:id="@+id/callBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/call"
+                />
+
+            <ImageButton
+                android:id="@+id/infoBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/logoo"
+                />
+
+            <ImageButton
+                android:id="@+id/userBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/logoo"
+                />
+
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/text_send"
+            android:layout_below="@+id/toolbar2"
+            android:layout_marginTop="-3dp"
+            android:layout_marginBottom="3dp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/text_send"
+            android:layout_width="349dp"
+            android:layout_height="37dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@+id/btn_send"
+            android:background="@android:color/transparent"
+            android:hint="Type a message..."
+            android:textColor="@color/white" />
+
+
+        <ImageButton
+            android:id="@+id/btn_send"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/send"
+            />
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

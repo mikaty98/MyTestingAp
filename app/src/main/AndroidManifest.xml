@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".ProviderLocalRequestEnd1"></activity>
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".SeekerChangePasswordActivity" />
         <activity android:name=".ProviderChangePasswordActivity" />
         <activity
@@ -56,11 +57,13 @@
         <activity android:name=".SeekerLocalRequest" />
         <activity android:name=".ProviderProfileActivity" />
         <activity
-            android:name=".PLoginActivity" android:launchMode="singleTask"/>
+            android:name=".PLoginActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".PRegisterActivity" />
         <activity android:name=".SRegisterActivity" />
         <activity
-            android:name=".SLoginActivity" android:launchMode="singleTask">
+            android:name=".SLoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,14 +84,13 @@
 
         <service
             android:name=".SendNotificationPack.FirebaseMessagingService"
-            android:permission="TODO"
             android:enabled="true"
+            android:permission="TODO"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

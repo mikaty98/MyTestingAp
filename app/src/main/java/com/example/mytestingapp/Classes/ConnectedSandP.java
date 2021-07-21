@@ -13,16 +13,18 @@ public class ConnectedSandP {
     private String seekerID, providerID;
     private int startFlag;
     private String userType;
-    private int completionTime;
+    private int completionTime, arrivalTime, price;
     private DatabaseReference reference;
 
 
-    public ConnectedSandP(String seekerID, String providerID, int completionTime, String userType) {
+    public ConnectedSandP(String seekerID, String providerID, int completionTime, String userType, int arrivalTime, int price) {
         this.seekerID = seekerID;
         this.providerID = providerID;
         this.startFlag = 0; //false
         this.completionTime = completionTime;
         this.userType = userType;
+        this.arrivalTime = arrivalTime;
+        this.price = price;
         this.reference = FirebaseDatabase.getInstance().getReference("StartingConnections");
     }
 
@@ -81,5 +83,21 @@ public class ConnectedSandP {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public int getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(int arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

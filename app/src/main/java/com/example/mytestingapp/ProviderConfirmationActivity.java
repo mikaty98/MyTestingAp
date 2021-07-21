@@ -117,11 +117,18 @@ public class ProviderConfirmationActivity extends AppCompatActivity {
                                     receiverId = child.child("seekerID").getValue(String.class);
                                     usertype = child.child("userType").getValue(String.class);
                                     completionTime = child.child("completionTime").getValue(Integer.class);
+                                    arrivalTime = child.child("arrivalTime").getValue(Integer.class);
+                                    price = child.child("price").getValue(Integer.class);
 
-                                    Intent intent = new Intent(ProviderConfirmationActivity.this, ChatRoom.class);
+
+
+                                    Intent intent = new Intent(ProviderConfirmationActivity.this, ProviderLocalRequestEnd1.class);
                                     intent.putExtra("receiver id", receiverId);
                                     intent.putExtra("user type", usertype);
                                     intent.putExtra("completion time", completionTime);
+                                    intent.putExtra("arrival time", arrivalTime);
+                                    intent.putExtra("price", price);
+
 
                                     reference = FirebaseDatabase.getInstance().getReference().child("StartingConnections");
                                     reference.child(receiverId + FirebaseAuth.getInstance().getUid()).child("startFlag").setValue(1);//true

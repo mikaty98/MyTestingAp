@@ -76,7 +76,7 @@ public class LocalRequestEnd2 extends AppCompatActivity {
 
 
         intent = getIntent();
-        completionTime = intent.getIntExtra("completion time", 0);
+        completionTime = intent.getIntExtra("completion time", 60);
         price = intent.getStringExtra("price");
         receiverId = intent.getStringExtra("receiver id");
         userType = intent.getStringExtra("user type");
