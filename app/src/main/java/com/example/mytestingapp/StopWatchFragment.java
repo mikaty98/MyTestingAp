@@ -281,7 +281,7 @@ public class StopWatchFragment extends Fragment {
 
                             reference3.child("finalPrice").setValue(pricee);
 
-                            Intent intent = new Intent(getActivity(), LocalRequestEnd2.class);
+                            Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
                             intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
                             intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
                             intent.putExtra("price", pricee);
@@ -325,7 +325,7 @@ public class StopWatchFragment extends Fragment {
 
                             reference3.child("finalPrice").setValue(finalPricee);
 
-                            Intent intent = new Intent(getContext(), LocalRequestEnd2.class);
+                            Intent intent = new Intent(getActivity(), LocalRequestEnd2.class);
                             intent.putExtra("receiver id", localRequestEnd1.getReceiverId());
                             intent.putExtra("completion time", localRequestEnd1.getCompletionTime());
                             intent.putExtra("price", finalPricee);

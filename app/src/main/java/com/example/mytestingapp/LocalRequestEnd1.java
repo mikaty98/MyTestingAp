@@ -21,6 +21,8 @@ public class LocalRequestEnd1 extends AppCompatActivity {
 
 
     TabLayout tabLayout;
+    TabLayout tabLayout1;
+
     ViewPager2 pager2;
     FragmentAdapter adapter;
     Intent intent;
