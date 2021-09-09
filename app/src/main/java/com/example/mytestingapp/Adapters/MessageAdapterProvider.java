@@ -40,6 +40,7 @@ public class MessageAdapterProvider extends RecyclerView.Adapter<MessageAdapterP
 
     ChatRoom chatRoom = new ChatRoom();
     List<Chats> chatslist;
+    String receiverIdd;
     String receiverId;
 
     FirebaseUser firebaseUser;
